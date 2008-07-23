@@ -1,0 +1,12 @@
+set title "Metric"
+set polar
+set grid polar
+
+#set size square
+#set xrange[-10:10]
+#set yrange[-10:10]
+
+plot "plot.dat" with points pointsize 1 , "sphere.dat"
+#splot "plot.dat","sphere.dat","sphere2.dat"
+
+#plot "wrong.dat"

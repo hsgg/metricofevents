@@ -1,0 +1,239 @@
+
+%/* HSGG: Created by metric2energy. */
+
+\documentclass[fleqn,portrait]{article}
+\usepackage[utf8x]{inputenc}
+\usepackage{ucs}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+\usepackage[a4paper, left=1.5cm, right=1.5cm, top=1.5cm, bottom=4cm]{geometry}
+
+\allowdisplaybreaks[1]
+
+\begin{document}
+
+
+{ \Large
+Schwarzschild Metric in spherical Abraham-Rössler-R coordinates with a variable spherically symmetric matter density:
+}
+\bigskip
+\bigskip
+
+\framebox{$x^\mu$}
+\begin{align*}
+x^{0} & = t. \\*
+x^{1} & = R. \\*
+x^{2} & = \theta. \\*
+x^{3} & = \phi.
+\end{align*}
+
+
+\framebox{$g_{\mu \nu}$}
+\begin{align*}
+g_{00} & = 1-\frac{8}{3}  r(R)^{2} \rho(t,R) \pi. \\*
+g_{01} & = 0. \\*
+g_{02} & = 0. \\*
+g_{03} & = 0. \\*
+g_{10} & = 0. \\*
+g_{11} & = -1+\frac{8}{3}  r(R)^{2} \rho(t,R) \pi. \\*
+g_{12} & = 0. \\*
+g_{13} & = 0. \\*
+g_{20} & = 0. \\*
+g_{21} & = 0. \\*
+g_{22} & = - r(R)^{2}. \\*
+g_{23} & = 0. \\*
+g_{30} & = 0. \\*
+g_{31} & = 0. \\*
+g_{32} & = 0. \\*
+g_{33} & = - r(R)^{2} \sin(\theta)^{2}.
+\end{align*}
+
+\framebox{$\surd = \sqrt{-\det(g_{\mu \nu})}$}
+\begin{align*}
+\surd & = \sqrt{\frac{64}{9}  r(R)^{8} \rho(t,R)^{2} \sin(\theta)^{2} \pi^{2}-\frac{16}{3}  r(R)^{6} \rho(t,R) \sin(\theta)^{2} \pi+ r(R)^{4} \sin(\theta)^{2}}.\end{align*}
+
+\framebox{$g^{\mu \nu}$}
+\begin{align*}
+g^{00} & = -3 \frac{1}{-3+8  r(R)^{2} \rho(t,R) \pi}. \\*
+g^{01} & = 0. \\*
+g^{02} & = 0. \\*
+g^{03} & = 0. \\*
+g^{10} & = 0. \\*
+g^{11} & = 3 \frac{1}{-3+8  r(R)^{2} \rho(t,R) \pi}. \\*
+g^{12} & = 0. \\*
+g^{13} & = 0. \\*
+g^{20} & = 0. \\*
+g^{21} & = 0. \\*
+g^{22} & = -\frac{1}{r(R)^{2}}. \\*
+g^{23} & = 0. \\*
+g^{30} & = 0. \\*
+g^{31} & = 0. \\*
+g^{32} & = 0. \\*
+g^{33} & = -\frac{1}{ r(R)^{2} \sin(\theta)^{2}}.
+\end{align*}
+
+\framebox{$\Gamma^{\sigma}_{\mu \nu}$}
+\begin{align*}
+\Gamma^0_{00} & = 4 \frac{ r(R)^{2} \pi \dot{\rho}(t,R)}{-3+8  r(R)^{2} \rho(t,R) \pi}. \\*
+\Gamma^0_{01} & = 4 \frac{2  r(R) \rho(t,R) r'(R) \pi+ r(R)^{2} \rho'(t,R) \pi}{-3+8  r(R)^{2} \rho(t,R) \pi}. \\*
+\Gamma^0_{02} & = 0. \\*
+\Gamma^0_{03} & = 0. \\*
+\Gamma^0_{10} & = 4 \frac{2  r(R) \rho(t,R) r'(R) \pi+ r(R)^{2} \rho'(t,R) \pi}{-3+8  r(R)^{2} \rho(t,R) \pi}. \\*
+\Gamma^0_{11} & = 4 \frac{ r(R)^{2} \pi \dot{\rho}(t,R)}{-3+8  r(R)^{2} \rho(t,R) \pi}. \\*
+\Gamma^0_{12} & = 0. \\*
+\Gamma^0_{13} & = 0. \\*
+\Gamma^0_{20} & = 0. \\*
+\Gamma^0_{21} & = 0. \\*
+\Gamma^0_{22} & = 0. \\*
+\Gamma^0_{23} & = 0. \\*
+\Gamma^0_{30} & = 0. \\*
+\Gamma^0_{31} & = 0. \\*
+\Gamma^0_{32} & = 0. \\*
+\Gamma^0_{33} & = 0.
+\end{align*}
+\begin{align*}
+\Gamma^1_{00} & = 4 \frac{2  r(R) \rho(t,R) r'(R) \pi+ r(R)^{2} \rho'(t,R) \pi}{-3+8  r(R)^{2} \rho(t,R) \pi}. \\*
+\Gamma^1_{01} & = 4 \frac{ r(R)^{2} \pi \dot{\rho}(t,R)}{-3+8  r(R)^{2} \rho(t,R) \pi}. \\*
+\Gamma^1_{02} & = 0. \\*
+\Gamma^1_{03} & = 0. \\*
+\Gamma^1_{10} & = 4 \frac{ r(R)^{2} \pi \dot{\rho}(t,R)}{-3+8  r(R)^{2} \rho(t,R) \pi}. \\*
+\Gamma^1_{11} & = 4 \frac{2  r(R) \rho(t,R) r'(R) \pi+ r(R)^{2} \rho'(t,R) \pi}{-3+8  r(R)^{2} \rho(t,R) \pi}. \\*
+\Gamma^1_{12} & = 0. \\*
+\Gamma^1_{13} & = 0. \\*
+\Gamma^1_{20} & = 0. \\*
+\Gamma^1_{21} & = 0. \\*
+\Gamma^1_{22} & = 3 \frac{ r(R) r'(R)}{-3+8  r(R)^{2} \rho(t,R) \pi}. \\*
+\Gamma^1_{23} & = 0. \\*
+\Gamma^1_{30} & = 0. \\*
+\Gamma^1_{31} & = 0. \\*
+\Gamma^1_{32} & = 0. \\*
+\Gamma^1_{33} & = 3 \frac{ r(R) r'(R) \sin(\theta)^{2}}{-3+8  r(R)^{2} \rho(t,R) \pi}.
+\end{align*}
+\begin{align*}
+\Gamma^2_{00} & = 0. \\*
+\Gamma^2_{01} & = 0. \\*
+\Gamma^2_{02} & = 0. \\*
+\Gamma^2_{03} & = 0. \\*
+\Gamma^2_{10} & = 0. \\*
+\Gamma^2_{11} & = 0. \\*
+\Gamma^2_{12} & = \frac{r'(R)}{r(R)}. \\*
+\Gamma^2_{13} & = 0. \\*
+\Gamma^2_{20} & = 0. \\*
+\Gamma^2_{21} & = \frac{r'(R)}{r(R)}. \\*
+\Gamma^2_{22} & = 0. \\*
+\Gamma^2_{23} & = 0. \\*
+\Gamma^2_{30} & = 0. \\*
+\Gamma^2_{31} & = 0. \\*
+\Gamma^2_{32} & = 0. \\*
+\Gamma^2_{33} & = - \cos(\theta) \sin(\theta).
+\end{align*}
+\begin{align*}
+\Gamma^3_{00} & = 0. \\*
+\Gamma^3_{01} & = 0. \\*
+\Gamma^3_{02} & = 0. \\*
+\Gamma^3_{03} & = 0. \\*
+\Gamma^3_{10} & = 0. \\*
+\Gamma^3_{11} & = 0. \\*
+\Gamma^3_{12} & = 0. \\*
+\Gamma^3_{13} & = \frac{r'(R)}{r(R)}. \\*
+\Gamma^3_{20} & = 0. \\*
+\Gamma^3_{21} & = 0. \\*
+\Gamma^3_{22} & = 0. \\*
+\Gamma^3_{23} & = \frac{\cos(\theta)}{\sin(\theta)}. \\*
+\Gamma^3_{30} & = 0. \\*
+\Gamma^3_{31} & = \frac{r'(R)}{r(R)}. \\*
+\Gamma^3_{32} & = \frac{\cos(\theta)}{\sin(\theta)}. \\*
+\Gamma^3_{33} & = 0.
+\end{align*}
+
+\framebox{$R_{\mu \nu}$}
+\begin{align*}
+R_{00} & = 32 \frac{ r(R)^{4} \ddot{\rho}(t,R) \rho(t,R) \pi^{2}}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{2}}+72 \frac{ r(R) r'(R) \rho'(t,R) \pi}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{2}}-64 \frac{ r(R)^{3} \rho(t,R)^{2} \pi^{2} r''(R)}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{2}}+72 \frac{ \rho(t,R) r'(R)^{2} \pi}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{2}}-12 \frac{ r(R)^{2} \ddot{\rho}(t,R) \pi}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{2}}-64 \frac{ r(R)^{2} \rho(t,R)^{2} r'(R)^{2} \pi^{2}}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{2}}+32 \frac{ r(R)^{4} \rho'(t,R)^{2} \pi^{2}}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{2}}-32 \frac{ r(R)^{4} \rho''(t,R) \rho(t,R) \pi^{2}}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{2}}+12 \frac{ r(R)^{2} \rho''(t,R) \pi}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{2}}-64 \frac{ r(R)^{3} \rho(t,R) r'(R) \rho'(t,R) \pi^{2}}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{2}}-32 \frac{ r(R)^{4} \pi^{2} \dot{\rho}(t,R)^{2}}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{2}}+24 \frac{ r(R) \rho(t,R) \pi r''(R)}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{2}}. \\*
+R_{01} & = -8 \frac{ r(R) r'(R) \pi \dot{\rho}(t,R)}{-3+8  r(R)^{2} \rho(t,R) \pi}. \\*
+R_{02} & = 0. \\*
+R_{03} & = 0. \\*
+R_{10} & = -8 \frac{ r(R) r'(R) \pi \dot{\rho}(t,R)}{-3+8  r(R)^{2} \rho(t,R) \pi}. \\*
+R_{11} & = -32 \frac{ r(R)^{4} \ddot{\rho}(t,R) \rho(t,R) \pi^{2}}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{2}}-24 \frac{ r(R) r'(R) \rho'(t,R) \pi}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{2}}+192 \frac{ r(R)^{3} \rho(t,R)^{2} \pi^{2} r''(R)}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{2}}+24 \frac{ \rho(t,R) r'(R)^{2} \pi}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{2}}+12 \frac{ r(R)^{2} \ddot{\rho}(t,R) \pi}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{2}}-192 \frac{ r(R)^{2} \rho(t,R)^{2} r'(R)^{2} \pi^{2}}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{2}}-32 \frac{ r(R)^{4} \rho'(t,R)^{2} \pi^{2}}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{2}}+18 \frac{r''(R)}{ r(R) {(-3+8  r(R)^{2} \rho(t,R) \pi)}^{2}}+32 \frac{ r(R)^{4} \rho''(t,R) \rho(t,R) \pi^{2}}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{2}}-12 \frac{ r(R)^{2} \rho''(t,R) \pi}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{2}}-64 \frac{ r(R)^{3} \rho(t,R) r'(R) \rho'(t,R) \pi^{2}}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{2}}+32 \frac{ r(R)^{4} \pi^{2} \dot{\rho}(t,R)^{2}}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{2}}-120 \frac{ r(R) \rho(t,R) \pi r''(R)}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{2}}. \\*
+R_{12} & = 0. \\*
+R_{13} & = 0. \\*
+R_{20} & = 0. \\*
+R_{21} & = 0. \\*
+R_{22} & = -8 \frac{ r(R)^{2} \rho(t,R) \pi}{-3+8  r(R)^{2} \rho(t,R) \pi}-3 \frac{ r(R) r''(R)}{-3+8  r(R)^{2} \rho(t,R) \pi}-3 \frac{r'(R)^{2}}{-3+8  r(R)^{2} \rho(t,R) \pi}+3 \frac{1}{-3+8  r(R)^{2} \rho(t,R) \pi}. \\*
+R_{23} & = 0. \\*
+R_{30} & = 0. \\*
+R_{31} & = 0. \\*
+R_{32} & = 0. \\*
+R_{33} & = -8 \frac{ r(R)^{2} \rho(t,R) \sin(\theta)^{2} \pi}{-3+8  r(R)^{2} \rho(t,R) \pi}+3 \frac{\sin(\theta)^{2}}{-3+8  r(R)^{2} \rho(t,R) \pi}-3 \frac{ r'(R)^{2} \sin(\theta)^{2}}{-3+8  r(R)^{2} \rho(t,R) \pi}-3 \frac{ r(R) \sin(\theta)^{2} r''(R)}{-3+8  r(R)^{2} \rho(t,R) \pi}.
+\end{align*}
+
+\framebox{$R^\mu_{\;\nu}$}
+\begin{align*}
+R^0_{\;0} & = 36 \frac{ r(R)^{2} \ddot{\rho}(t,R) \pi}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}-216 \frac{ \rho(t,R) r'(R)^{2} \pi}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}+96 \frac{ r(R)^{4} \pi^{2} \dot{\rho}(t,R)^{2}}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}+192 \frac{ r(R)^{2} \rho(t,R)^{2} r'(R)^{2} \pi^{2}}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}-96 \frac{ r(R)^{4} \ddot{\rho}(t,R) \rho(t,R) \pi^{2}}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}-216 \frac{ r(R) r'(R) \rho'(t,R) \pi}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}-72 \frac{ r(R) \rho(t,R) \pi r''(R)}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}+192 \frac{ r(R)^{3} \rho(t,R) r'(R) \rho'(t,R) \pi^{2}}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}+96 \frac{ r(R)^{4} \rho''(t,R) \rho(t,R) \pi^{2}}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}-36 \frac{ r(R)^{2} \rho''(t,R) \pi}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}-96 \frac{ r(R)^{4} \rho'(t,R)^{2} \pi^{2}}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}+192 \frac{ r(R)^{3} \rho(t,R)^{2} \pi^{2} r''(R)}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}. \\*
+R^0_{\;1} & = 24 \frac{ r(R) r'(R) \pi \dot{\rho}(t,R)}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{2}}. \\*
+R^0_{\;2} & = 0. \\*
+R^0_{\;3} & = 0. \\*
+R^1_{\;0} & = -24 \frac{ r(R) r'(R) \pi \dot{\rho}(t,R)}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{2}}. \\*
+R^1_{\;1} & = 36 \frac{ r(R)^{2} \ddot{\rho}(t,R) \pi}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}+72 \frac{ \rho(t,R) r'(R)^{2} \pi}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}+96 \frac{ r(R)^{4} \pi^{2} \dot{\rho}(t,R)^{2}}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}-576 \frac{ r(R)^{2} \rho(t,R)^{2} r'(R)^{2} \pi^{2}}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}-96 \frac{ r(R)^{4} \ddot{\rho}(t,R) \rho(t,R) \pi^{2}}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}-72 \frac{ r(R) r'(R) \rho'(t,R) \pi}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}-360 \frac{ r(R) \rho(t,R) \pi r''(R)}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}-192 \frac{ r(R)^{3} \rho(t,R) r'(R) \rho'(t,R) \pi^{2}}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}+96 \frac{ r(R)^{4} \rho''(t,R) \rho(t,R) \pi^{2}}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}-36 \frac{ r(R)^{2} \rho''(t,R) \pi}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}+54 \frac{r''(R)}{ r(R) {(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}-96 \frac{ r(R)^{4} \rho'(t,R)^{2} \pi^{2}}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}+576 \frac{ r(R)^{3} \rho(t,R)^{2} \pi^{2} r''(R)}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}. \\*
+R^1_{\;2} & = 0. \\*
+R^1_{\;3} & = 0. \\*
+R^2_{\;0} & = 0. \\*
+R^2_{\;1} & = 0. \\*
+R^2_{\;2} & = -3 \frac{1}{ r(R)^{2} {(-3+8  r(R)^{2} \rho(t,R) \pi)}}+8 \frac{ \rho(t,R) \pi}{-3+8  r(R)^{2} \rho(t,R) \pi}+3 \frac{r''(R)}{ r(R) {(-3+8  r(R)^{2} \rho(t,R) \pi)}}+3 \frac{r'(R)^{2}}{ r(R)^{2} {(-3+8  r(R)^{2} \rho(t,R) \pi)}}. \\*
+R^2_{\;3} & = 0. \\*
+R^3_{\;0} & = 0. \\*
+R^3_{\;1} & = 0. \\*
+R^3_{\;2} & = 0. \\*
+R^3_{\;3} & = -3 \frac{1}{ r(R)^{2} {(-3+8  r(R)^{2} \rho(t,R) \pi)}}+8 \frac{ \rho(t,R) \pi}{-3+8  r(R)^{2} \rho(t,R) \pi}+3 \frac{r''(R)}{ r(R) {(-3+8  r(R)^{2} \rho(t,R) \pi)}}+3 \frac{r'(R)^{2}}{ r(R)^{2} {(-3+8  r(R)^{2} \rho(t,R) \pi)}}.
+\end{align*}
+
+\framebox{$R$}
+\begin{align*}
+R & = 72 \frac{ r(R)^{2} \ddot{\rho}(t,R) \pi}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}-432 \frac{ \rho(t,R) r'(R)^{2} \pi}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}+192 \frac{ r(R)^{4} \pi^{2} \dot{\rho}(t,R)^{2}}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}-1152 \frac{ r(R)^{2} \rho(t,R)^{2} \pi^{2}}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}+54 \frac{r'(R)^{2}}{ r(R)^{2} {(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}-192 \frac{ r(R)^{4} \ddot{\rho}(t,R) \rho(t,R) \pi^{2}}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}+1024 \frac{ r(R)^{4} \rho(t,R)^{3} \pi^{3}}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}-288 \frac{ r(R) r'(R) \rho'(t,R) \pi}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}-720 \frac{ r(R) \rho(t,R) \pi r''(R)}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}+432 \frac{ \rho(t,R) \pi}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}+192 \frac{ r(R)^{4} \rho''(t,R) \rho(t,R) \pi^{2}}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}-72 \frac{ r(R)^{2} \rho''(t,R) \pi}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}+108 \frac{r''(R)}{ r(R) {(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}-54 \frac{1}{ r(R)^{2} {(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}-192 \frac{ r(R)^{4} \rho'(t,R)^{2} \pi^{2}}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}+1152 \frac{ r(R)^{3} \rho(t,R)^{2} \pi^{2} r''(R)}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}.
+\end{align*}
+
+\framebox{$G^\mu_{\;\nu}$}
+\begin{align*}
+G^0_{\;0} & = -64 \frac{ r(R)^{2} \rho(t,R)^{2} \pi^{2}}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{2}}+24 \frac{ r(R) r'(R) \rho'(t,R) \pi}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{2}}+24 \frac{ \rho(t,R) r'(R)^{2} \pi}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{2}}+9 \frac{r'(R)^{2}}{ r(R)^{2} {(-3+8  r(R)^{2} \rho(t,R) \pi)}^{2}}+18 \frac{r''(R)}{ r(R) {(-3+8  r(R)^{2} \rho(t,R) \pi)}^{2}}+48 \frac{ \rho(t,R) \pi}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{2}}-48 \frac{ r(R) \rho(t,R) \pi r''(R)}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{2}}-9 \frac{1}{ r(R)^{2} {(-3+8  r(R)^{2} \rho(t,R) \pi)}^{2}}. \\*
+G^0_{\;1} & = 24 \frac{ r(R) r'(R) \pi \dot{\rho}(t,R)}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{2}}. \\*
+G^0_{\;2} & = 0. \\*
+G^0_{\;3} & = 0. \\*
+G^1_{\;0} & = -24 \frac{ r(R) r'(R) \pi \dot{\rho}(t,R)}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{2}}. \\*
+G^1_{\;1} & = -64 \frac{ r(R)^{2} \rho(t,R)^{2} \pi^{2}}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{2}}-24 \frac{ r(R) r'(R) \rho'(t,R) \pi}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{2}}-72 \frac{ \rho(t,R) r'(R)^{2} \pi}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{2}}+9 \frac{r'(R)^{2}}{ r(R)^{2} {(-3+8  r(R)^{2} \rho(t,R) \pi)}^{2}}+48 \frac{ \rho(t,R) \pi}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{2}}-9 \frac{1}{ r(R)^{2} {(-3+8  r(R)^{2} \rho(t,R) \pi)}^{2}}. \\*
+G^1_{\;2} & = 0. \\*
+G^1_{\;3} & = 0. \\*
+G^2_{\;0} & = 0. \\*
+G^2_{\;1} & = 0. \\*
+G^2_{\;2} & = -36 \frac{ r(R)^{2} \ddot{\rho}(t,R) \pi}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}+72 \frac{ \rho(t,R) r'(R)^{2} \pi}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}-96 \frac{ r(R)^{4} \pi^{2} \dot{\rho}(t,R)^{2}}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}+192 \frac{ r(R)^{2} \rho(t,R)^{2} r'(R)^{2} \pi^{2}}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}+96 \frac{ r(R)^{4} \ddot{\rho}(t,R) \rho(t,R) \pi^{2}}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}+144 \frac{ r(R) r'(R) \rho'(t,R) \pi}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}+216 \frac{ r(R) \rho(t,R) \pi r''(R)}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}-96 \frac{ r(R)^{4} \rho''(t,R) \rho(t,R) \pi^{2}}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}+36 \frac{ r(R)^{2} \rho''(t,R) \pi}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}-27 \frac{r''(R)}{ r(R) {(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}+96 \frac{ r(R)^{4} \rho'(t,R)^{2} \pi^{2}}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}-384 \frac{ r(R)^{3} \rho(t,R)^{2} \pi^{2} r''(R)}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}. \\*
+G^2_{\;3} & = 0. \\*
+G^3_{\;0} & = 0. \\*
+G^3_{\;1} & = 0. \\*
+G^3_{\;2} & = 0. \\*
+G^3_{\;3} & = -36 \frac{ r(R)^{2} \ddot{\rho}(t,R) \pi}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}+72 \frac{ \rho(t,R) r'(R)^{2} \pi}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}-96 \frac{ r(R)^{4} \pi^{2} \dot{\rho}(t,R)^{2}}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}+192 \frac{ r(R)^{2} \rho(t,R)^{2} r'(R)^{2} \pi^{2}}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}+96 \frac{ r(R)^{4} \ddot{\rho}(t,R) \rho(t,R) \pi^{2}}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}+144 \frac{ r(R) r'(R) \rho'(t,R) \pi}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}+216 \frac{ r(R) \rho(t,R) \pi r''(R)}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}-96 \frac{ r(R)^{4} \rho''(t,R) \rho(t,R) \pi^{2}}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}+36 \frac{ r(R)^{2} \rho''(t,R) \pi}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}-27 \frac{r''(R)}{ r(R) {(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}+96 \frac{ r(R)^{4} \rho'(t,R)^{2} \pi^{2}}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}-384 \frac{ r(R)^{3} \rho(t,R)^{2} \pi^{2} r''(R)}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}.
+\end{align*}
+
+\framebox{$G$}
+\begin{align*}
+G & = -72 \frac{ r(R)^{2} \ddot{\rho}(t,R) \pi}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}+432 \frac{ \rho(t,R) r'(R)^{2} \pi}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}-192 \frac{ r(R)^{4} \pi^{2} \dot{\rho}(t,R)^{2}}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}+1152 \frac{ r(R)^{2} \rho(t,R)^{2} \pi^{2}}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}-54 \frac{r'(R)^{2}}{ r(R)^{2} {(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}+192 \frac{ r(R)^{4} \ddot{\rho}(t,R) \rho(t,R) \pi^{2}}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}-1024 \frac{ r(R)^{4} \rho(t,R)^{3} \pi^{3}}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}+288 \frac{ r(R) r'(R) \rho'(t,R) \pi}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}+720 \frac{ r(R) \rho(t,R) \pi r''(R)}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}-432 \frac{ \rho(t,R) \pi}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}-192 \frac{ r(R)^{4} \rho''(t,R) \rho(t,R) \pi^{2}}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}+72 \frac{ r(R)^{2} \rho''(t,R) \pi}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}-108 \frac{r''(R)}{ r(R) {(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}+54 \frac{1}{ r(R)^{2} {(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}+192 \frac{ r(R)^{4} \rho'(t,R)^{2} \pi^{2}}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}-1152 \frac{ r(R)^{3} \rho(t,R)^{2} \pi^{2} r''(R)}{{(-3+8  r(R)^{2} \rho(t,R) \pi)}^{3}}.
+\end{align*}
+
+\framebox{$G^\mu_{\; \nu : \mu} = 0$}
+\begin{align*}
+G^\mu_{\;0:\mu} & = 0. \\*
+G^\mu_{\;1:\mu} & = 0. \\*
+G^\mu_{\;2:\mu} & = 0. \\*
+G^\mu_{\;3:\mu} & = 0.
+\end{align*}
+
+\framebox{$g^{\mu \nu}\,\Gamma^\lambda_{\mu\nu} = 0$?}
+\begin{align*}
+g^{\mu \nu}\,\Gamma^0_{\mu \nu} & = 0. \\*
+g^{\mu \nu}\,\Gamma^1_{\mu \nu} & = -3 \frac{ r(R)^{3} r'(R) \sin(\theta)^{4}}{-3+8  r(R)^{2} \rho(t,R) \pi}-3 \frac{ r(R)^{3} r'(R)}{-3+8  r(R)^{2} \rho(t,R) \pi}. \\*
+g^{\mu \nu}\,\Gamma^2_{\mu \nu} & =  \cos(\theta) r(R)^{2} \sin(\theta)^{3}. \\*
+g^{\mu \nu}\,\Gamma^3_{\mu \nu} & = 0.
+\end{align*}
+
+
+\end{document}
+

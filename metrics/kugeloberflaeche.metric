@@ -1,0 +1,88 @@
+# HSGG Tü2007062x
+# HSGG Tü20070810
+
+
+#MAKE_FUNC2(A, "A", An,
+#	A0, "\\dot{A}", A0p,	A1, "A'", A1p,
+#	A00, "\\ddot{A}",	A01, "\\dot{A}'",	A11, "A''")
+
+#MAKE_FUNC2(B, "B", Bn,
+#	B0, "\\dot{B}", B0p,	B1, "B'", B1p,
+#	B00, "\\ddot{B}",	B01, "\\dot{B}'",	B11, "B''")
+
+#MAKE_FUNC2(C, "C", Cn,
+#	C0, "\\dot{C}", C0p,	C1, "C'", C1p,
+#	C00, "\\ddot{C}",	C01, "\\dot{C}'",	C11, "C''")
+
+
+
+
+"Kugeloberfläche 2D"
+
+# Constants
+r
+
+# Coordinates
+x0 = theta
+x1 = phi
+
+# Metrik g_mu_nu
+g00 = r * r
+g11 = r * r * sin(theta) * sin(theta)
+
+
+#"Kugeloberfläche 3D"
+#r
+#
+#x0 = theta
+#x1 = phi
+#x2 = omega
+#
+#r2 = r * r
+#st2 = sin(theta) * sin(theta)
+#sp2 = sin(phi) * sin(phi)
+#
+#g00 = r2
+#g01 = 0
+#g02 = 0
+#g10 = 0
+#g11 = r2 * st2
+#g12 = 0
+#g20 = 0
+#g21 = 0
+#g22 = r2 * st2 * sp2
+
+
+
+
+# Kontravariante Koordinaten x^mu
+#	symbol x("x"), y("y");
+#	m.coord[0] = x;
+#	m.coord[1] = y;
+
+
+
+
+#	// Hilfsexpressions
+#	ex r2 = r * r;
+#
+#	ex curv = k * r2 / (1 - k * r2);
+#	ex tot  = curv;
+#
+#
+#	// Metrik g_mu_nu
+#	/*
+#	m.gmn[0][0] = y*y/r2;
+#	m.gmn[0][1] = 0*x*y/r2;
+#	m.gmn[1][0] = m.gmn[0][1];
+#	m.gmn[1][1] = x*x/r2;
+#	*/
+#
+#	m.gmn[0][0] = sqrt(B(x,y)*B(x,y) + k);
+#	m.gmn[0][1] = C(x,y) * 0;
+#	m.gmn[1][1] = B(x,y);
+#
+#
+#
+#
+#	m.gmn[1][0] = m.gmn[0][1];

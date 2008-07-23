@@ -1,0 +1,101 @@
+# HSGG Tü2007062x
+# HSGG Tü20070810
+
+
+
+"Robertson-Walker-Schwarzschild Metric with c(t)"
+
+kappa
+k = kappa
+rho
+s
+n
+m
+
+x0 = t
+
+c = c(t)
+c2 = c * c
+
+R = R(t)
+R2 = R * R
+
+
+################################
+
+
+# Kontravariante Koordinaten x^mu
+" in spherical coordinates"
+#x0 = t
+x1 = r
+x2 = theta
+x3 = phi
+
+# Hilfsexpressionen
+#ex rho = sol(t) * pow(r,-3) * exp(- 3/(n*b) * pow(r,-n))
+
+#ex m = rhotr(t,r) * 4 * Pi / 3 * (0*n*pow(r/Rscale, 1) + 0*s*r*r + b*r*r*r*pow(r,n))
+#ex m = rho * 4 * Pi / 3 * b*r*r*r
+x = r * sin(theta) * cos(phi)
+y = r * sin(theta) * sin(phi)
+z = r * cos(theta)
+#ex m = rho * pow(sin(x) * sin(y) * sin(z), 6);
+#ex m = massig(t,r,theta,phi)
+
+pot = 0*Potential(r,theta,phi)
+#ex pot = s * sin(x) * sin(y) * sin(z)
+
+#ex U = 1 - 2 * m / (r/Rscale)
+#ex U = 1 - 2 * symbol("rho")*(4*Pi/3*r*r*r)/r
+U = 1 - 2 * m/r*0
+V = 1 - k * r * r
+
+yz = 1 #V * U
+
+# Metrik g_mu_nu
+g00 = c2 * U
+g11 = -R2 / (V * U)
+g22 = -R2 * r * r / yz
+g33 = -R2 * r * r * sin(theta) * sin(theta) / yz
+
+
+
+
+##########################################
+
+	
+
+# Kontravariante Koordinaten x^mu
+" in cartesian coordinates"
+#x0 = t
+x1 = x
+x2 = y
+x3 = z
+
+
+# Hilfsexpressions
+r2 = x*x + y*y + z*z
+r = sqrt(r2)
+
+curv = k * r2 / (1 - k * r2)
+
+V    = 0 * masse(x,y,z) / r
+schw = 2 * V / (1 - 2 * V)
+
+tot  = curv + schw
+#tot = A(r)
+
+
+# Metrik g_mu_nu
+
+g00 = c2 * (1 - 2 * V)
+
+g11 = -R2 * (1 + tot * x*x/r2)
+g12 = -R2 * tot * x*y/r2
+g13 = -R2 * tot * x*z/r2
+g21 = g12
+g22 = -R2 * (1 + tot * y*y/r2)
+g23 = -R2 * tot * y*z/r2
+g31 = g13
+g32 = g23
+g33 = -R2 * (1 + tot * z*z/r2)

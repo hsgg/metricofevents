@@ -1,0 +1,3 @@
+system "make programs"
+
+load "gnuplot.gplt"

@@ -1,0 +1,16 @@
+# HSGG Tü20070318
+# HSGG Tü20070810
+
+
+"Minkowsky Metric in spherical coordinates"
+
+x0 = t
+x1 = r
+x2 = theta
+x3 = phi
+
+# Metrik g_mu_nu
+g00 = 1
+g11 = -1
+g22 = -r * r
+g33 = -(r * sin(theta))^2
