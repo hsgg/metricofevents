@@ -11,8 +11,9 @@ EXT=exe
 
 
 # Metrics:
+METRIC=../metrics/schwarzschild.metric
 #METRIC=../metrics/robertson-walker-schwarzschild.metric
-METRIC=../metrics/kerr-newman.metric
+#METRIC=../metrics/kerr-newman.metric
 
 
 CS=../calculus/coordinate_system.cpp
@@ -64,9 +65,9 @@ particle.o: particle.cpp particle.h global.h myfloat.h
 metric.o: metric.cpp metric.h global.h myfloat.h
 	$(CXX) $(FLAGS_QUICKCOMPILE) -c -o $@ $<
 metric.h: algebra2src.$(EXT) $(METRIC)
-	./$< h
+	./$< "$(METRIC)"
 metric.cpp: algebra2src.$(EXT) $(METRIC)
-	./$< cpp
+	./$< "$(METRIC)"
 
 # emfield
 emfield.o: emfield.cpp emfield.h metric.h myfloat.h

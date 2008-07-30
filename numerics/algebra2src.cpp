@@ -20,8 +20,16 @@ using namespace GiNaC;
 // ********* MAIN - algebra ************
 int main(int argc, char* argv[])
 {
+	if (argc != 2)
+	{
+		cerr << "Usage: " << argv[0] << " <infile.metric>" << endl;
+		cerr << "Output is written to \"metric.cpp\" and \"metric.h\"."
+			<< endl;
+		exit(2);
+	}
+
 	// Calculate equations
-	Coordinate_System c("../metrics/kerr-newman.metric");
+	Coordinate_System c(argv[1]);
 
 
 	exmap co;
