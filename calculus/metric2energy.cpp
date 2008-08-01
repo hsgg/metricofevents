@@ -68,7 +68,7 @@ int main(int argc, char* argv[])
 
 
 	// LaTeX-Kopf
-	out << "\\documentclass[fleqn,portrait]{article}" << endl
+	out << "\\documentclass[fleqn]{article}" << endl
 		<< "\\usepackage[utf8x]{inputenc}" << endl
 		<< "\\usepackage{ucs}" << endl
 		<< "\\usepackage{amsmath}" << endl
