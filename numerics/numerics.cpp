@@ -400,7 +400,7 @@ int main()
 		(tau <= init.tau_max + dtau)
 	)
 	{
-		//dtau = init.dtau * exp(-abs(wrong) / init.max_wrongness);
+		dtau = init.dtau * exp(-abs(wrong) / init.max_wrongness);
 
 		if (++taun % 1000 == 0)
 		{

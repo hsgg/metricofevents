@@ -4,7 +4,8 @@
 
 # Symbole
 #rho
-#m
+m
+n
 r_s
 pi
 
@@ -13,22 +14,22 @@ pi
 
 # Kontravariante Koordinaten x^mu
 " in spherical coordinates"
-x0 = t
-x1 = r
+x0 = T
+x1 = R
 x2 = theta
 x3 = phi
 
 # Hilfsexpressionen
-" with a variable spherically symmetric matter density"
+" in its flatter form"
 #m = 4*pi/3*rho(r)*r*r*r
 #U = 1 - 2 * m / r
-U = 1 - r_s / r
+U = 1 - 2*m / r(R)
 
 # Metrik g_mu_nu
-g00 = U
-g11 = -1 / U
-g22 = -r * r
-g33 = -r * r * sin(theta) * sin(theta)
+g00 = U^(-1)
+g11 = -U^(1)
+g22 = -r(R) * r(R)
+g33 = -r(R) * r(R) * sin(theta) * sin(theta)
 
 
 
