@@ -1,0 +1,23 @@
+# HSGG Tü20081106
+
+
+"Andere Kugelkoordinaten"
+
+x0 = r
+x1 = a
+x2 = b
+
+cot = cos(a/r) / sin(a/r)
+
+# Metrik g_mu_nu
+g00 = 1 + (a*a)/(r*r) + (b*b)/(r*r) * (1 + (a*a)/(r*r) * cot*cot - 2*a/r * cot)
+g01 = - a/r + (b*b)/(r*r) * cot * (1 - a/r * cot)
+g02 = - b/r * (1 - a/r * cot)
+
+g10 = g01
+g11 = 1 + (b*b)/(r*r) * cot*cot
+g12 = - b/r * cot
+
+g20 = g02
+g21 = g12
+g22 = 1
