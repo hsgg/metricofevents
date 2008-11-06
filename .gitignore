@@ -1,0 +1,6 @@
+*.o
+*.aux
+*.log
+calculus/depend
+calculus/progdepend
+calculus/metric2energy
