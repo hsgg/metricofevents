@@ -1,0 +1,16 @@
+# Name
+"Rindler Metric"	   
+
+# Coordinates
+x0 = t
+x1 = x
+x2 = y
+x3 = z
+
+
+
+# Metric
+g00 = x*x
+g11 = -1
+g22 = -1
+g33 = -1
