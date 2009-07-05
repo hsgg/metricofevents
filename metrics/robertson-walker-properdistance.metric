@@ -1,0 +1,46 @@
+# This is a comment.
+
+# Name
+"Robertson-Walker Metric in proper distance"
+
+ # Coordinates
+x0 = t
+x1 = p
+x2 = theta
+x3 = phi
+
+# Constants
+#kappa
+
+# Functions
+Hu(t)
+Hd(t)
+#c(t)
+
+
+   	 	  		 
+
+# Shortcuts
+#c2 = c(t) * c(t)
+#c2 = 1
+H2 = Hu(t) * Hu(t)
+Hd2 = Hd(t) * Hd(t)
+p2 = p * p
+
+# Metric
+g00 = 1 - (Hd2 / H2) * p2
+g01 = (Hd(t) / Hu(t)) * p
+g02 = 0
+g03 = 0
+g10 = g01
+g11 = -1
+g12 = 0
+g13 = 0
+g20 = g02
+g21 = g12
+g22 = -p2
+g23 = 0
+g30 = g03
+g31 = g13
+g32 = g23
+g33 = -p2 * sin(theta)^2

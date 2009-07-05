@@ -244,9 +244,14 @@ MAKE_FUNC1(c, "c", cdot,
 
 
 // R(t)
-//MAKE_FUNC1(R, "R", Rdot,
-//        Rd, "\\dot{R}", Rddot,
-//        Rdd, "\\ddot{R}")
+MAKE_FUNC1(R, "R", Rdot,
+        Rd, "\\dot{R}", Rddot,
+        Rdd, "\\ddot{R}")
+
+// H(t)
+MAKE_FUNC1(Hu, "H", Hdot,
+        Hd, "\\dot{H}", Hddot,
+        Hdd, "\\ddot{H}")
 
 // A(r)
 MAKE_FUNC1(A, "A", Ap,
