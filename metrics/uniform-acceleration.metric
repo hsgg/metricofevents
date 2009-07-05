@@ -1,0 +1,27 @@
+# Name
+"Uniform Acceleration Internal Metric"	   
+
+# Coordinates
+x0 = t
+x1 = x
+x2 = y
+x3 = z
+
+
+# Constants, etc.
+g
+
+#a = aa(t,x)
+#b = bb(t,x)
+#b = (1 + a * sinh(g * t)) / cosh(g * t)
+a = -sinh(g * t)
+b = cosh(g * t)
+
+
+# Metric
+g00 = 1
+g01 = cosh(g * t) * a - sinh(g * t) * b
+g10 = g01
+g11 = a * a - b * b
+g22 = -1
+g33 = -1

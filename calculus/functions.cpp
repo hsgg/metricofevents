@@ -286,6 +286,22 @@ MAKE_FUNC2(rhotr, "\\rho", rhotr_n,
 	rhotr12, "\\dot{\\rho \\mathbf{NOTICE}}'",
 	rhotr22, "\\rho''")
 
+// aa(t,x)
+MAKE_FUNC2(aa, "a", aa_n,
+	aa0, "\\dot{a}", aa0prime,
+	aa1, "a'", aa1prime,
+	aa11, "\\ddot{a}",
+	aa12, "\\dot{a \\mathbf{NOTICE}}'",
+	aa22, "a''")
+
+// bb(t,x)
+MAKE_FUNC2(bb, "b", bb_n,
+	bb0, "\\dot{b}", bb0prime,
+	bb1, "b'", bb1prime,
+	bb11, "\\ddot{b}",
+	bb12, "\\dot{b \\mathbf{NOTICE}}'",
+	bb22, "b''")
+
 // masse(x,y,z)
 MAKE_FUNC3(masse, "m", massep,
 	masse1, "m'", masse1p,
