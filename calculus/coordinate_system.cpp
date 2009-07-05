@@ -519,7 +519,7 @@ void Coordinate_System::eliminate_beginning_whitespace(string& s)
 // Eliminate ending whitespace
 void Coordinate_System::eliminate_ending_whitespace(string& s)
 {
-	unsigned i = s.length() - 1;
+	int i = s.length() - 1;
 	while ( (s[i] == ' ') || (s[i] == '	') )
 		i--;
 

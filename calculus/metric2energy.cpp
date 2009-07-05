@@ -56,10 +56,13 @@ int main(int argc, char* argv[])
 	}
 
 	Coordinate_System c(argv[1]);
+	cerr << "Loaded coordinate system info." << endl;
 	string outfilename(argv[2]);
 
 
 	ofstream out(outfilename.c_str());
+
+	cerr << "Opened output file." << endl;
 
 	// Set output format
 	out << latex << endl;
