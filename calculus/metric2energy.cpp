@@ -78,7 +78,7 @@ int main(int argc, char* argv[])
 		<< "\\usepackage{amsfonts}" << endl
 		<< "\\usepackage{amssymb}" << endl
 		<< endl
-		<< "\\usepackage[a4paper, left=1.5cm, right=1.5cm, top=1.5cm, bottom=4cm]{geometry}" << endl
+		<< "\\usepackage[a1paper, landscape, left=1.5cm, right=1.5cm, top=1.5cm, bottom=4cm]{geometry}" << endl
 		<< endl
 		<< "\\allowdisplaybreaks[1]" << endl
 		<< endl
@@ -215,11 +215,14 @@ int main(int argc, char* argv[])
 		cerr << mu << nu << ":";
 		out << "R_{" << mu << nu << "}"
 		    << EQUALSIGN
-		    << c.riemann(mu,nu);
+		    << c.riemann(mu,nu).normal();
 		LEF(mu, nu)
 	}
 	ENVEND
 	cerr << "done" << endl;
+
+	// Do the rest?
+	if (1) {
 
 	// Riemann R^mu_nu
 	cerr << "Ricci:";
@@ -247,6 +250,8 @@ int main(int argc, char* argv[])
 	out << "." << endl;
 	ENVEND
 
+	}
+
 	// Einstein G^mu_nu
 	cerr << "Einstein:";
 	out << "\\framebox{$G^\\mu_{\\;\\nu}$}" << endl;
@@ -258,12 +263,13 @@ int main(int argc, char* argv[])
 			cerr << mu << nu << ":";
 			out << "G^" << mu << "_{\\;" << nu << "}"
 			    << EQUALSIGN
-			    << c.einstein(mu,nu);
+			    << c.einstein(mu,nu).normal();
 			LEF(mu, nu)
 		}
 	}
 	ENVEND
 	cerr << "done" << endl;
+
 
 	// G
 	out << "\\framebox{$G$}" << endl;
