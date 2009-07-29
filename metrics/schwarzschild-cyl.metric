@@ -1,0 +1,32 @@
+# HSGG Tü20070318
+# HSGG Tü20070810
+
+
+"Schwarzschild in Cylindrical Coordinates"
+
+x0 = t
+x1 = rho
+x2 = phi
+x3 = z
+
+# Functions of rho
+A(rho)
+B(rho)
+C(rho)
+D(rho)
+E(rho, z)
+F(rho)
+Gm(rho)
+m
+
+
+r = sqrt(rho^2 + z^2)
+#EE = 2 * m / (r - 2 * m) # Delta = E = 1/U - 1
+EE = E(rho, z)
+
+g00 = 1 / (1 + EE) # = U
+g11 = -1 - EE * rho^2 / r^2
+g13 = -EE * rho * z / r^2
+g22 = -rho^2
+g31 = g13
+g33 = -1 - EE * z^2 / r^2
