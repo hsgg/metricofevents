@@ -258,6 +258,31 @@ MAKE_FUNC1(A, "A", Ap,
 	A0, "A'", A0p,
 	A00, "A''")
 
+// B(r)
+MAKE_FUNC1(B, "B", Bp,
+	B0, "B'", B0p,
+	B00, "B''")
+
+// C(r)
+MAKE_FUNC1(C, "C", Cp,
+	C0, "C'", C0p,
+	C00, "C''")
+
+// D(r)
+MAKE_FUNC1(D, "D", Dp,
+	D0, "D'", D0p,
+	D00, "D''")
+
+// F(r)
+MAKE_FUNC1(F, "F", Fp,
+	F0, "F'", F0p,
+	F00, "F''")
+
+// G(r)
+MAKE_FUNC1(Gm, "G", Gp,
+	G0, "G'", G0p,
+	G00, "G''")
+
 // m(r)
 //MAKE_FUNC1(mass, "m",
 //	mp, "m'", mprime,
@@ -306,6 +331,14 @@ MAKE_FUNC2(bb, "b", bb_n,
 	bb11, "\\ddot{b}",
 	bb12, "\\dot{b \\mathbf{NOTICE}}'",
 	bb22, "b''")
+
+// E(rho, z)
+MAKE_FUNC2(E, "E", E_n,
+	E0, "\\dot{E}", E0prime,
+	E1, "E'", E1prime,
+	E11, "\\ddot{E}",
+	E12, "\\dot{E'}",
+	E22, "E''")
 
 // masse(x,y,z)
 MAKE_FUNC3(masse, "m", massep,
