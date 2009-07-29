@@ -14,13 +14,15 @@ kappa
 
 # Functions
 R(t)
-c(t)
+#c(t)
+c
 
 
    	 	  		 
 
 # Shortcuts
-c2 = c(t) * c(t)
+#c2 = c(t) * c(t)
+c2 = 1
 R2 = R(t) * R(t)
 r2 = r * r
 
