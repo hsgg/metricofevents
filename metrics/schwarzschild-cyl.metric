@@ -21,8 +21,8 @@ m
 
 
 r = sqrt(rho^2 + z^2)
-#EE = 2 * m / (r - 2 * m) # Delta = E = 1/U - 1
-EE = E(rho, z)
+EE = 2 * m / (r - 2 * m) # Delta = E = 1/U - 1
+#EE = E(rho, z)
 
 g00 = 1 / (1 + EE) # = U
 g11 = -1 - EE * rho^2 / r^2
