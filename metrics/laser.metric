@@ -1,0 +1,92 @@
+# HSGG Tü20070318
+# HSGG Tü20070810
+
+
+"Cylindrical Coordinates for "
+
+x0 = t
+x1 = rho
+x2 = phi
+x3 = z
+
+# Functions of rho
+A(rho)
+B(rho)
+C(rho)
+D(rho)
+F(rho)
+Gm(rho)
+M
+#m = A(rho) # Yeah, this is good!
+a
+m = M * rho * log(rho/a)
+b = 0
+e
+f
+g
+R(rho)
+
+
+"LASER"
+#r = sqrt(rho^2 + z^2)
+#r = sqrt(rho^2 + b^2)
+r = rho
+#r = R(rho)
+E = 2 * m / (r - 2 * m) # Delta = E = 1/U - 1
+
+AA = A(rho) # rho^2 # * log(rho/e)
+BB = B(rho) # rho^2 # * log(rho/f)
+CC = C(rho) # rho^2 # * log(rho/f)
+DD = D(rho) # rho^2 # * log(rho/f)
+
+# Metrik g_mu_nu
+g00 = exp(2 * AA)
+g11 = -exp(2 * BB)
+g22 = -rho^2 * exp(2 * CC)
+g33 = -exp(2 * DD)
+
+
+##################################################################
+"LASER"
+#r = sqrt(rho^2 + z^2)
+#r = sqrt(rho^2 + b^2)
+r = rho
+#r = R(rho)
+E = 2 * m / (r - 2 * m) # Delta = E = 1/U - 1
+
+# Metrik g_mu_nu
+g00 = exp(-(rho/e)^2)
+g11 = -exp(-(rho/e)^2)
+g22 = -rho^2
+g33 = -1
+
+
+# #################################################################
+"LASER"
+#r = sqrt(rho^2 + z^2)
+#r = sqrt(rho^2 + b^2)
+r = rho
+#r = R(rho)
+E = 2 * m / (r - 2 * m) # Delta = E = 1/U - 1
+
+# Metrik g_mu_nu
+g00 = 1 / (B(rho) * (1 + E)) # = U
+g11 = -B(rho) * (1 + E * rho^2 / r^2)
+g13 = -E * rho * b / r^2
+g22 = -rho^2
+g31 = g13
+g33 = -1 - E * b^2 / r^2
+#g33 = -A(rho)
+
+
+# ##################################################################
+"Schwarzschild"
+r = sqrt(rho^2 + z^2)
+E = 2 * m / (r - 2 * m) # Delta = E = 1/U - 1
+
+g00 = 1 / (1 + E) # = U
+g11 = -1 - E * rho^2 / r^2
+g13 = -E * rho * z / r^2
+g22 = -rho^2
+g31 = g13
+g33 = -1 - E * z^2 / r^2
