@@ -21,6 +21,7 @@ CS_H=$(CS:.cpp=.h)
 CS_O=$(CS:.cpp=.o)
 
 
+.PHONY: all plot wrong programs datafiles
 all: programs datafiles plot
 
 
@@ -64,9 +65,7 @@ particle.o: particle.cpp particle.h global.h myfloat.h
 # metric.o
 metric.o: metric.cpp metric.h global.h myfloat.h
 	$(CXX) $(FLAGS_QUICKCOMPILE) -c -o $@ $<
-metric.h: algebra2src.$(EXT) $(METRIC)
-	./$< "$(METRIC)"
-metric.cpp: algebra2src.$(EXT) $(METRIC)
+metric.h metric.cpp: algebra2src.$(EXT) $(METRIC)
 	./$< "$(METRIC)"
 
 # emfield
@@ -96,6 +95,7 @@ sphere2.dat: sphere.$(EXT)
 
 
 # cleaners
+.PHONY: clean realclean
 clean:
 	rm -f *.o
 	rm -f *.dat

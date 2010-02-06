@@ -18,16 +18,16 @@ struct initializations initials()
 	//i.m = (6.6726e-11) * (1.99e+30) / (c * c);
 	i.m = 1.0;
 	i.a = 0.1;
-	i.q = 0.15;
+	i.q = 0.0; //0.15;
 
 
-	i.teilchen_masse = 1.0;
+	i.teilchen_masse = 0.0;
 	i.teilchen_ladung = 0.0;
 
 	i.x[0] = 0.0;
 	//i.x[1] = 1.496e+11;
-	i.x[1] = 3.0 * i.m;
-	i.x[2] = (myfloat) (M_PI / 2.0);
+	i.x[1] = 6.0 * i.m;
+	i.x[2] = (myfloat) (M_PI_2);
 	i.x[3] = 0.0;
 
 	//myfloat E = 1.0070;
@@ -37,7 +37,7 @@ struct initializations initials()
 	i.u[0] = 0.0; //sqrt( E / (1.0 - 2.0 * i.m / i.x[1] - i.m / i.x[1]) );
 	i.u[1] = -1.1; //-0.7;
 	i.u[2] = 0.0;
-	i.u[3] = 0.0; // -sqrt(i.m / (i.x[1] * i.x[1] * i.x[1])) * i.u[0] * i.a;
+	i.u[3] = 0.21; // -sqrt(i.m / (i.x[1] * i.x[1] * i.x[1])) * i.u[0] * i.a;
 	//i.u[3] = L / (i.x[1] * i.x[1])
 	//	* (myfloat) ( pow(sin(i.x[2]),-0.999999999992) );
 

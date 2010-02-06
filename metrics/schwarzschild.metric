@@ -4,9 +4,9 @@
 
 # Symbole
 #rho
-#m
-r_s
-pi
+m
+#r_s
+#pi
 
 
 #  ################################
@@ -21,8 +21,8 @@ x3 = phi
 # Hilfsexpressionen
 " with a variable spherically symmetric matter density"
 #m = 4*pi/3*rho(r)*r*r*r
-#U = 1 - 2 * m / r
-U = 1 - r_s / r
+U = 1 - 2 * m / r
+#U = 1 - r_s / r
 
 # Metrik g_mu_nu
 g00 = U
