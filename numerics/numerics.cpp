@@ -20,12 +20,10 @@ using namespace std;
 
 
 // absolute value of myfloat
-#ifndef USE_CLN
 inline myfloat abs(const myfloat number)
 {
 	return (number < 0) ? -number : number;
 }
-#endif
 
 
 // set xpk = x + step * k
@@ -183,15 +181,6 @@ myfloat find_u(const Metric& metric,
 	return u[init->change];
 }
 
-inline int to_integer(const myfloat tau)
-{
-	#ifdef USE_CLN
-		return cl_I_to_int(ceiling1(tau));
-	#else
-		return (int) (tau);
-	#endif
-}
-
 
 // Berechne x, u
 // input: metric, x, u, dtau
@@ -331,16 +320,6 @@ int main()
 	// Iterate
 	myfloat dtau = init.dtau;
 	myfloat wrong = wrongness(metric, &init, particle.x, particle.u);
-	/*
-	#ifdef USE_CLN
-		const int taun_max = cl_I_to_int(ceiling1(
-			init.tau_max/init.dtau));
-	#else
-		const int taun_max = (int) (init.tau_max/init.dtau) + 1;
-	#endif
-	*/
-
-
 	ofstream plotfile("plot.dat");
 	ofstream dtaufile("dtau.dat");
 	ofstream wrongfile("wrong.dat");
