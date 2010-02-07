@@ -310,38 +310,22 @@ int main()
 	     << "q = " << metric.q << endl
 	     << endl;
 
-	/*
 	// Print important information to plotfile
-	plotfile << "# Metric: " << c.name_of_metric << endl << endl;
-	for (unsigned i = 0; i < metric.dim; i++)
-	{
-		plotfile << "# u" << i << "_pkt = " << u_pkt[i] << endl;
-	}
-	plotfile << endl;
-	plotfile << "# " << c.m << " = " << co[c.m] << endl
-		<< "# " << c.a << " = " << co[c.a] << endl
-		<< "# teilchen_masse = " << init.teilchen_masse << endl
-		<< endl;
-	for (unsigned i = 0; i < metric.dim; i++)
-	{
-		plotfile << "# " << c.x[i] << " = " << co[c.x[i]] << endl;
-	}
-	plotfile << endl;
-	for (unsigned i = 0; i < metric.dim; i++)
-	{
-		plotfile << "# " << c.u[i] << " = " << co[c.u[i]] << endl;
-	}
-	plotfile << endl;
-	plotfile << "# length_4velocity = " << length_4velocity(c).subs(co)
-		<< endl << endl
+	plotfile << "# Metric: " << metric.name << endl;
+	plotfile << "#	m = " << metric.m << endl
+		<< "#	a = " << metric.a << endl
+		<< "#	q = " << metric.q << endl;
+	plotfile << "# particle:" << endl
+		<< "#	m = " << init.teilchen_masse << endl
+		<< "#	q = " << init.teilchen_ladung << endl;
+	plotfile << "# length_4velocity = "
+		<< scalar(metric, particle.x, particle.u, particle.u) << endl
 		<< "# dtau = " << dtau << endl
-		<< "# tau_max = " << taun_max * dtau << endl
-		<< endl;
-	*/
+		<< "# tau_max = " << init.tau_max << endl
+		<< "# max_wrongness = " << init.max_wrongness << endl
+		<< "# max_x1 = " << init.max_x1 << endl;
+	plotfile << "# x3 x1 x2 x0	wrong	u3 u1 u2 u0" << endl;
 
-	//cout << "taun_max = " << taun_max << endl;
-	//cout << "tau_max = " << init.tau_max << endl << endl;
-	//cerr << scientific;
 
 	// Iterate
 	myfloat tau_old = 1.0;
@@ -365,24 +349,22 @@ int main()
 		}
 
 		// print to file
-		//plotfile<< x[1] * cos(x[3]) * sin(x[2]) << "\t"
-		//	<< x[1] * sin(x[3]) * sin(x[2]) << "\t"
-		//	<< x[1] 	    * cos(x[2]) << "\t";
 		plotfile<< particle.x[3] << ' '
 			<< particle.x[1] << ' '
 			<< particle.x[2] << ' '
-			<< particle.x[0] << '\t' ;
-		plotfile<< wrong << '\t';
-		plotfile<< particle.u[3] << ' '
+			<< particle.x[0] << '\t'
+			<< wrong	 << '\t'
+			<< particle.u[3] << ' '
 		        << particle.u[1] << ' '
 		        << particle.u[2] << ' '
-		        << particle.u[0]
+		        << particle.u[0] << '\t'
+			<< tau << '\t'
+			<< dtau
 			<< endl;
 
 		dtaufile << tau << "\t" << dtau << endl;
 		wrongfile << tau << "\t" << wrong << endl;
 
-		tau_old = tau;
 		tau += dtau;
 
 
@@ -403,10 +385,6 @@ int main()
 	plotfile.close();
 	dtaufile.close();
 	wrongfile.close();
-
-
-	//cout << "u0 = " << u[0] << endl;
-	//cout << "u3 = " << u[3] << endl;
 
 
 	info(taun, tau, dtau, wrong, particle.x);
