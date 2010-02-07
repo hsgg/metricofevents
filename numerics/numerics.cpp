@@ -181,6 +181,7 @@ myfloat find_u(const Metric metric,
 
 // Berechne x, u
 // input: metric, x, u, dtau
+// output:
 inline void x_and_u(const Metric& metric, const EMField& emfield,
 	const myfloat dtau, Particle& particle)
 {
@@ -298,6 +299,7 @@ int main()
 	// Iterate
 	myfloat dtau = init.dtau;
 	myfloat wrong = wrongness(metric, &init, particle.x, particle.u);
+	myfloat wrong_old = wrong;
 	ofstream plotfile("plot.dat");
 	ofstream dtaufile("dtau.dat");
 	ofstream wrongfile("wrong.dat");
@@ -328,24 +330,19 @@ int main()
 
 
 	// Iterate
-	myfloat tau_old = 1.0;
 	int taun = -1;
 	myfloat tau = 0.0;
-	//while (tau != tau_old)
-	while
-	(
-		//(dtau >= pow(init.max_wrongness, 2))
-		//&&
-		(abs(wrong) <= init.max_wrongness)
-		&&
-		(tau <= init.tau_max + dtau)
-	)
+	while ((abs(wrong) <= init.max_wrongness)
+		&& (tau <= init.tau_max + dtau))
 	{
-		dtau = init.dtau * exp(-abs(wrong) / init.max_wrongness);
+		dtau = init.dtau * exp(-1e15 * abs(wrong - wrong_old) / init.max_wrongness);
 
-		if (++taun % 1000 == 0)
-		{
+		if (++taun % 1000 == 0) {
 			info(taun, tau, dtau, wrong, particle.x);
+			if (taun >= 10000) {
+				cerr << "WARNING: Aborting prematurely: taking too long" << endl;
+				break;
+			}
 		}
 
 		// print to file
@@ -371,12 +368,11 @@ int main()
 		// Berechne x, u
 		x_and_u(metric, emfield, dtau, particle);
 
+		wrong_old = wrong;
 		wrong = wrongness(metric, &init, particle.x, particle.u);
 
-		if (particle.x[1] > 20)
-		{
+		if (particle.x[1] > init.max_x1)
 			break;
-		}
 	}
 	plotfile << endl;
 	plotfile << "# length_4velocity = "

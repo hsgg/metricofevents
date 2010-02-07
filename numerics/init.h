@@ -32,6 +32,7 @@ struct initializations {
 	myfloat dtau;
 	myfloat tau_max;
 	myfloat max_wrongness;
+	myfloat max_x1;
 };
 
 struct initializations initials();
