@@ -2,7 +2,7 @@
 #CC=/usr/lib/colorgcc/bin/gcc
 CXX=g++
 CC=gcc
-FLAGS_QUICKCOMPILE=-Wall -pedantic
+FLAGS_QUICKCOMPILE=-Wall -pedantic -O2 -march=native
 FLAGS=$(FLAGS_QUICKCOMPILE)
 #FLAGS+=-O2 -march=pentium4 -mfpmath=sse
 LIBS=-lginac -lcln
@@ -11,9 +11,9 @@ EXT=exe
 
 
 # Metrics:
-METRIC=../metrics/schwarzschild.metric
+#METRIC=../metrics/schwarzschild.metric
 #METRIC=../metrics/robertson-walker-schwarzschild.metric
-#METRIC=../metrics/kerr-newman.metric
+METRIC=../metrics/kerr-newman.metric
 
 
 CS=../calculus/coordinate_system.cpp
@@ -54,21 +54,17 @@ numerics.$(EXT): numerics.o init.o metric.o particle.o emfield.o
 numerics.o: numerics.cpp global.h init.h metric.h myfloat.h particle.h
 	$(CXX) $(FLAGS) -c -o $@ $<
 
-# init.o
 init.o: init.cpp init.h myfloat.h
 	$(CC) $(FLAGS) -c -o $@ $<
 
-# particle.o
 particle.o: particle.cpp particle.h global.h myfloat.h
 	$(CXX) $(FLAGS) -c -o $@ $<
 
-# metric.o
 metric.o: metric.cpp metric.h global.h myfloat.h
 	$(CXX) $(FLAGS_QUICKCOMPILE) -c -o $@ $<
 metric.h metric.cpp: algebra2src.$(EXT) $(METRIC)
 	./$< "$(METRIC)"
 
-# emfield
 emfield.o: emfield.cpp emfield.h metric.h myfloat.h
 	$(CXX) $(FLAGS) -c -o $@ $<
 
@@ -81,28 +77,20 @@ sphere.o: sphere.cpp global.h init.h myfloat.h
 
 # plot.dat
 plot.dat: numerics.$(EXT)
+	time ./$<
+
+# sphere.dat, sphere2.dat
+sphere.dat sphere2.dat: sphere.$(EXT)
 	./$<
-
-# sphere.dat
-sphere.dat: sphere.$(EXT)
-	./$<
-
-# sphere2.dat
-sphere2.dat: sphere.$(EXT)
-	./$<
-
-
 
 
 # cleaners
 .PHONY: clean realclean
 clean:
 	rm -f *.o
-	rm -f *.dat
 
 realclean: clean
-	rm -f algebra2src numerics sphere
 	rm -f algebra2src.exe numerics.exe sphere.exe
 	rm -f metric.h metric.cpp
-	rm -f plot.dat sphere.dat sphere2.dat
+	rm -f dtau.dat plot.dat sphere.dat sphere2.dat wrong.dat
 	@make -C ../calculus clean
