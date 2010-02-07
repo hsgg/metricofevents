@@ -31,35 +31,21 @@ inline void mk_cok(vector<myfloat>& xpk, const myfloat* x,
 		const vector<myfloat>& xk_n, const myfloat step)
 {
 	for (unsigned mu = 0; mu < xpk.size(); mu++)
-	{
 		xpk[mu] = x[mu] + step * xk_n[mu];
-	}
 }
 
 
 // contract twice
-myfloat christoffelsum(const Metric& metric, const unsigned& sigma,
+inline myfloat christoffelsum(const Metric& metric, const unsigned& sigma,
 	const vector<myfloat>& x, const vector<myfloat>& u)
 {
-	/*
-	myfloat result = 0.0;
-	for (unsigned mu = 0; mu < metric.dim; mu++)
-	{
-		for (unsigned nu = 0; nu < metric.dim; nu++)
-		{
-			result +=
-				(metric.*(metric.christoffel[sigma][mu][nu]))(x)
-				* u[mu] * v[nu];
-		}
-	}*/
-
 	return (metric.*(metric.christoffelsum[sigma]))(x, u);
 }
 
 
 
 // electromagnetic acceleration
-myfloat emfieldforce(const EMField& emfield, const unsigned& sigma,
+inline myfloat emfieldforce(const EMField& emfield, const unsigned& sigma,
 	const vector<myfloat>& x, const vector<myfloat>& u)
 {
 	myfloat force = 0.0;
@@ -77,27 +63,38 @@ myfloat emfieldforce(const EMField& emfield, const unsigned& sigma,
 	return force;
 }
 
+inline void mk_xk_uk(const Metric metric, const EMField emfield,
+		const vector<myfloat> xpk, const vector<myfloat> upk,
+		vector<vector<myfloat> >& xk, vector<vector<myfloat> >& uk,
+		const int i, const myfloat dtau, const Particle particle)
+{
+	for (unsigned mu = 0; mu < metric.dim; mu++)
+	{
+		xk[i][mu] = dtau * upk[mu];
+		uk[i][mu] = dtau
+			* (-christoffelsum(metric, mu, xpk, upk)
+					- particle.q
+					* emfieldforce(emfield, mu, xpk, upk));
+	}
+}
+
 
 // calculate scalarproduct of y and z at x.
-myfloat scalar(const Metric& metric, const myfloat* x,
+myfloat scalar(const Metric metric, const myfloat* x,
 	const myfloat* y, const myfloat* z)
 {
 	myfloat l = 0.0;
 
 	for (unsigned mu = 0; mu < metric.dim; mu++)
-	{
 		for (unsigned nu = 0; nu < metric.dim; nu++)
-		{
 			l += (metric.*(metric.g[mu][nu]))(x) * y[mu] * z[nu];
-		}
-	}
 
 	return l;
 }
 
 
 // Falschheit
-inline myfloat wrongness(const Metric& metric,
+inline myfloat wrongness(const Metric metric,
 		const struct initializations* init,
 		const myfloat* x, const myfloat* u)
 {
@@ -106,7 +103,7 @@ inline myfloat wrongness(const Metric& metric,
 
 
 // Calculate u
-myfloat find_u(const Metric& metric,
+myfloat find_u(const Metric metric,
 		const struct initializations* init,
 		const myfloat* x,
 		myfloat* u)
@@ -193,64 +190,45 @@ inline void x_and_u(const Metric& metric, const EMField& emfield,
 	vector<myfloat> xpk(metric.dim);
 	vector<myfloat> upk(metric.dim);
 
-	// Berechne xk, uk
-	for (unsigned i = 0; i < 4; i++)
-	{
-		xk[i].resize(metric.dim);
-		uk[i].resize(metric.dim);
-
-		// set cok = co + k, depending on how far we are
-		switch (i)
-		{
-			case 0:
-				for (unsigned j = 0; j < metric.dim; j++)
-				{
-					xk[0][j] = 0.0;
-					uk[0][j] = 0.0;
-				}
-				mk_cok(xpk, particle.x, xk[0], 0.0);
-				mk_cok(upk, particle.u, uk[0], 0.0);
-				break;
-			case 1:
-				mk_cok(xpk, particle.x, xk[0], (myfloat) 0.5);
-				mk_cok(upk, particle.u, uk[0], (myfloat) 0.5);
-				break;
-			case 2:
-				mk_cok(xpk, particle.x, xk[1], (myfloat) 0.5);
-				mk_cok(upk, particle.u, uk[1], (myfloat) 0.5);
-				break;
-			case 3:
-				mk_cok(xpk, particle.x, xk[2], 1.0);
-				mk_cok(upk, particle.u, uk[2], 1.0);
-			break;
-		}
-
-		// Berechne xk, uk
-		for (unsigned mu = 0; mu < metric.dim; mu++)
-		{
-			xk[i][mu] = dtau * upk[mu];
-			uk[i][mu] = dtau
-				* (-christoffelsum(metric, mu, xpk, upk)
-				- particle.q
-				* emfieldforce(emfield, mu, xpk, upk));
-		}
+	for (unsigned j = 0; j < metric.dim; j++) {
+		xk[j].resize(metric.dim);
+		uk[j].resize(metric.dim);
+		xk[0][j] = 0.0;
+		uk[0][j] = 0.0;
 	}
 
+	//cerr << "in...";
+	mk_cok(xpk, particle.x, xk[0], 0.0);
+	mk_cok(upk, particle.u, uk[0], 0.0);
+	//cerr << "with...";
+	mk_xk_uk(metric, emfield, xpk, upk, xk, uk, 0, dtau, particle);
+	//cerr << "in\n";
+
+	mk_cok(xpk, particle.x, xk[0], (myfloat) 0.5);
+	mk_cok(upk, particle.u, uk[0], (myfloat) 0.5);
+	mk_xk_uk(metric, emfield, xpk, upk, xk, uk, 1, dtau, particle);
+
+
+	mk_cok(xpk, particle.x, xk[1], (myfloat) 0.5);
+	mk_cok(upk, particle.u, uk[1], (myfloat) 0.5);
+	mk_xk_uk(metric, emfield, xpk, upk, xk, uk, 2, dtau, particle);
+
+	mk_cok(xpk, particle.x, xk[2], 1.0);
+	mk_cok(upk, particle.u, uk[2], 1.0);
+	mk_xk_uk(metric, emfield, xpk, upk, xk, uk, 3, dtau, particle);
+
 	// Berechne x, u
-	for (unsigned mu = 0; mu < metric.dim; mu++)
-	{
+	for (unsigned mu = 0; mu < metric.dim; mu++) {
 		particle.x[mu] = particle.x[mu]
 			+ xk[0][mu]/6.0
 			+ xk[1][mu]/3.0
 			+ xk[2][mu]/3.0
 			+ xk[3][mu]/6.0;
-		//cout << co[c.x[mu]] << endl;
 		particle.u[mu] = particle.u[mu]
 			+ uk[0][mu]/6.0
 			+ uk[1][mu]/3.0
 			+ uk[2][mu]/3.0
 			+ uk[3][mu]/6.0;
-		//cout << co[c.u[mu]] << endl;
 	}
 }
 
