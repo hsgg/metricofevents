@@ -371,7 +371,8 @@ int main()
 		wrong_old = wrong;
 		wrong = wrongness(metric, &init, particle.x, particle.u);
 
-		if (particle.x[1] > init.max_x1)
+		if ((particle.x[1] > init.max_x1)
+				|| (particle.x[1] < init.min_x1))
 			break;
 	}
 	plotfile << endl;

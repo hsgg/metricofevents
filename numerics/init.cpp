@@ -46,6 +46,7 @@ struct initializations initials()
 	i.dtau = 0.01;
 	i.tau_max = 65;
 	i.max_wrongness = 1e-2;
+	i.min_x1 = 2.3;
 	i.max_x1 = 20.0;
 
 	return i;
