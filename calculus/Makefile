@@ -1,8 +1,8 @@
-CXX = g++
-CXXFLAGS = -g -Wall -pedantic
-LDFLAGS = -lginac -lcln
+CXXFLAGS += -g -Wall -pedantic
+CFLAGS += $(CXXFLAGS)
+LDFLAGS += -lginac -lcln
+
 CC = $(CXX)
-CFLAGS = $(CXXFLAGS)
 
 PDFLATEX = pdflatex
 PDFVIEWER = evince
@@ -26,6 +26,8 @@ PROGDEPFILE = progdepend
 # all
 .PHONY: all
 all: $(PROGDEPFILE) $(PROG)
+
+obj: $(OBJ)
 
 
 # dependecies

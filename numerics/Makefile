@@ -3,9 +3,9 @@
 CXX=g++
 CC=gcc
 FLAGS_QUICKCOMPILE=-Wall -pedantic -O2 -march=native
-FLAGS=$(FLAGS_QUICKCOMPILE)
-#FLAGS+=-O2 -march=pentium4 -mfpmath=sse
-LIBS=-lginac -lcln
+CFLAGS += $(FLAGS_QUICKCOMPILE)
+#CFLAGS+=-O2 -march=pentium4 -mfpmath=sse
+LDFLAGS += -lginac -lcln
 
 EXT=exe
 
@@ -39,26 +39,26 @@ datafiles: plot.dat sphere.dat sphere2.dat
 
 # algebra2src
 algebra2src.$(EXT): algebra2src.o $(CS_O)
-	$(CXX) $(FLAGS) -o $@ $^ $(LIBS)
+	$(CXX) $(CFLAGS) -o $@ $^ $(LDFLAGS)
 
 algebra2src.o: algebra2src.cpp $(CS_H) Makefile
-	$(CXX) $(FLAGS) -c -o $@ $<
+	$(CXX) $(CFLAGS) -c -o $@ $<
 
 $(CS_O): $(CS) $(CS_H)
-	@make -C ../calculus
+	$(MAKE) -C ../calculus obj CXXFLAGS="$(CFLAGS)" LDFLAGS="$(LDFLAGS)"
 
 
 # numerics
 numerics.$(EXT): numerics.o init.o metric.o particle.o emfield.o
-	$(CXX) $(FLAGS) -o $@ $^ $(LIBS)
+	$(CXX) $(CFLAGS) -o $@ $^ $(LDFLAGS)
 numerics.o: numerics.cpp global.h init.h metric.h myfloat.h particle.h
-	$(CXX) $(FLAGS) -c -o $@ $<
+	$(CXX) $(CFLAGS) -c -o $@ $<
 
 init.o: init.cpp init.h myfloat.h
-	$(CC) $(FLAGS) -c -o $@ $<
+	$(CC) $(CFLAGS) -c -o $@ $<
 
 particle.o: particle.cpp particle.h global.h myfloat.h
-	$(CXX) $(FLAGS) -c -o $@ $<
+	$(CXX) $(CFLAGS) -c -o $@ $<
 
 metric.o: metric.cpp metric.h global.h myfloat.h
 	$(CXX) $(FLAGS_QUICKCOMPILE) -c -o $@ $<
@@ -66,13 +66,13 @@ metric.h metric.cpp: algebra2src.$(EXT) $(METRIC)
 	./$< "$(METRIC)"
 
 emfield.o: emfield.cpp emfield.h metric.h myfloat.h
-	$(CXX) $(FLAGS) -c -o $@ $<
+	$(CXX) $(CFLAGS) -c -o $@ $<
 
 # sphere
 sphere.$(EXT): sphere.o init.o
-	$(CXX) $(FLAGS) -o $@ $^ $(LIBS)
+	$(CXX) $(CFLAGS) -o $@ $^ $(LDFLAGS)
 sphere.o: sphere.cpp global.h init.h myfloat.h
-	$(CXX) $(FLAGS) -c -o $@ $<
+	$(CXX) $(CFLAGS) -c -o $@ $<
 
 
 # plot.dat
