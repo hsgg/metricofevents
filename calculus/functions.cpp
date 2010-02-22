@@ -332,6 +332,22 @@ MAKE_FUNC2(bb, "b", bb_n,
 	bb12, "\\dot{b \\mathbf{NOTICE}}'",
 	bb22, "b''")
 
+// cc(t,x)
+MAKE_FUNC2(cc, "c", cc_n,
+	cc0, "\\dot{c}", cc0prime,
+	cc1, "c'", cc1prime,
+	cc11, "\\ddot{c}",
+	cc12, "\\dot{c \\mathbf{NOTICE}}'",
+	cc22, "c''")
+
+// dd(t,x)
+MAKE_FUNC2(dd, "d", dd_n,
+	dd0, "\\dot{d}", dd0prime,
+	dd1, "d'", dd1prime,
+	dd11, "\\ddot{d}",
+	dd12, "\\dot{d \\mathbf{NOTICE}}'",
+	dd22, "d''")
+
 // E(rho, z)
 MAKE_FUNC2(E, "E", E_n,
 	E0, "\\dot{E}", E0prime,
