@@ -2,7 +2,7 @@ algebra2src.exe
 dtau.dat
 metric.cpp
 metric.h
-numerics.exe
+single.exe
 plot.dat
 sphere.dat
 sphere.exe

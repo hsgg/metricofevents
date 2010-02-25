@@ -32,7 +32,7 @@ wrong: plot gnuplot-wrong.gplt
 	gnuplot -persist gnuplot-wrong.gplt
 
 
-programs: algebra2src.$(EXT) numerics.$(EXT) sphere.$(EXT)
+programs: algebra2src.$(EXT) single.$(EXT) sphere.$(EXT)
 
 datafiles: plot.dat sphere.dat sphere2.dat
 
@@ -48,13 +48,20 @@ $(CS_O): $(CS) $(CS_H)
 	$(MAKE) -C ../calculus obj CXXFLAGS="$(CFLAGS)" LDFLAGS="$(LDFLAGS)"
 
 
-# numerics
-numerics.$(EXT): numerics.o init.o metric.o particle.o emfield.o
+# single
+single.$(EXT): single.o numerics.o init.o metric.o particle.o emfield.o spectrum.o
 	$(CXX) $(CFLAGS) -o $@ $^ $(LDFLAGS)
-numerics.o: numerics.cpp global.h init.h metric.h myfloat.h particle.h
+
+single.o: single.cpp numerics.h global.h init.h metric.h myfloat.h particle.h
+	$(CXX) $(CFLAGS) -c -o $@ $<
+
+numerics.o: numerics.cpp numerics.h global.h metric.h myfloat.h particle.h
 	$(CXX) $(CFLAGS) -c -o $@ $<
 
 init.o: init.cpp init.h myfloat.h
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+spectrum.o: spectrum.cpp spectrum.h myfloat.h
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 particle.o: particle.cpp particle.h global.h myfloat.h
@@ -76,7 +83,7 @@ sphere.o: sphere.cpp global.h init.h myfloat.h
 
 
 # plot.dat
-plot.dat: numerics.$(EXT)
+plot.dat: single.$(EXT)
 	time ./$<
 
 # sphere.dat, sphere2.dat
@@ -90,7 +97,7 @@ clean:
 	rm -f *.o
 
 realclean: clean
-	rm -f algebra2src.exe numerics.exe sphere.exe
+	rm -f algebra2src.exe single.exe sphere.exe
 	rm -f metric.h metric.cpp
 	rm -f dtau.dat plot.dat sphere.dat sphere2.dat wrong.dat
 	@make -C ../calculus clean
