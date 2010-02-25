@@ -49,10 +49,10 @@ $(CS_O): $(CS) $(CS_H)
 
 
 # single
-single.$(EXT): single.o numerics.o init.o metric.o particle.o emfield.o spectrum.o
+single.$(EXT): single.o numerics.o init.o metric.o particle.o emfield.o spectrum.o misclib.o
 	$(CXX) $(CFLAGS) -o $@ $^ $(LDFLAGS)
 
-single.o: single.cpp numerics.h global.h init.h metric.h myfloat.h particle.h
+single.o: single.cpp numerics.h global.h init.h metric.h myfloat.h particle.h misclib.h
 	$(CXX) $(CFLAGS) -c -o $@ $<
 
 numerics.o: numerics.cpp numerics.h global.h metric.h myfloat.h particle.h
@@ -73,6 +73,9 @@ metric.h metric.cpp: algebra2src.$(EXT) $(METRIC)
 	./$< "$(METRIC)"
 
 emfield.o: emfield.cpp emfield.h metric.h myfloat.h
+	$(CXX) $(CFLAGS) -c -o $@ $<
+
+misclib.o: misclib.cpp misclib.h metric.h global.h myfloat.h init.h
 	$(CXX) $(CFLAGS) -c -o $@ $<
 
 # sphere
