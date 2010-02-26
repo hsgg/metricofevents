@@ -106,7 +106,9 @@ int main()
 	while ((absol(wrong) <= init.max_wrongness)
 		&& (tau <= init.tau_max + dtau))
 	{
-		dtau = init.dtau * exp(-1e15 * absol(wrong - wrong_old) / init.max_wrongness);
+		//dtau = init.dtau * exp(-1e15 * absol(wrong - wrong_old) / init.max_wrongness);
+		dtau = init.dtau * pow(absol(particle.x[1] - 2 * init.m), 1.7)
+			* (1.0 - wrong / init.max_wrongness);
 
 		if (++taun % 1000 == 0) {
 			info(taun, tau, dtau, wrong, particle.x);
