@@ -4,6 +4,7 @@
 #include "myfloat.h"
 #include "metric.h"
 #include "spectrum.h"
+#include "misclib.h"
 
 
 using namespace std;
@@ -34,10 +35,22 @@ Spectrum::inc_cnts()
 	unsigned i = cnts.size();
 	while (i--) {
 		myfloat r = particle->x[1];
-		// FIXME: This is only a very rudimentary gaussian in a band
+		// FIXME: We only consider a small belt
 		if ((r < 4.0 * metric->m) && (r > 2.75 * metric->m)){
-			myfloat energy = freqmult[i] * particle->u[0];
-			cnts[i] += exp(-1 * (energy - 5.9) * (energy - 5.9));
+			// source movement
+			myfloat src_u[DIM] = {
+				1.0 / sqrt((metric->*metric->g[0][0])
+						(particle->x)),
+				0.0,
+				0.0,
+				0.0
+			};
+			myfloat E_over_k = scalar(*metric, particle->x,
+					src_u, particle->u);
+
+			// FIXME: This is only a very rudimentary gaussian
+			myfloat energy = freqmult[i] * E_over_k;
+			cnts[i] += exp(-(energy - 5.9) * (energy - 5.9));
 		}
 	}
 }

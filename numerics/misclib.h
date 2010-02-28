@@ -1,6 +1,7 @@
 #ifndef MISCLIB_H
 #define MISCLIB_H
 
+#include "init.h"
 
 // absolute value of myfloat
 inline myfloat absol(const myfloat number)

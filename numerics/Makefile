@@ -64,7 +64,7 @@ numerics.o: numerics.cpp numerics.h global.h metric.h myfloat.h particle.h
 init.o: init.cpp init.h myfloat.h
 	$(CC) $(CFLAGS) -c -o $@ $<
 
-spectrum.o: spectrum.cpp spectrum.h myfloat.h
+spectrum.o: spectrum.cpp spectrum.h myfloat.h misclib.h
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 particle.o: particle.cpp particle.h global.h myfloat.h
