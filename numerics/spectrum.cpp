@@ -50,7 +50,7 @@ Spectrum::inc_cnts()
 
 			// FIXME: This is only a very rudimentary gaussian
 			myfloat energy = freqmult[i] * E_over_k;
-			cnts[i] += exp(-(energy - 5.9) * (energy - 5.9));
+			cnts[i] += exp(-5 * (energy - 5.9) * (energy - 5.9));
 		}
 	}
 }

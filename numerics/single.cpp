@@ -38,11 +38,14 @@ int main()
 		init.x, init.u);
 
 	// spectrum
-	myfloat i_to_e_mult = 0.1;
+	myfloat emin = 3.5;
+	myfloat emax = 7.5;
+	myfloat start_u0 = particle.u[0];
 	vector<myfloat> freqmult(100);
 	for (unsigned i = 0; i < freqmult.size(); i++){
-		myfloat energy = i * i_to_e_mult; // E = u0 * freqmult
-		freqmult[i] = energy / particle.u[0];
+		// E = u0 * freqmult
+		myfloat energy = i * (emax - emin) / freqmult.size() + emin;
+		freqmult[i] = energy / start_u0;
 	}
 	Spectrum spec(freqmult, &particle, &metric);
 
@@ -169,8 +172,8 @@ int main()
 		 << endl;
 
 	for (unsigned i = 0; i < spec.cnts.size(); i++){
-		myfloat energy = i * i_to_e_mult;
-		specfile << energy << '\t' << spec.cnts[i] << endl;
+		specfile << freqmult[i] * start_u0 << '\t'
+			<< spec.cnts[i] << endl;
 	}
 
 	plotfile.close();
