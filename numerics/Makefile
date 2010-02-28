@@ -21,7 +21,7 @@ CS_H=$(CS:.cpp=.h)
 CS_O=$(CS:.cpp=.o)
 
 
-.PHONY: all plot wrong programs datafiles
+.PHONY: all plot wrong spec programs datafiles
 all: programs datafiles plot
 
 
@@ -30,6 +30,9 @@ plot: gnuplot.gplt plot.dat sphere.dat sphere2.dat
 
 wrong: plot gnuplot-wrong.gplt
 	gnuplot -persist gnuplot-wrong.gplt
+
+spec: plot gnuplot-spec.gplt
+	gnuplot -persist gnuplot-spec.gplt
 
 
 programs: algebra2src.$(EXT) single.$(EXT) sphere.$(EXT)
@@ -102,5 +105,5 @@ clean:
 realclean: clean
 	rm -f algebra2src.exe single.exe sphere.exe
 	rm -f metric.h metric.cpp
-	rm -f dtau.dat plot.dat sphere.dat sphere2.dat wrong.dat
+	rm -f dtau.dat plot.dat sphere.dat sphere2.dat wrong.dat spec.dat
 	@make -C ../calculus clean
