@@ -169,11 +169,10 @@ int main()
 				particle.u);
 
 		cout << endl;
-		for (unsigned mu = 0; mu < metric.dim; mu++)
-			cout << "x" << mu << " = " << particle.x[mu] << endl;
-		cout << endl;
-		for (unsigned mu = 0; mu < metric.dim; mu++)
+		for (unsigned mu = 0; mu < metric.dim; mu++) {
+			cout << "x" << mu << " = " << particle.x[mu] << '\t';
 			cout << "u" << mu << " = " << particle.u[mu] << endl;
+		}
 		cout << endl;
 
 		stringstream nrays_str;

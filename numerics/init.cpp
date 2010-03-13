@@ -17,7 +17,7 @@ struct initializations initials()
 
 	//i.m = (6.6726e-11) * (1.99e+30) / (c * c);
 	i.m = 1.0;
-	i.a = 0.8;
+	i.a = 0.99;
 	i.q = 0.0; //0.15;
 
 
@@ -51,7 +51,7 @@ struct initializations initials()
 	i.dtau = 0.02;
 	i.tau_max = 65;
 	i.max_wrongness = 1e-5;
-	i.min_x1 = 2.1;
+	i.min_x1 = 2.7;
 	i.max_x1 = 6.1;
 
 	return i;
