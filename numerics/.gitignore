@@ -9,3 +9,9 @@ sphere.exe
 sphere2.dat
 wrong.dat
 spec.dat
+globaldtau.dat
+globalplot.dat
+globalspec.dat
+globalwrong.dat
+gnuplot-globalplot.gplt
+many.exe

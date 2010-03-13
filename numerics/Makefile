@@ -21,8 +21,8 @@ CS_H=$(CS:.cpp=.h)
 CS_O=$(CS:.cpp=.o)
 
 
-.PHONY: all plot wrong spec programs datafiles
-all: programs datafiles plot
+.PHONY: all plot wrong spec programs datafiles globalplot globalspec
+all: programs globalplot globalspec
 
 
 plot: gnuplot.gplt plot.dat sphere.dat sphere2.dat
@@ -34,8 +34,14 @@ wrong: plot gnuplot-wrong.gplt
 spec: plot gnuplot-spec.gplt
 	gnuplot -persist gnuplot-spec.gplt
 
+globalplot: gnuplot-globalplot.gplt globalspec.dat
+	gnuplot -persist $<
 
-programs: algebra2src.$(EXT) single.$(EXT) sphere.$(EXT)
+globalspec: gnuplot-globalspec.gplt globalspec.dat
+	gnuplot -persist $<
+
+
+programs: algebra2src.$(EXT) single.$(EXT) sphere.$(EXT) many.$(EXT)
 
 datafiles: plot.dat sphere.dat sphere2.dat
 
@@ -58,6 +64,14 @@ single.$(EXT): single.o numerics.o init.o metric.o particle.o emfield.o spectrum
 single.o: single.cpp numerics.h global.h init.h metric.h myfloat.h particle.h misclib.h
 	$(CXX) $(CFLAGS) -c -o $@ $<
 
+# many
+many.$(EXT): many.o numerics.o init.o metric.o particle.o emfield.o spectrum.o misclib.o
+	$(CXX) $(CFLAGS) -o $@ $^ $(LDFLAGS)
+
+many.o: many.cpp numerics.h global.h init.h metric.h myfloat.h particle.h misclib.h
+	$(CXX) $(CFLAGS) -c -o $@ $<
+
+# *.o
 numerics.o: numerics.cpp numerics.h global.h metric.h myfloat.h particle.h
 	$(CXX) $(CFLAGS) -c -o $@ $<
 
@@ -96,6 +110,12 @@ plot.dat: single.$(EXT)
 sphere.dat sphere2.dat: sphere.$(EXT)
 	./$<
 
+# globalspec.dat
+globalspec.dat: many.$(EXT)
+	./$<
+
+gnuplot-globalplot.gplt:
+	echo 'plot "globalspec.dat" w l' >$@
 
 # cleaners
 .PHONY: clean realclean
