@@ -63,7 +63,7 @@ int main()
 	myfloat dtau = init.dtau;
 	myfloat wrong = wrongness(metric, &init, particle.x, particle.u);
 	myfloat wrong_old = wrong;
-	ofstream plotfile("globalplot.dat");
+	ofstream plotfile("globalplot.dat/plot.dat");
 	ofstream dtaufile("globaldtau.dat");
 	ofstream wrongfile("globalwrong.dat");
 	ofstream specfile("globalspec.dat");

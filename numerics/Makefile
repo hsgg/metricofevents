@@ -34,7 +34,7 @@ wrong: plot gnuplot-wrong.gplt
 spec: plot gnuplot-spec.gplt
 	gnuplot -persist gnuplot-spec.gplt
 
-globalplot: gnuplot-globalplot.gplt globalspec.dat
+globalplot: gnuplot-globalplot.gplt globalplot.dat
 	gnuplot -persist $<
 
 globalspec: gnuplot-globalspec.gplt globalspec.dat
@@ -114,8 +114,20 @@ sphere.dat sphere2.dat: sphere.$(EXT)
 globalspec.dat: many.$(EXT)
 	./$<
 
-gnuplot-globalplot.gplt:
-	echo 'plot "globalspec.dat" w l' >$@
+.PHONY: globalplot.dat
+globalplot.dat: many.$(EXT) globalspec.dat
+	mkdir -p $@
+
+gnuplot-globalplot.gplt: globalplot.dat
+	echo "set title \"Whohoo\"" >>$@
+	echo "set polar" >>$@
+	echo "set grid polar" >>$@
+	echo -n "plot " >>$@
+	for dat in globalplot.dat/*.dat; do \
+		echo -n "\"$${dat}\"," >>$@; \
+	done
+	echo " w l" >>$@
+	sed -i -e 's/, //' $@
 
 # cleaners
 .PHONY: clean realclean
