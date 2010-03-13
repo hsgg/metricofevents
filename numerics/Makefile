@@ -119,15 +119,15 @@ globalplot.dat: many.$(EXT) globalspec.dat
 	mkdir -p $@
 
 gnuplot-globalplot.gplt: globalplot.dat
-	echo "set title \"Whohoo\"" >>$@
+	echo "set title \"Whohoo\"" >$@
 	echo "set polar" >>$@
 	echo "set grid polar" >>$@
 	echo -n "plot " >>$@
 	for dat in globalplot.dat/*.dat; do \
 		echo -n "\"$${dat}\"," >>$@; \
 	done
-	echo " w l" >>$@
-	sed -i -e 's/, //' $@
+	echo "" >>$@
+	sed -i -e 's/,$$//' $@
 
 # cleaners
 .PHONY: clean realclean
