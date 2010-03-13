@@ -5,25 +5,22 @@
 
 #include "metric.h"
 #include "myfloat.h"
-#include "particle.h"
 
 
 class Spectrum
 {
     public:
 	// Konstruktor
-	Spectrum(const std::vector<myfloat> freqs, const Particle *part,
-			const Metric *metric);
+	Spectrum(const std::vector<myfloat> freqs, const Metric *metric);
 	// Destruktor
 	~Spectrum();
 
-	void inc_cnts();
+	void inc_cnts(myfloat *x, myfloat *u);
 
 	std::vector<myfloat> cnts;
 
     private:
 	const Metric *metric;
-	const Particle *particle;
 	const std::vector<myfloat> freqmult; // E = u0 * freqmult
 };
 

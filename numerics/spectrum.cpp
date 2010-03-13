@@ -12,9 +12,8 @@ using namespace std;
 
 
 // Konstruktor
-Spectrum::Spectrum(const std::vector<myfloat> freqs, const Particle *part,
-		const Metric *metric)
-	: metric(metric), particle(part), freqmult(freqs)
+Spectrum::Spectrum(const std::vector<myfloat> freqs, const Metric *metric)
+	: metric(metric), freqmult(freqs)
 {
 	cnts.resize(freqmult.size());
 	for(unsigned i = 0; i < cnts.size(); i++) {
@@ -30,23 +29,22 @@ Spectrum::~Spectrum(){}
 
 // increase counts
 void
-Spectrum::inc_cnts()
+Spectrum::inc_cnts(myfloat *x, myfloat *u)
 {
 	unsigned i = cnts.size();
 	while (i--) {
-		myfloat r = particle->x[1];
+		myfloat r = x[1];
 		// FIXME: We only consider a small belt
 		if ((r < 4.0 * metric->m) && (r > 2.75 * metric->m)){
 			// source movement
 			myfloat src_u[DIM] = {
-				1.0 / sqrt((metric->*metric->g[0][0])
-						(particle->x)),
+				1.0 / sqrt((metric->*metric->g[0][0])(x)),
 				0.0,
 				0.0,
 				0.0
 			};
-			myfloat E_over_k = scalar(*metric, particle->x,
-					src_u, particle->u);
+			myfloat E_over_k = scalar(*metric, x,
+					src_u, u);
 
 			// FIXME: This is only a very rudimentary gaussian
 			myfloat energy = freqmult[i] * E_over_k;

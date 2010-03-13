@@ -47,7 +47,7 @@ int main()
 		myfloat energy = i * (emax - emin) / freqmult.size() + emin;
 		freqmult[i] = energy / start_u0;
 	}
-	Spectrum spec(freqmult, &particle, &metric);
+	Spectrum spec(freqmult, &metric);
 
 	cout << endl;
 	for (unsigned mu = 0; mu < metric.dim; mu++)
@@ -157,7 +157,7 @@ int main()
 		x_and_u(metric, emfield, dtau, particle);
 
 		// Update spectrum
-		spec.inc_cnts();
+		spec.inc_cnts(particle.x, particle.u);
 
 		wrong_old = wrong;
 		wrong = wrongness(metric, &init, particle.x, particle.u);

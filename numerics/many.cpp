@@ -2,8 +2,10 @@
 #include <iostream>
 #include <iomanip>
 #include <fstream>
+#include <sstream>
 #include <math.h>
 #include <vector>
+#include <string>
 
 #include "global.h"
 #include "myfloat.h"
@@ -16,66 +18,23 @@
 #include "spectrum.h"
 
 
-
-// ********* MAIN ************
-int main()
+static void go_ray(struct initializations &init, Spectrum &spec,
+		Metric &metric, Particle &particle, EMField &emfield,
+		string &plotfilename)
 {
-	struct initializations init = initials();
-
-	// spacetime
-	Metric metric(init.m, init.a, init.q);
-
-	// emfield
-	EMField emfield(metric);
-
-	// particle
-	init.u[init.change] = find_u(metric, &init, init.x, init.u);
-	Particle particle(init.teilchen_masse, init.teilchen_ladung,
-		init.x, init.u);
-
-	// spectrum
-	myfloat emin = 3.5;
-	myfloat emax = 7.5;
-	myfloat start_u0 = particle.u[0];
-	vector<myfloat> freqmult(100);
-	for (unsigned i = 0; i < freqmult.size(); i++){
-		// E = u0 * freqmult
-		myfloat energy = i * (emax - emin) / freqmult.size() + emin;
-		freqmult[i] = energy / start_u0;
-	}
-	Spectrum spec(freqmult, &particle, &metric);
-
-	cout << endl;
-	for (unsigned mu = 0; mu < metric.dim; mu++)
-	{
-		cout << "x" << mu << " = " << particle.x[mu] << endl;
-	}
-	cout << endl;
-	for (unsigned mu = 0; mu < metric.dim; mu++)
-	{
-		cout << "u" << mu << " = " << particle.u[mu] << endl;
-	}
-	cout << endl;
-
-
-
-	// Iterate
 	myfloat dtau = init.dtau;
-	myfloat wrong = wrongness(metric, &init, particle.x, particle.u);
-	myfloat wrong_old = wrong;
-	ofstream plotfile("globalplot.dat/plot.dat");
+
+	ofstream plotfile(plotfilename.c_str());
 	ofstream dtaufile("globaldtau.dat");
 	ofstream wrongfile("globalwrong.dat");
-	ofstream specfile("globalspec.dat");
 	plotfile << scientific;
 	dtaufile << scientific;
 	wrongfile << scientific;
-	specfile << scientific;
 	cout << endl << metric.name << ":" << endl
-	     << "m = " << metric.m << endl
-	     << "a = " << metric.a << endl
-	     << "q = " << metric.q << endl
-	     << endl;
+		<< "m = " << metric.m << endl
+		<< "a = " << metric.a << endl
+		<< "q = " << metric.q << endl
+		<< endl;
 
 	// Print important information to plotfile
 	plotfile << "# Metric: " << metric.name << endl;
@@ -86,13 +45,17 @@ int main()
 		<< "#	m = " << init.teilchen_masse << endl
 		<< "#	q = " << init.teilchen_ladung << endl;
 	plotfile << "# length_4velocity = "
-		<< scalar(metric, particle.x, particle.u, particle.u) << endl
+		<< scalar(metric, particle.x, particle.u, particle.u)
+		<< endl
 		<< "# dtau = " << dtau << endl
 		<< "# tau_max = " << init.tau_max << endl
 		<< "# max_wrongness = " << init.max_wrongness << endl
 		<< "# max_x1 = " << init.max_x1 << endl;
 	plotfile << "# x3 x1 x2 x0	wrong	u3 u1 u2 u0" << endl;
 
+	myfloat wrong = wrongness(metric, &init, particle.x,
+			particle.u);
+	myfloat wrong_old = wrong;
 
 	// Iterate
 	int taun = -1;
@@ -100,9 +63,7 @@ int main()
 	while ((absol(wrong) <= init.max_wrongness)
 		&& (tau <= init.tau_max + dtau))
 	{
-		//dtau = init.dtau * exp(-1e15 * absol(wrong - wrong_old) / init.max_wrongness);
 		dtau = init.dtau * pow(absol(particle.x[1] - 2 * init.m), sqrt(3.0));
-			//* (1.0 - wrong / init.max_wrongness);
 
 		if (++taun % 1000 == 0) {
 			info(taun, tau, dtau, wrong, particle.x);
@@ -136,7 +97,7 @@ int main()
 		x_and_u(metric, emfield, dtau, particle);
 
 		// Update spectrum
-		spec.inc_cnts();
+		spec.inc_cnts(particle.x, particle.u);
 
 		wrong_old = wrong;
 		wrong = wrongness(metric, &init, particle.x, particle.u);
@@ -147,23 +108,85 @@ int main()
 	}
 	plotfile << endl;
 	plotfile << "# length_4velocity = "
-		 << scalar(metric, particle.x, particle.u, particle.u)
-		 << endl;
+		<< scalar(metric, particle.x, particle.u, particle.u)
+		<< endl;
+
+	plotfile.close();
+	dtaufile.close();
+	wrongfile.close();
+
+	info(taun, tau, dtau, wrong, particle.x);
+}
+
+
+// ********* MAIN ************
+int main()
+{
+	struct initializations init = initials();
+
+	// spacetime
+	Metric metric(init.m, init.a, init.q);
+
+	// emfield
+	EMField emfield(metric);
+
+	// particle
+	init.u[init.change] = find_u(metric, &init, init.x, init.u);
+	Particle initparticle(init.teilchen_masse, init.teilchen_ladung,
+		init.x, init.u);
+
+	// spectrum
+	myfloat emin = 3.5;
+	myfloat emax = 7.5;
+	myfloat start_u0 = initparticle.u[0];
+	vector<myfloat> freqmult(100);
+	for (unsigned i = 0; i < freqmult.size(); i++){
+		// E = u0 * freqmult
+		myfloat energy = i * (emax - emin) / freqmult.size() + emin;
+		freqmult[i] = energy / start_u0;
+	}
+	Spectrum spec(freqmult, &metric);
+
+	ofstream specfile("globalspec.dat");
+	specfile << scientific;
+
+
+	// per-ray data
+	int nrays;
+	for (nrays = 4; nrays > 0; nrays--) {
+		// particle
+		init.u[init.change] = find_u(metric, &init, init.x, init.u);
+		Particle particle(init.teilchen_masse, init.teilchen_ladung,
+				init.x, init.u);
+
+		cout << endl;
+		for (unsigned mu = 0; mu < metric.dim; mu++)
+			cout << "x" << mu << " = " << particle.x[mu] << endl;
+		cout << endl;
+		for (unsigned mu = 0; mu < metric.dim; mu++)
+			cout << "u" << mu << " = " << particle.u[mu] << endl;
+		cout << endl;
+
+		stringstream nrays_str;
+		nrays_str << nrays;
+		string plotfilename;
+		plotfilename = "globalplot.dat/plot";
+		plotfilename += nrays_str.str();
+		plotfilename += ".dat";
+
+		// Iterate
+		go_ray(init, spec, metric, particle, emfield, plotfilename);
+
+		cout << endl;
+	}
+
 
 	for (unsigned i = 0; i < spec.cnts.size(); i++){
 		specfile << freqmult[i] * start_u0 << '\t'
 			<< spec.cnts[i] << endl;
 	}
-
-	plotfile.close();
-	dtaufile.close();
-	wrongfile.close();
 	specfile.close();
 
-
-	info(taun, tau, dtau, wrong, particle.x);
-
-	cout << endl;
 
 	return 0;
 }
