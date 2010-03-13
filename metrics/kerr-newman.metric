@@ -23,8 +23,25 @@ q
 delta = r^2 + (-a)^2 - 2 * m * r + q^2
 rho2 = r^2 + (-a * cos(theta))^2
 
-
 # metric
+g00 = 1 - (2*m*r - q^2)/rho2
+g01 = 0
+g02 = 0
+g03 = -(-a * (sin(theta)^2) / rho2) * (r^2 + (-a)^2 - delta)
+g10 = g01
+g11 = -rho2 / delta
+g12 = 0
+g13 = 0
+g20 = g02
+g21 = g12
+g22 = -rho2
+g23 = 0
+g30 = g03
+g31 = g13
+g32 = g23
+g33 = (delta / rho2) * (-a)^2 * (sin(theta)^4) - ((sin(theta)^2) / rho2) * (r^2 + (-a)^2)^2
+
+################################################
 g00 = (delta - (-a * sin(theta))^2) / rho2
 g01 = 0
 g02 = 0
