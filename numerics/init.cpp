@@ -17,7 +17,7 @@ struct initializations initials()
 
 	//i.m = (6.6726e-11) * (1.99e+30) / (c * c);
 	i.m = 1.0;
-	i.a = 0.1;
+	i.a = 0.8;
 	i.q = 0.0; //0.15;
 
 
@@ -37,17 +37,22 @@ struct initializations initials()
 	i.u[0] = 0.0; //sqrt( E / (1.0 - 2.0 * i.m / i.x[1] - i.m / i.x[1]) );
 	i.u[1] = -1.1; //-0.7;
 	i.u[2] = 0.0;
-	i.u[3] = 0.21; // -sqrt(i.m / (i.x[1] * i.x[1] * i.x[1])) * i.u[0] * i.a;
+	i.u[3] = 0.23; //0.21; // -sqrt(i.m / (i.x[1] * i.x[1] * i.x[1])) * i.u[0] * i.a;
 	//i.u[3] = L / (i.x[1] * i.x[1])
 	//	* (myfloat) ( pow(sin(i.x[2]),-0.999999999992) );
 
+	i.nrays = 50;
+	i.u3_inc = -0.01;
+	i.umin_inc = -10.0;
+	i.umax_inc = 0.0;
+
 	//i.dtau = c * 86400 * 160;
 	//i.tau_max = 1000 * 31.536e+6 * c;
-	i.dtau = 0.01;
+	i.dtau = 0.02;
 	i.tau_max = 65;
 	i.max_wrongness = 1e-5;
 	i.min_x1 = 2.1;
-	i.max_x1 = 20.0;
+	i.max_x1 = 6.1;
 
 	return i;
 }

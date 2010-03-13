@@ -35,7 +35,7 @@ Spectrum::inc_cnts(myfloat *x, myfloat *u)
 	while (i--) {
 		myfloat r = x[1];
 		// FIXME: We only consider a small belt
-		if ((r < 4.0 * metric->m) && (r > 2.75 * metric->m)){
+		if ((r < 3.0 * metric->m) && (r > 2.75 * metric->m)){
 			// source movement
 			myfloat src_u[DIM] = {
 				1.0 / sqrt((metric->*metric->g[0][0])(x)),

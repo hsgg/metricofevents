@@ -30,11 +30,6 @@ static void go_ray(struct initializations &init, Spectrum &spec,
 	plotfile << scientific;
 	dtaufile << scientific;
 	wrongfile << scientific;
-	cout << endl << metric.name << ":" << endl
-		<< "m = " << metric.m << endl
-		<< "a = " << metric.a << endl
-		<< "q = " << metric.q << endl
-		<< endl;
 
 	// Print important information to plotfile
 	plotfile << "# Metric: " << metric.name << endl;
@@ -65,7 +60,7 @@ static void go_ray(struct initializations &init, Spectrum &spec,
 	{
 		dtau = init.dtau * pow(absol(particle.x[1] - 2 * init.m), sqrt(3.0));
 
-		if (++taun % 1000 == 0) {
+		if (++taun % 256 == 0) {
 			info(taun, tau, dtau, wrong, particle.x);
 			if (taun >= 10000) {
 				cerr << "WARNING: Aborting prematurely: taking too long" << endl;
@@ -126,6 +121,11 @@ int main()
 
 	// spacetime
 	Metric metric(init.m, init.a, init.q);
+	cout << endl << metric.name << ":" << endl
+		<< "m = " << metric.m << endl
+		<< "a = " << metric.a << endl
+		<< "q = " << metric.q << endl
+		<< endl;
 
 	// emfield
 	EMField emfield(metric);
@@ -153,11 +153,20 @@ int main()
 
 	// per-ray data
 	int nrays;
-	for (nrays = 4; nrays > 0; nrays--) {
+	for (nrays = init.nrays - 1; nrays >= 0; nrays--) {
+		cout << "===========================================" << endl
+			<< "Ray index: " << nrays << endl
+			<< endl;
 		// particle
-		init.u[init.change] = find_u(metric, &init, init.x, init.u);
 		Particle particle(init.teilchen_masse, init.teilchen_ladung,
 				init.x, init.u);
+		init.change = 1;
+		init.umin = init.umin_inc;
+		init.umax = init.umax_inc;
+		particle.u[0] = start_u0;
+		particle.u[3] = init.u[3] + nrays * init.u3_inc;
+		particle.u[init.change] = find_u(metric, &init, particle.x,
+				particle.u);
 
 		cout << endl;
 		for (unsigned mu = 0; mu < metric.dim; mu++)

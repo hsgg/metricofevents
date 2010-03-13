@@ -25,6 +25,11 @@ struct initializations {
 	myfloat x[DIM];
 	myfloat u[DIM];
 
+	int nrays;
+	myfloat u3_inc;
+	myfloat umin_inc;
+	myfloat umax_inc;
+
 	int change;
 	myfloat umin;
 	myfloat umax;
