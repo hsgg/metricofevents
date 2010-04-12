@@ -32,20 +32,20 @@ void
 Spectrum::inc_cnts(myfloat *x, myfloat *u)
 {
 	unsigned i = cnts.size();
-	while (i--) {
-		myfloat r = x[1];
-		// FIXME: We only consider a small belt
-		if ((r < 3.0 * metric->m) && (r > 2.75 * metric->m)){
-			// source movement
-			myfloat src_u[DIM] = {
-				1.0 / sqrt((metric->*metric->g[0][0])(x)),
-				0.0,
-				0.0,
-				0.0
-			};
-			myfloat E_over_k = scalar(*metric, x,
-					src_u, u);
+	myfloat r = x[1];
+	// FIXME: We only consider a small belt
+	if ((r < 3.5 * metric->m) && (r > 3.1 * metric->m)){
+		// source movement
+		myfloat src_u[DIM] = {
+			1.0 / sqrt((metric->*metric->g[0][0])(x)),
+			0.0,
+			0.0,
+			0.0
+		};
+		myfloat E_over_k = scalar(*metric, x,
+				src_u, u);
 
+		while (i--) {
 			// FIXME: This is only a very rudimentary gaussian
 			myfloat energy = freqmult[i] * E_over_k;
 			cnts[i] += exp(-105 * (energy - 5.9) * (energy - 5.9));
