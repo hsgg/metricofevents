@@ -15,7 +15,7 @@ class Spectrum
 	// Destruktor
 	~Spectrum();
 
-	void inc_cnts(myfloat *x, myfloat *u);
+	int inc_cnts(myfloat *x, myfloat *u);
 
 	std::vector<myfloat> cnts;
 

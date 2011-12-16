@@ -11,9 +11,9 @@ EXT=exe
 
 
 # Metrics:
-#METRIC=../metrics/schwarzschild.metric
+METRIC=../metrics/schwarzschild.metric
 #METRIC=../metrics/robertson-walker-schwarzschild.metric
-METRIC=../metrics/kerr-newman.metric
+#METRIC=../metrics/kerr-newman.metric
 
 
 CS=../calculus/coordinate_system.cpp
@@ -112,6 +112,7 @@ sphere.dat sphere2.dat: sphere.$(EXT)
 
 # globalspec.dat
 globalspec.dat: many.$(EXT)
+	rm globalplot.dat/plot*
 	./$<
 
 .PHONY: globalplot.dat
@@ -135,7 +136,7 @@ clean:
 	rm -f *.o
 
 realclean: clean
-	rm -f algebra2src.exe single.exe sphere.exe
+	rm -f algebra2src.exe single.exe sphere.exe many.exe
 	rm -f metric.h metric.cpp
 	rm -f dtau.dat plot.dat sphere.dat sphere2.dat wrong.dat spec.dat
 	@make -C ../calculus clean

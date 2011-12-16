@@ -17,7 +17,7 @@ struct initializations initials()
 
 	//i.m = (6.6726e-11) * (1.99e+30) / (c * c);
 	i.m = 1.0;
-	i.a = 0.99;
+	i.a = 0.0;
 	i.q = 0.0; //0.15;
 
 
@@ -26,7 +26,7 @@ struct initializations initials()
 
 	i.x[0] = 0.0;
 	//i.x[1] = 1.496e+11;
-	i.x[1] = 6.0 * i.m;
+	i.x[1] = 9.0 * i.m;
 	i.x[2] = (myfloat) (M_PI_2);
 	i.x[3] = 0.0;
 
@@ -37,22 +37,23 @@ struct initializations initials()
 	i.u[0] = 0.0; //sqrt( E / (1.0 - 2.0 * i.m / i.x[1] - i.m / i.x[1]) );
 	i.u[1] = -1.1; //-0.7;
 	i.u[2] = 0.0;
-	i.u[3] = 0.23; //0.21; // -sqrt(i.m / (i.x[1] * i.x[1] * i.x[1])) * i.u[0] * i.a;
+	//i.u[3] = 0.13; //0.21; // -sqrt(i.m / (i.x[1] * i.x[1] * i.x[1])) * i.u[0] * i.a;
+	i.u[3] = 0.10;
 	//i.u[3] = L / (i.x[1] * i.x[1])
 	//	* (myfloat) ( pow(sin(i.x[2]),-0.999999999992) );
 
-	i.nrays = 50;
-	i.u3_inc = -0.01;
+	i.nrays = 10;
+	i.u3_inc = -(2.0 * i.u[3]) / (i.nrays - 1);
 	i.umin_inc = -10.0;
 	i.umax_inc = 0.0;
 
 	//i.dtau = c * 86400 * 160;
 	//i.tau_max = 1000 * 31.536e+6 * c;
-	i.dtau = 0.02;
+	i.dtau = 0.001;
 	i.tau_max = 65;
 	i.max_wrongness = 1e-5;
 	i.min_x1 = 2.7;
-	i.max_x1 = 6.1;
+	i.max_x1 = 10.1;
 
 	return i;
 }

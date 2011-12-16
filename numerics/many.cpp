@@ -18,6 +18,26 @@
 #include "spectrum.h"
 
 
+static char const *filename = "calclen.dat";
+static void truncate_file()
+{
+	ofstream tpfile(filename, ios::trunc);
+	tpfile << "# nray	taun" << endl;
+	tpfile.close();
+}
+static void append_file(int taun)
+{
+	static int i = -250;
+	i++;
+	ofstream tpfile(filename, ios::app);
+	tpfile << scientific;
+	tpfile << i << '\t' << taun << endl;
+	tpfile.close();
+}
+
+int absorb;
+int const absorb_max = 1;
+
 static void go_ray(struct initializations &init, Spectrum &spec,
 		Metric &metric, Particle &particle, EMField &emfield,
 		string &plotfilename)
@@ -53,6 +73,7 @@ static void go_ray(struct initializations &init, Spectrum &spec,
 	myfloat wrong_old = wrong;
 
 	// Iterate
+	int absorb_last = 0;
 	int taun = -1;
 	myfloat tau = 0.0;
 	while ((absol(wrong) <= init.max_wrongness)
@@ -92,11 +113,19 @@ static void go_ray(struct initializations &init, Spectrum &spec,
 		x_and_u(metric, emfield, dtau, particle);
 
 		// Update spectrum
-		spec.inc_cnts(particle.x, particle.u);
+		absorb += spec.inc_cnts(particle.x, particle.u);
 
 		wrong_old = wrong;
 		wrong = wrongness(metric, &init, particle.x, particle.u);
 
+		if (absorb) {
+			if (absorb >= absorb_max)
+				break;
+			if (absorb == absorb_last)
+				// error, currently
+				break;
+			absorb_last = absorb;
+		}
 		if ((particle.x[1] > init.max_x1)
 				|| (particle.x[1] < init.min_x1))
 			break;
@@ -111,6 +140,8 @@ static void go_ray(struct initializations &init, Spectrum &spec,
 	wrongfile.close();
 
 	info(taun, tau, dtau, wrong, particle.x);
+
+	append_file(taun);
 }
 
 
@@ -118,6 +149,8 @@ static void go_ray(struct initializations &init, Spectrum &spec,
 int main()
 {
 	struct initializations init = initials();
+
+	truncate_file();
 
 	// spacetime
 	Metric metric(init.m, init.a, init.q);
@@ -136,10 +169,10 @@ int main()
 		init.x, init.u);
 
 	// spectrum
-	myfloat emin = 3.5;
-	myfloat emax = 7.5;
+	myfloat emin = 2.0;
+	myfloat emax = 13.0;
 	myfloat start_u0 = initparticle.u[0];
-	vector<myfloat> freqmult(100);
+	vector<myfloat> freqmult(10000);
 	for (unsigned i = 0; i < freqmult.size(); i++){
 		// E = u0 * freqmult
 		myfloat energy = i * (emax - emin) / freqmult.size() + emin;
@@ -183,7 +216,20 @@ int main()
 		plotfilename += ".dat";
 
 		// Iterate
+		absorb = 0;
 		go_ray(init, spec, metric, particle, emfield, plotfilename);
+
+		cout << endl;
+		for (unsigned mu = 0; mu < metric.dim; mu++) {
+			cout << "x" << mu << " = " << particle.x[mu] << '\t';
+			cout << "u" << mu << " = " << particle.u[mu] << endl;
+		}
+		cout << endl;
+
+		if (absorb && (absorb != absorb_max)){
+			cerr << "Error detected" << endl;
+			exit(1);
+		}
 
 		cout << endl;
 	}
