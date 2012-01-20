@@ -237,6 +237,11 @@ using namespace GiNaC;
 
 
 
+// a(t)
+MAKE_FUNC1(a, "a", adot_func,
+	ad_func, "\\dot{a}", addot_func,
+	add_func, "\\ddot{a}")
+
 // c(t) = sol(t) (speed-of-light)
 MAKE_FUNC1(c, "c", cdot,
 	cd, "\\dot{c}", cddot,
@@ -321,7 +326,7 @@ MAKE_FUNC2(aa, "a", aa_n,
 	aa0, "\\dot{a}", aa0prime,
 	aa1, "a'", aa1prime,
 	aa11, "\\ddot{a}",
-	aa12, "\\dot{a \\mathbf{NOTICE}}'",
+	aa12, "\\dot{a}'",
 	aa22, "a''")
 
 // bb(t,x)
