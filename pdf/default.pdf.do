@@ -1,3 +1,3 @@
-redo-ifchange ../tex/$1.pdf
+redo-ifchange ../tex/$1
 
-cp ../tex/$1.pdf $3
+cp ../tex/$1 $3

@@ -1,6 +1,6 @@
-mkdir -p $1
-redo-ifchange $1/$1.tex
+mkdir -p $2
+redo-ifchange $2/$2.tex
 
-( cd $1; latexmk -pdf $1.tex >&2 )
+( cd $2; latexmk -pdf $2.tex >&2 )
 
-cp $1/$1.pdf $3
+cp $2/$1 $3
