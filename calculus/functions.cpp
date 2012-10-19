@@ -421,3 +421,30 @@ MAKE_FUNC3(Potential, "\\Phi", Pp,
 	P33, "\\hat{\\hat{\\Phi}}")
 
 
+// g_mn(t,x,y,z)
+#define MAKE_G_MN(munu) \
+	MAKE_FUNC4(g_##munu, "g_{"#munu"}", g_##munu##p, \
+			g_##munu##_0, "g_{"#munu",0}", g_##munu##_0p, \
+			g_##munu##_1, "g_{"#munu",1}", g_##munu##_1p, \
+			g_##munu##_2, "g_{"#munu",2}", g_##munu##_2p, \
+			g_##munu##_3, "g_{"#munu",3}", g_##munu##_3p, \
+			g_##munu##_00, "g_{"#munu",00}", \
+			g_##munu##_01, "g_{"#munu",01}", \
+			g_##munu##_02, "g_{"#munu",02}", \
+			g_##munu##_03, "g_{"#munu",03}", \
+			g_##munu##_11, "g_{"#munu",11}", \
+			g_##munu##_12, "g_{"#munu",12}", \
+			g_##munu##_13, "g_{"#munu",13}", \
+			g_##munu##_22, "g_{"#munu",22}", \
+			g_##munu##_23, "g_{"#munu",23}", \
+			g_##munu##_33, "g_{"#munu",33}")
+MAKE_G_MN(00)
+MAKE_G_MN(01)
+MAKE_G_MN(02)
+MAKE_G_MN(03)
+MAKE_G_MN(11)
+MAKE_G_MN(12)
+MAKE_G_MN(13)
+MAKE_G_MN(22)
+MAKE_G_MN(23)
+MAKE_G_MN(33)
