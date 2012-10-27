@@ -17,7 +17,6 @@
 #include "emfield.h"
 #include "numerics.h"
 #include "misclib.h"
-#include "spectrum.h"
 
 
 
@@ -37,17 +36,6 @@ int main()
 	Particle particle(init.teilchen_masse, init.teilchen_ladung,
 		init.x, init.u);
 
-	// spectrum
-	myfloat emin = 3.5;
-	myfloat emax = 7.5;
-	myfloat start_u0 = particle.u[0];
-	vector<myfloat> freqmult(100);
-	for (unsigned i = 0; i < freqmult.size(); i++){
-		// E = u0 * freqmult
-		myfloat energy = i * (emax - emin) / freqmult.size() + emin;
-		freqmult[i] = energy / start_u0;
-	}
-	Spectrum spec(freqmult, &metric);
 
 	cout << endl;
 	for (unsigned mu = 0; mu < metric.dim; mu++)
@@ -87,11 +75,9 @@ int main()
 	ofstream plotfile("plot.dat");
 	ofstream dtaufile("dtau.dat");
 	ofstream wrongfile("wrong.dat");
-	ofstream specfile("spec.dat");
 	plotfile << scientific;
 	dtaufile << scientific;
 	wrongfile << scientific;
-	specfile << scientific;
 	cout << endl << metric.name << ":" << endl
 	     << "m = " << metric.m << endl
 	     << "a = " << metric.a << endl
@@ -160,9 +146,6 @@ int main()
 		// Berechne x, u
 		x_and_u(metric, emfield, dtau, particle);
 
-		// Update spectrum
-		spec.inc_cnts(particle.x, particle.u);
-
 		wrong_old = wrong;
 		wrong = wrongness(metric, &init, particle.x, particle.u);
 
@@ -175,15 +158,10 @@ int main()
 		 << scalar(metric, particle.x, particle.u, particle.u)
 		 << endl;
 
-	for (unsigned i = 0; i < spec.cnts.size(); i++){
-		specfile << freqmult[i] * start_u0 << '\t'
-			<< spec.cnts[i] << endl;
-	}
 
 	plotfile.close();
 	dtaufile.close();
 	wrongfile.close();
-	specfile.close();
 
 
 	info(taun, tau, dtau, wrong, particle.x);
