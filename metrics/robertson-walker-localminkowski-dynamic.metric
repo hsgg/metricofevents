@@ -1,0 +1,25 @@
+# Name
+"Robertson-Walker Metric locally Minkowski"
+
+# Coordinates
+x0 = t
+x1 = x
+x2 = y
+x3 = z
+
+
+# Functions
+R(t)
+n
+m # = -3 * n
+
+
+# Shortcuts
+Rm = R(t)^m
+Rn = R(t)^n
+
+# Metric
+g00 = Rm^2
+g11 = -Rn^2
+g22 = -Rn^2
+g33 = -Rn^2

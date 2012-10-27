@@ -1,0 +1,25 @@
+# This is a comment.
+
+# Name
+"Robertson-Walker Metric of a flat universe"
+
+ # Coordinates
+x0 = t
+x1 = r
+x2 = theta
+x3 = phi
+
+# Functions
+Hu(t)
+
+# Shortcuts
+H2 = Hu(t) * Hu(t)
+r2 = r * r
+
+# Metric
+g00 = 1 - r2 * H2
+g01 = r * Hu(t)
+g10 = g01
+g11 = -1
+g22 = -r2
+g33 = -r2 * sin(theta)^2

@@ -1,0 +1,28 @@
+# Misner, Thonne, Wheeler 1973, p. 877
+
+"Kerr-Newman geometry in Boyer-Lindquist Coordinates"
+
+# coordinates
+x0 = t
+x1 = r
+x2 = theta
+x3 = phi
+
+
+# mass, angular momentum per mass
+m
+a
+q
+
+
+# Hilfsexpressions
+delta = r^2 - 2 * m * r + a^2 + q^2
+rho2 = r^2 + a^2 * cos(theta)^2
+
+# metric
+g00 = (delta / rho2) - (sin(theta)^2 / rho2) * a^2
+g03 = -(delta / rho2) * a * sin(theta)^2 + (sin(theta)^2 / rho2) * a * (r^2 + a^2)
+g11 = -rho2 / delta
+g22 = -rho2
+g30 = g03
+g33 = (delta / rho2) * a^2 * sin(theta)^2 - (sin(theta)^2 / rho2) * (r^2 + a^2)

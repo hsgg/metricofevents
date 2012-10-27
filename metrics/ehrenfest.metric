@@ -1,0 +1,28 @@
+# HSGG Tü20110614
+
+"Ehrenfest'sches Paradoxon"
+
+# Symbole
+R
+omega
+
+# Kontravariante Koordinaten x^mu
+" in cylindrical coordinates"
+x0 = t
+x1 = r
+x2 = phi
+x3 = z
+
+# Hilfsexpressionen
+""
+L # = 1/sqrt(1 - R*R * omega*omega)
+#P = R*R * omega
+P = (1 - 1 / L) / omega
+
+# Metrik g_mu_nu
+g00 = L*L * (1 - r*r * omega*omega)
+g02 = L * (P - r*r * omega)
+g11 = -1
+g20 = g02
+g22 = -r * r + P * P
+g33 = -1

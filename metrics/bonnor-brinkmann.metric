@@ -1,0 +1,13 @@
+"axially symmetric photon field"
+
+
+x0 = r
+x1 = theta
+x2 = v
+x3 = u
+
+g00 = -1
+g11 = -r^2
+g23 = 1
+g32 = g23
+g33 = 2 * aa(r,u)

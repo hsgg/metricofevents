@@ -1,0 +1,23 @@
+# This is a comment.
+
+# Name
+"Robertson-Walker Metric of a flat universe"
+
+ # Coordinates
+x0 = t
+x1 = r
+x2 = theta
+x3 = phi
+
+# Functions
+a(t)
+
+# Shortcuts
+a2 = a(t) * a(t)
+r2 = r * r
+
+# Metric
+g00 = 1
+g11 = -a2
+g22 = -a2 * r2
+g33 = -a2 * r2 * sin(theta)^2   # and some nonsense

@@ -1,0 +1,24 @@
+"two photons meeting at 90° angle"
+
+x0 = x
+x1 = y
+x2 = z
+x3 = t
+
+u1 = (1/sqrt(2)) * (t - y)
+u2 = (1/sqrt(2)) * (t - z)
+
+r1 = sqrt(x^2 + z^2)
+r2 = sqrt(x^2 + y^2)
+
+A1 = aa(r1,u1)
+A2 = bb(r2,u2)
+
+g00 = 1 + A1 + A2
+g02 = -A1
+g03 = -A2
+g11 = -1
+g20 = g02
+g22 = -1 + A1
+g30 = g03
+g33 = -1 + A2

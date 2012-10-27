@@ -1,0 +1,40 @@
+# Name
+"Robertson-Walker Metric locally Minkowski"
+
+# Coordinates
+x0 = t
+x1 = x
+x2 = y
+x3 = z
+
+
+# Functions
+R(t)
+aa(t,x)
+bb(t,x)
+cc(t,x)
+dd(t,x)
+n = -1
+m = +1
+
+
+# Shortcuts
+T = Gm(t)
+R2 = R(t) * R(t)
+R1 = R(t)
+a = R1^(3.0/4.0)
+b = 0 #sqrt(n/sqrt(R1) + m*a^2 / R2)
+c = b
+d = a/R2 #a*b/(c*R2)
+
+# Metric
+g00 = a^2 - R2 * c^2
+g01 = a*b - R2 * c*d
+g02 = a*b - R2 * c*d
+g03 = a*b - R2 * c*d
+g10 = g01
+g11 = b^2 - R2 * d^2
+g20 = g02
+g22 = b^2 - R2 * d^2
+g30 = g03
+g33 = b^2 - R2 * d^2

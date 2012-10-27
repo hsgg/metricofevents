@@ -1,0 +1,15 @@
+# HSGG Tü20110614
+
+
+"Minkowsky Metric in cylindrical coordinates"
+
+x0 = t
+x1 = r
+x2 = phi
+x3 = z
+
+# Metrik g_mu_nu
+g00 = 1
+g11 = -1
+g22 = -r * r
+g33 = -1

@@ -1,0 +1,23 @@
+"A general symmetric metric"
+
+x0 = t
+x1 = x
+x2 = y
+x3 = z
+
+g00 = g_00(t,x,y,z)
+g01 = g_01(t,x,y,z)
+g02 = g_02(t,x,y,z)
+g03 = g_03(t,x,y,z)
+g10 = g01
+g11 = g_11(t,x,y,z)
+g12 = g_12(t,x,y,z)
+g13 = g_13(t,x,y,z)
+g20 = g02
+g21 = g12
+g22 = g_22(t,x,y,z)
+g23 = g_23(t,x,y,z)
+g30 = g03
+g31 = g13
+g32 = g23
+g33 = g_33(t,x,y,z)
