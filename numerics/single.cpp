@@ -122,33 +122,37 @@ int main()
 		&& (tau <= init.tau_max + dtau))
 	{
 		//dtau = init.dtau * exp(-1e15 * absol(wrong - wrong_old) / init.max_wrongness);
-		dtau = init.dtau * pow(absol(particle.x[1] - 2 * init.m), sqrt(3.0));
+		//dtau = init.dtau * pow(absol(particle.x[1] - 2 * init.m), sqrt(3.0));
 			//* (1.0 - wrong / init.max_wrongness);
+
+		//dtau = dtau * (1.0 - wrong / init.max_wrongness);
 
 		if (++taun % 1000 == 0) {
 			info(taun, tau, dtau, wrong, particle.x);
-			if (taun >= 10000) {
+			if (taun >= init.max_n) {
 				cerr << "WARNING: Aborting prematurely: taking too long" << endl;
 				break;
 			}
 		}
 
 		// print to file
-		plotfile<< particle.x[3] << ' '
-			<< particle.x[1] << ' '
-			<< particle.x[2] << ' '
-			<< particle.x[0] << '\t'
-			<< wrong	 << '\t'
-			<< particle.u[3] << ' '
-		        << particle.u[1] << ' '
-		        << particle.u[2] << ' '
-		        << particle.u[0] << '\t'
-			<< tau << '\t'
-			<< dtau
-			<< endl;
+		if (taun % 100) {
+			plotfile<< particle.x[3] << ' '
+				<< particle.x[1] << ' '
+				<< particle.x[2] << ' '
+				<< particle.x[0] << '\t'
+				<< wrong	 << '\t'
+				<< particle.u[3] << ' '
+				<< particle.u[1] << ' '
+				<< particle.u[2] << ' '
+				<< particle.u[0] << '\t'
+				<< tau << '\t'
+				<< dtau
+				<< endl;
 
-		dtaufile << tau << "\t" << dtau << endl;
-		wrongfile << tau << "\t" << wrong << endl;
+			dtaufile << tau << "\t" << dtau << endl;
+			wrongfile << tau << "\t" << wrong << endl;
+		}
 
 		tau += dtau;
 

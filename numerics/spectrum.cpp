@@ -44,8 +44,8 @@ Spectrum::inc_cnts(myfloat *x, myfloat *u)
 		u0 = 1.0 / sqrt(g00);
 		// derived from schwarzschild, stable orbit:
 		u0 = 1.0 / sqrt(1.0 - 3.0 * metric->m / r);
-		u3 = 1.0 / g33 * (sqrt(g33 + u0 * u0 * (g03 * g03 - g00 * g33)
-					+ 0.00001) - g03 * u0);
+		u3 = (sqrt(g33 + u0 * u0 * (g03 * g03 - g00 * g33)) - g03 * u0) / g33;
+
 		//u3 = 0.0;
 		myfloat src_u[DIM] = { u0, 0.0, 0.0, u3 };
 		myfloat E_over_k = scalar(*metric, x, src_u, u);

@@ -17,11 +17,11 @@ struct initializations initials()
 
 	//i.m = (6.6726e-11) * (1.99e+30) / (c * c);
 	i.m = 1.0;
-	i.a = 0.0;
+	i.a = 0.9;
 	i.q = 0.0; //0.15;
 
 
-	i.teilchen_masse = 0.0;
+	i.teilchen_masse = 1.0;
 	i.teilchen_ladung = 0.0;
 
 	i.x[0] = 0.0;
@@ -38,11 +38,11 @@ struct initializations initials()
 	i.u[1] = -1.1; //-0.7;
 	i.u[2] = 0.0;
 	//i.u[3] = 0.13; //0.21; // -sqrt(i.m / (i.x[1] * i.x[1] * i.x[1])) * i.u[0] * i.a;
-	i.u[3] = 0.10;
+	i.u[3] = 0.06;
 	//i.u[3] = L / (i.x[1] * i.x[1])
 	//	* (myfloat) ( pow(sin(i.x[2]),-0.999999999992) );
 
-	i.nrays = 10;
+	i.nrays = 100;
 	i.u3_inc = -(2.0 * i.u[3]) / (i.nrays - 1);
 	i.umin_inc = -10.0;
 	i.umax_inc = 0.0;
@@ -51,9 +51,10 @@ struct initializations initials()
 	//i.tau_max = 1000 * 31.536e+6 * c;
 	i.dtau = 0.001;
 	i.tau_max = 65;
-	i.max_wrongness = 1e-5;
-	i.min_x1 = 2.7;
-	i.max_x1 = 10.1;
+	i.max_n = 150000;
+	i.max_wrongness = 1e-4;
+	i.min_x1 = 0.0;
+	i.max_x1 = 50.1;
 
 	return i;
 }
