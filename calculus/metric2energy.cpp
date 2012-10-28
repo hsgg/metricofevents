@@ -169,6 +169,40 @@ int main(int argc, char* argv[])
 	out << endl;
 	cerr << "done" << endl;
 
+	// 3-acceleration
+	std::vector<symbol> v(4);
+	FOR(mu)
+	{
+		ostringstream s;
+		s << mu;
+		v[mu] = symbol(string("\\dot{x}^{") + s.str() + "}");
+	}
+	cerr << "3-acceleration";
+	out << "\\framebox{$\\ddot{x}^\\mu "
+		"= \\left( \\Gamma^{0}_{\\sigma \\rho} \\dot{x}^\\mu "
+		"- \\Gamma^\\mu_{\\sigma \\rho} \\right) "
+		"\\dot{x}^\\sigma \\dot{x}^\\rho$}" << endl;
+	out << "\\begin{align*}" << endl;
+	FOR(mu)
+	{
+		cerr << ":" << mu;
+		ex ddotx = 0;
+		FOR2(sigma, rho)
+		{
+			ddotx += (c.christoffel(0, sigma, rho) * v[mu]
+					- c.christoffel(mu, sigma, rho))
+				* v[sigma] * v[rho];
+		}
+		out << "\\ddot{x}^"
+			<< mu
+			<< EQUALSIGN
+			<< ddotx.normal();
+		LEF1(mu)
+	}
+	out << "\\end{align*}" << endl;
+	out << endl;
+	cerr << ":done" << endl;
+
 	/*
 	// chritoffel_komma
 	out << "\\framebox{$\\Gamma^\\alpha_{\\mu \\alpha , \\nu}$}" << endl;
