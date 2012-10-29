@@ -171,12 +171,12 @@ int main(int argc, char* argv[])
 
 	// 3-acceleration
 	std::vector<symbol> v(4);
-	FOR(mu)
-	{
-		ostringstream s;
-		s << mu;
-		v[mu] = symbol(string("\\dot{x}^{") + s.str() + "}");
-	}
+	v[0] = symbol("\\dot{t}");
+	v[1] = symbol("\\dot{x}");
+	v[2] = symbol("\\dot{y}");
+	v[3] = symbol("\\dot{z}");
+	exmap m;
+	m[v[0]] = 1;
 	cerr << "3-acceleration";
 	out << "\\framebox{$\\ddot{x}^\\mu "
 		"= \\left( \\Gamma^{0}_{\\sigma \\rho} \\dot{x}^\\mu "
@@ -196,7 +196,7 @@ int main(int argc, char* argv[])
 		out << "\\ddot{x}^"
 			<< mu
 			<< EQUALSIGN
-			<< ddotx.normal();
+			<< ddotx.subs(m).normal();
 		LEF1(mu)
 	}
 	out << "\\end{align*}" << endl;
