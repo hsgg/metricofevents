@@ -103,7 +103,7 @@ int main(int argc, char *argv[])
 	plotfile << "# dtau = " << dtau << endl
 		<< "# tau_max = " << init.tau_max << endl
 		<< "# max_x1 = " << init.max_x1 << endl;
-	plotfile << "# x3 x1 x2 x0	u3 u1 u2 u0" << endl;
+	plotfile << "# x3 x1 x2 x0	gamma u3 u1 u2 u0" << endl;
 
 
 	// Iterate
@@ -112,7 +112,7 @@ int main(int argc, char *argv[])
 	while (tau <= init.tau_max + dtau)
 	{
 		if (++taun % 100 == 0) {
-			info(taun, tau, dtau, 0, particle.x);
+			info(metric, taun, tau, dtau, 0, particle);
 			if (taun >= init.max_n) {
 				cerr << "WARNING: Aborting prematurely: taking too long" << endl;
 				break;
@@ -125,6 +125,7 @@ int main(int argc, char *argv[])
 				<< particle.x[1] << ' '
 				<< particle.x[2] << ' '
 				<< particle.x[0] << '\t'
+				<< gammafactor(metric, particle) << ' '
 				<< particle.u[3] << ' '
 				<< particle.u[1] << ' '
 				<< particle.u[2] << ' '
@@ -147,16 +148,13 @@ int main(int argc, char *argv[])
 			break;
 	}
 	plotfile << endl;
-	plotfile << "# length_4velocity = "
-		 << scalar(metric, particle.x, particle.u, particle.u)
-		 << endl;
 
 
 	plotfile.close();
 	dtaufile.close();
 
 
-	info(taun, tau, dtau, 0, particle.x);
+	info(metric, taun, tau, dtau, 0, particle);
 
 	cout << endl;
 

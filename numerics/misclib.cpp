@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include <iomanip>
+#include <math.h>
 #include "global.h"
 #include "myfloat.h"
 #include "init.h"
@@ -25,16 +26,24 @@ myfloat scalar(const Metric metric, const myfloat* x,
 }
 
 
+myfloat gammafactor(const Metric& metric, const Particle& particle)
+{
+	return sqrt(1.0 / scalar(metric, particle.x, particle.u, particle.u));
+}
+
+
 // Print some info
-void info(const int taun, const myfloat tau, const myfloat dtau,
-		const myfloat wrong, const myfloat* x)
+void info(const Metric& metric, const int taun, const myfloat tau, const myfloat dtau,
+		const myfloat wrong, const Particle& p)
 {
 	cerr << taun
 	     << ": tau = " << tau
 	     << ", dtau = " << dtau
 	     << ", wrong = " << wrong
-	     << ", r = " << setprecision(12) << x[1] << setprecision(3)
-	     << endl;
+	     << ", r = " << setprecision(12) << p.x[1]
+	     << ", gamma = " << scientific << gammafactor(metric, p)
+	     << endl
+	     << setprecision(3);
 }
 
 

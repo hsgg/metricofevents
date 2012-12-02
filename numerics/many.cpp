@@ -82,7 +82,7 @@ static void go_ray(struct initializations &init, Spectrum &spec,
 		dtau = init.dtau * pow(absol(particle.x[1] - 2 * init.m), sqrt(3.0));
 
 		if (++taun % 256 == 0) {
-			info(taun, tau, dtau, wrong, particle.x);
+			info(metric, taun, tau, dtau, wrong, particle);
 			if (taun >= 10000) {
 				cerr << "WARNING: Aborting prematurely: taking too long" << endl;
 				break;
@@ -139,7 +139,7 @@ static void go_ray(struct initializations &init, Spectrum &spec,
 	dtaufile.close();
 	wrongfile.close();
 
-	info(taun, tau, dtau, wrong, particle.x);
+	info(metric, taun, tau, dtau, wrong, particle);
 
 	append_file(taun);
 }

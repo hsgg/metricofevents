@@ -2,6 +2,7 @@
 #define MISCLIB_H
 
 #include "init.h"
+#include "particle.h"
 
 // absolute value of myfloat
 inline myfloat absol(const myfloat number)
@@ -14,6 +15,7 @@ inline myfloat absol(const myfloat number)
 myfloat scalar(const Metric metric, const myfloat* x,
 	const myfloat* y, const myfloat* z);
 
+myfloat gammafactor(const Metric& metric, const Particle& particle);
 
 // Falschheit
 inline myfloat wrongness(const Metric metric,
@@ -32,8 +34,8 @@ myfloat find_u(const Metric metric,
 
 
 // Print some info
-void info(const int taun, const myfloat tau, const myfloat dtau,
-		const myfloat wrong, const myfloat* x);
+void info(const Metric& metric, const int taun, const myfloat tau, const myfloat dtau,
+		const myfloat wrong, const Particle& p);
 
 
 #endif
