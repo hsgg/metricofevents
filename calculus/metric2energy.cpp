@@ -177,6 +177,7 @@ int main(int argc, char* argv[])
 	v[3] = symbol("\\dot{z}");
 	exmap m;
 	m[v[0]] = 1;
+	m[v[2]] = 0;
 	cerr << "3-acceleration";
 	out << "\\framebox{$\\ddot{x}^\\mu "
 		"= \\left( \\Gamma^{0}_{\\sigma \\rho} \\dot{x}^\\mu "
