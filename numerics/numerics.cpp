@@ -63,10 +63,10 @@ static inline myfloat emfieldforce(const EMField& emfield, const unsigned& sigma
 	return force;
 }
 
-static inline void mk_xk_uk(const Metric metric, const EMField emfield,
-		const vector<myfloat> xpk, const vector<myfloat> upk,
+static inline void mk_xk_uk(const Metric& metric, const EMField& emfield,
+		const vector<myfloat>& xpk, const vector<myfloat>& upk,
 		vector<vector<myfloat> >& xk, vector<vector<myfloat> >& uk,
-		const int i, const myfloat dtau, const Particle particle)
+		const int i, const myfloat dtau, const Particle& particle)
 {
 	for (unsigned mu = 0; mu < metric.dim; mu++)
 	{
@@ -79,6 +79,17 @@ static inline void mk_xk_uk(const Metric metric, const EMField emfield,
 }
 
 
+void init_rk_cache(struct rk_cache& rk_cache, unsigned dim)
+{
+	rk_cache.xk.resize(dim);
+	rk_cache.uk.resize(dim);
+	rk_cache.xpk.resize(dim);
+	rk_cache.upk.resize(dim);
+	for (unsigned j = 0; j < dim; j++) {
+		rk_cache.xk[j].resize(dim);
+		rk_cache.uk[j].resize(dim);
+	}
+}
 
 // Berechne x, u
 // input: metric, x, u, dtau
@@ -86,50 +97,57 @@ static inline void mk_xk_uk(const Metric metric, const EMField emfield,
 void x_and_u(const Metric& metric, const EMField& emfield,
 	const myfloat dtau, Particle& particle)
 {
-	vector< vector<myfloat> > xk(4);
-	vector< vector<myfloat> > uk(4);
+	struct rk_cache rk_cache;
 
-	vector<myfloat> xpk(metric.dim);
-	vector<myfloat> upk(metric.dim);
+	init_rk_cache(rk_cache, metric.dim);
 
+	x_and_u(metric, emfield, dtau, particle, rk_cache);
+}
+
+void x_and_u(const Metric& metric, const EMField& emfield,
+	const myfloat dtau, Particle& particle,
+	struct rk_cache& rk_cache)
+{
 	for (unsigned j = 0; j < metric.dim; j++) {
-		xk[j].resize(metric.dim);
-		uk[j].resize(metric.dim);
-		xk[0][j] = 0.0;
-		uk[0][j] = 0.0;
+		rk_cache.xk[0][j] = 0.0;
+		rk_cache.uk[0][j] = 0.0;
 	}
 
 	//cerr << "in...";
-	mk_cok(xpk, particle.x, xk[0], 0.0);
-	mk_cok(upk, particle.u, uk[0], 0.0);
+	mk_cok(rk_cache.xpk, particle.x, rk_cache.xk[0], 0.0);
+	mk_cok(rk_cache.upk, particle.u, rk_cache.uk[0], 0.0);
 	//cerr << "with...";
-	mk_xk_uk(metric, emfield, xpk, upk, xk, uk, 0, dtau, particle);
+	mk_xk_uk(metric, emfield, rk_cache.xpk, rk_cache.upk, rk_cache.xk, rk_cache.uk,
+			0, dtau, particle);
 	//cerr << "in\n";
 
-	mk_cok(xpk, particle.x, xk[0], (myfloat) 0.5);
-	mk_cok(upk, particle.u, uk[0], (myfloat) 0.5);
-	mk_xk_uk(metric, emfield, xpk, upk, xk, uk, 1, dtau, particle);
+	mk_cok(rk_cache.xpk, particle.x, rk_cache.xk[0], (myfloat) 0.5);
+	mk_cok(rk_cache.upk, particle.u, rk_cache.uk[0], (myfloat) 0.5);
+	mk_xk_uk(metric, emfield, rk_cache.xpk, rk_cache.upk, rk_cache.xk, rk_cache.uk,
+			1, dtau, particle);
 
 
-	mk_cok(xpk, particle.x, xk[1], (myfloat) 0.5);
-	mk_cok(upk, particle.u, uk[1], (myfloat) 0.5);
-	mk_xk_uk(metric, emfield, xpk, upk, xk, uk, 2, dtau, particle);
+	mk_cok(rk_cache.xpk, particle.x, rk_cache.xk[1], (myfloat) 0.5);
+	mk_cok(rk_cache.upk, particle.u, rk_cache.uk[1], (myfloat) 0.5);
+	mk_xk_uk(metric, emfield, rk_cache.xpk, rk_cache.upk, rk_cache.xk, rk_cache.uk,
+			2, dtau, particle);
 
-	mk_cok(xpk, particle.x, xk[2], 1.0);
-	mk_cok(upk, particle.u, uk[2], 1.0);
-	mk_xk_uk(metric, emfield, xpk, upk, xk, uk, 3, dtau, particle);
+	mk_cok(rk_cache.xpk, particle.x, rk_cache.xk[2], 1.0);
+	mk_cok(rk_cache.upk, particle.u, rk_cache.uk[2], 1.0);
+	mk_xk_uk(metric, emfield, rk_cache.xpk, rk_cache.upk, rk_cache.xk, rk_cache.uk,
+			3, dtau, particle);
 
 	// Berechne x, u
 	for (unsigned mu = 0; mu < metric.dim; mu++) {
 		particle.x[mu] = particle.x[mu]
-			+ xk[0][mu]/6.0
-			+ xk[1][mu]/3.0
-			+ xk[2][mu]/3.0
-			+ xk[3][mu]/6.0;
+			+ rk_cache.xk[0][mu]/6.0
+			+ rk_cache.xk[1][mu]/3.0
+			+ rk_cache.xk[2][mu]/3.0
+			+ rk_cache.xk[3][mu]/6.0;
 		particle.u[mu] = particle.u[mu]
-			+ uk[0][mu]/6.0
-			+ uk[1][mu]/3.0
-			+ uk[2][mu]/3.0
-			+ uk[3][mu]/6.0;
+			+ rk_cache.uk[0][mu]/6.0
+			+ rk_cache.uk[1][mu]/3.0
+			+ rk_cache.uk[2][mu]/3.0
+			+ rk_cache.uk[3][mu]/6.0;
 	}
 }

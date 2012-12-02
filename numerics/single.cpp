@@ -36,6 +36,10 @@ int main(int argc, char *argv[])
 	// emfield
 	EMField emfield(metric);
 
+	// rk_cache
+	struct rk_cache rk_cache;
+	init_rk_cache(rk_cache, metric.dim);
+
 	// particle
 	if (init.u[0] != 1) {
 		cerr << "Error: u[0] = " << init.u[0] << " must be exactly 1!" << endl;
@@ -136,7 +140,7 @@ int main(int argc, char *argv[])
 
 
 		// Berechne x, u
-		x_and_u(metric, emfield, dtau, particle);
+		x_and_u(metric, emfield, dtau, particle, rk_cache);
 
 		if ((particle.x[1] > init.max_x1)
 				|| (particle.x[1] < init.min_x1))
