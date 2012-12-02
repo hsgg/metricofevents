@@ -30,11 +30,16 @@ static inline void mk_cok(vector<myfloat>& xpk, const myfloat* x,
 }
 
 
-// contract twice
 static inline myfloat christoffelsum(const Metric& metric, const unsigned& sigma,
 	const vector<myfloat>& x, const vector<myfloat>& u)
 {
 	return (metric.*(metric.christoffelsum[sigma]))(x, u);
+}
+
+static inline myfloat acceleration3d(const Metric& metric, const unsigned& sigma,
+	const vector<myfloat>& x, const vector<myfloat>& u)
+{
+	return (metric.*(metric.acceleration3d[sigma]))(x, u);
 }
 
 
@@ -67,7 +72,7 @@ static inline void mk_xk_uk(const Metric metric, const EMField emfield,
 	{
 		xk[i][mu] = dtau * upk[mu];
 		uk[i][mu] = dtau
-			* (-christoffelsum(metric, mu, xpk, upk)
+			* (-acceleration3d(metric, mu, xpk, upk)
 					- particle.q
 					* emfieldforce(emfield, mu, xpk, upk));
 	}
