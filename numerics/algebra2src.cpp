@@ -96,6 +96,10 @@ int main(int argc, char* argv[])
 		<< "(const std::vector<myfloat>& x, "
 		<< "const std::vector<myfloat>& u) const;"
 		<< endl
+	     << "\tconst myfloat (Metric::*acceleration3d[" << c.dim << "])"
+		<< "(const std::vector<myfloat>& x, "
+		<< "const std::vector<myfloat>& u) const;"
+		<< endl
 	     << endl
 	     << "    private:" << endl;
 	
@@ -180,17 +184,10 @@ int main(int argc, char* argv[])
 		{
 			for (unsigned nu = 0; nu < c.dim; nu++)
 			{
-				/*
 				// with respect to tau:
 				csum[sigma] = csum[sigma]
 					+ c.christoffel(sigma,mu,nu)
 					* u[mu] * u[nu];
-				*/
-
-				// with respect to t = x[0]
-				csum[sigma] = csum[sigma]
-					+ c.christoffel(0,mu,nu) * u[sigma] * u[mu] * u[nu]
-					- c.christoffel(sigma,mu,nu) * u[mu] * u[nu];
 			}
 		}
 		cerr << sigma;
@@ -209,6 +206,44 @@ int main(int argc, char* argv[])
 		    << "{" << endl
 		    << "\treturn "
 			<< csum[sigma].subs(co)
+			<< ";" << endl
+		    << "}" << endl << endl;
+	}
+	cerr << "done" << endl;
+
+
+	// 3-acceleration
+	exmap m;
+	m[u[0]] = 1;
+	cerr << "Calculating 3-acceleration... ";
+	for (unsigned mu = 0; mu < c.dim; mu++)
+	{
+		ex ddotx = 0;
+		for (unsigned sigma = 0; sigma < c.dim; sigma++)
+		{
+			for (unsigned rho = 0; rho < c.dim; rho++)
+			{
+				ddotx += (c.christoffel(0, sigma, rho) * u[mu]
+						- c.christoffel(mu, sigma, rho))
+					* u[sigma] * u[rho];
+			}
+		}
+		cerr << mu;
+		ddotx = ddotx.subs(m).normal();
+		cerr << ":";
+		outh << "\tconst myfloat acc3d"
+		     << mu
+		     << "(const std::vector<myfloat>& x, "
+		     << "const std::vector<myfloat>& u) const"
+		     << ";" << endl;
+		out << "const myfloat Metric::acc3d"
+		    << mu
+		    << "(const std::vector<myfloat>& x, "
+		    << "const std::vector<myfloat>& u) const"
+		    << endl
+		    << "{" << endl
+		    << "\treturn "
+			<< ddotx.subs(co)
 			<< ";" << endl
 		    << "}" << endl << endl;
 	}
@@ -264,12 +299,16 @@ int main(int argc, char* argv[])
 		}
 	}
 	out << endl; */
-	// christoffelsum
+	// christoffelsum, acceleration3d
 	for (unsigned mu = 0; mu < c.dim; mu++)
 	{
 		out << "\tchristoffelsum["
 		    << mu << "]"
 		    << " = &Metric::chsum"
+		    << mu << ";" << endl;
+		out << "\tacceleration3d["
+		    << mu << "]"
+		    << " = &Metric::acc3d"
 		    << mu << ";" << endl;
 	}
 	out << endl;
