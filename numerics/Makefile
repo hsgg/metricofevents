@@ -104,7 +104,7 @@ sphere.o: sphere.cpp global.h init.h myfloat.h
 
 
 # plot.dat
-plot.dat: single.$(EXT)
+plot.dat: single.$(EXT) input
 	time ./$< input
 
 # sphere.dat, sphere2.dat
