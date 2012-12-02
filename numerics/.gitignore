@@ -13,5 +13,6 @@ globaldtau.dat
 globalplot.dat
 globalspec.dat
 globalwrong.dat
+calclen.dat
 gnuplot-globalplot.gplt
 many.exe
