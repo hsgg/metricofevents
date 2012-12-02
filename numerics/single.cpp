@@ -47,7 +47,11 @@ int main(int argc, char *argv[])
 	}
 	Particle particle(init.teilchen_masse, init.teilchen_ladung,
 		init.x, init.u);
-
+	myfloat gammacheck = scalar(metric, particle.x, particle.u, particle.u);
+	if (gammacheck <= 0.0) {
+		cerr << "Error: gammacheck = " << gammacheck << " must be positive!" << endl;
+		return 1;
+	}
 
 	cout << endl;
 	for (unsigned mu = 0; mu < metric.dim; mu++)
@@ -59,6 +63,7 @@ int main(int argc, char *argv[])
 	{
 		cout << "u" << mu << " = " << particle.u[mu] << endl;
 	}
+	cout << "gamma = " << gammafactor(metric, particle) << endl;
 	cout << endl;
 
 
