@@ -180,9 +180,17 @@ int main(int argc, char* argv[])
 		{
 			for (unsigned nu = 0; nu < c.dim; nu++)
 			{
+				/*
+				// with respect to tau:
 				csum[sigma] = csum[sigma]
 					+ c.christoffel(sigma,mu,nu)
 					* u[mu] * u[nu];
+				*/
+
+				// with respect to t = x[0]
+				csum[sigma] = csum[sigma]
+					+ c.christoffel(0,mu,nu) * u[sigma] * u[mu] * u[nu]
+					- c.christoffel(sigma,mu,nu) * u[mu] * u[nu];
 			}
 		}
 		cerr << sigma;

@@ -37,7 +37,10 @@ int main(int argc, char *argv[])
 	EMField emfield(metric);
 
 	// particle
-	init.u[init.change] = find_u(metric, &init, init.x, init.u);
+	if (init.u[0] != 1) {
+		cerr << "Error: u[0] = " << init.u[0] << " must be exactly 1!" << endl;
+		return 1;
+	}
 	Particle particle(init.teilchen_masse, init.teilchen_ladung,
 		init.x, init.u);
 
@@ -75,14 +78,10 @@ int main(int argc, char *argv[])
 
 	// Iterate
 	myfloat dtau = init.dtau;
-	myfloat wrong = wrongness(metric, &init, particle.x, particle.u);
-	myfloat wrong_old = wrong;
 	ofstream plotfile("plot.dat");
 	ofstream dtaufile("dtau.dat");
-	ofstream wrongfile("wrong.dat");
 	plotfile << scientific;
 	dtaufile << scientific;
-	wrongfile << scientific;
 	cout << endl << metric.name << ":" << endl
 	     << "m = " << metric.m << endl
 	     << "a = " << metric.a << endl
@@ -97,29 +96,19 @@ int main(int argc, char *argv[])
 	plotfile << "# particle:" << endl
 		<< "#	m = " << init.teilchen_masse << endl
 		<< "#	q = " << init.teilchen_ladung << endl;
-	plotfile << "# length_4velocity = "
-		<< scalar(metric, particle.x, particle.u, particle.u) << endl
-		<< "# dtau = " << dtau << endl
+	plotfile << "# dtau = " << dtau << endl
 		<< "# tau_max = " << init.tau_max << endl
-		<< "# max_wrongness = " << init.max_wrongness << endl
 		<< "# max_x1 = " << init.max_x1 << endl;
-	plotfile << "# x3 x1 x2 x0	wrong	u3 u1 u2 u0" << endl;
+	plotfile << "# x3 x1 x2 x0	u3 u1 u2 u0" << endl;
 
 
 	// Iterate
 	int taun = -1;
 	myfloat tau = 0.0;
-	while ((absol(wrong) <= init.max_wrongness)
-		&& (tau <= init.tau_max + dtau))
+	while (tau <= init.tau_max + dtau)
 	{
-		//dtau = init.dtau * exp(-1e15 * absol(wrong - wrong_old) / init.max_wrongness);
-		//dtau = init.dtau * pow(absol(particle.x[1] - 2 * init.m), sqrt(3.0));
-			//* (1.0 - wrong / init.max_wrongness);
-
-		//dtau = dtau * (1.0 - wrong / init.max_wrongness);
-
 		if (++taun % 1000 == 0) {
-			info(taun, tau, dtau, wrong, particle.x);
+			info(taun, tau, dtau, 0, particle.x);
 			if (taun >= init.max_n) {
 				cerr << "WARNING: Aborting prematurely: taking too long" << endl;
 				break;
@@ -132,7 +121,6 @@ int main(int argc, char *argv[])
 				<< particle.x[1] << ' '
 				<< particle.x[2] << ' '
 				<< particle.x[0] << '\t'
-				<< wrong	 << '\t'
 				<< particle.u[3] << ' '
 				<< particle.u[1] << ' '
 				<< particle.u[2] << ' '
@@ -142,7 +130,6 @@ int main(int argc, char *argv[])
 				<< endl;
 
 			dtaufile << tau << "\t" << dtau << endl;
-			wrongfile << tau << "\t" << wrong << endl;
 		}
 
 		tau += dtau;
@@ -150,9 +137,6 @@ int main(int argc, char *argv[])
 
 		// Berechne x, u
 		x_and_u(metric, emfield, dtau, particle);
-
-		wrong_old = wrong;
-		wrong = wrongness(metric, &init, particle.x, particle.u);
 
 		if ((particle.x[1] > init.max_x1)
 				|| (particle.x[1] < init.min_x1))
@@ -166,10 +150,9 @@ int main(int argc, char *argv[])
 
 	plotfile.close();
 	dtaufile.close();
-	wrongfile.close();
 
 
-	info(taun, tau, dtau, wrong, particle.x);
+	info(taun, tau, dtau, 0, particle.x);
 
 	cout << endl;
 
