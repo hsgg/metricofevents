@@ -9,8 +9,6 @@ m
 #pi
 
 
-#  ################################
-
 # Kontravariante Koordinaten x^mu
 " in spherical coordinates"
 x0 = t
@@ -29,40 +27,3 @@ g00 = U
 g11 = -1 / U
 g22 = -r * r
 g33 = -r * r * sin(theta) * sin(theta)
-
-
-
-
-##########################################
-
-	
-
-# Kontravariante Koordinaten x^mu
-" in cartesian coordinates"
-x0 = t
-x1 = x
-x2 = y
-x3 = z
-
-
-# Hilfsexpressions
-schw = 2 * V / (1 - 2 * V)
-
-tot  = schw
-
-
-# Metrik g_mu_nu
-
-g00 = c2 * (1 - 2 * V)
-
-g11 = -R2 * (1 + tot * x*x/r2)
-g12 = -R2 * tot * x*y/r2
-g13 = -R2 * tot * x*z/r2
-
-g21 = g12
-g22 = -R2 * (1 + tot * y*y/r2)
-g23 = -R2 * tot * y*z/r2
-
-g31 = g13
-g32 = g23
-g33 = -R2 * (1 + tot * z*z/r2)

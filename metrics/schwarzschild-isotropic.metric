@@ -6,8 +6,6 @@
 m
 
 
-#  ################################
-
 # Kontravariante Koordinaten x^mu
 " in isotropic coordinates"
 x0 = t
