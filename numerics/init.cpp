@@ -132,6 +132,7 @@ static void split_at_equalsign(const string& s,
 struct initializations initialize(char *filename)
 {
 	struct initializations i;
+	bool version_ok = false;
 
 	ifstream fin(filename);
 	string s;
@@ -168,9 +169,10 @@ struct initializations initialize(char *filename)
 		split_at_equalsign(s, before, after);
 
 		if (before == string("version")) {
-			if (after != string("0.1")) {
+			if (after != string("0.1"))
 				cerr << "Warning: We only support version 0.1! Good luck!" << endl;
-			}
+			else
+				version_ok = true;
 
 		} else if (before == string("radius")) {
 			i.radius = atof(after.c_str());
@@ -234,6 +236,9 @@ struct initializations initialize(char *filename)
 			i.max_x1 = atof(after.c_str());
 		}
 	}
+
+	if (!version_ok)
+		cerr << "Warning: We only support version 0.1! Good luck!" << endl;
 
 	return i;
 }

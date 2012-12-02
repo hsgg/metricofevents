@@ -1,0 +1,37 @@
+version = 0.1
+
+
+radius = 10.0
+
+m = 1.0
+a = 0.9
+q = 0.0
+
+
+teilchen_masse = 1.0
+teilchen_ladung = 0.0
+
+x[0] = 0.0
+x[1] = 9.0
+x[2] = 1.57
+x[3] = 0.0
+
+change = 0
+umin = 0
+umax = 10
+u[0] = 1.0
+u[1] = -1.1
+u[2] = 0.0
+u[3] = 0.06
+
+nrays = 100
+u3_inc = 0.3
+umin_inc = -10.0
+umax_inc = 0.0
+
+dtau = 0.001
+tau_max = 65
+max_n = 150000
+max_wrongness = 1e-4
+min_x1 = 0.0
+max_x1 = 50.1
