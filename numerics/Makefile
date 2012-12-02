@@ -51,7 +51,7 @@ datafiles: plot.dat sphere.dat sphere2.dat
 algebra2src.$(EXT): algebra2src.o $(CS_O)
 	$(CXX) $(CFLAGS) -o $@ $^ $(LDFLAGS)
 
-algebra2src.o: algebra2src.cpp $(CS_H) Makefile
+algebra2src.o: algebra2src.cpp $(CS_H)
 	$(CXX) $(CFLAGS) -c -o $@ $<
 
 $(CS_O): $(CS) $(CS_H)
