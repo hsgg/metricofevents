@@ -107,7 +107,7 @@ int main(int argc, char *argv[])
 	myfloat tau = 0.0;
 	while (tau <= init.tau_max + dtau)
 	{
-		if (++taun % 1000 == 0) {
+		if (++taun % 100 == 0) {
 			info(taun, tau, dtau, 0, particle.x);
 			if (taun >= init.max_n) {
 				cerr << "WARNING: Aborting prematurely: taking too long" << endl;
