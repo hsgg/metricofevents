@@ -87,7 +87,7 @@ particle.o: particle.cpp particle.h global.h myfloat.h
 
 metric.o: metric.cpp metric.h global.h myfloat.h
 	$(CXX) $(FLAGS_QUICKCOMPILE) -c -o $@ $<
-metric.h metric.cpp: algebra2src.$(EXT) $(METRIC)
+metric.h metric.cpp: algebra2src.$(EXT) $(METRIC) Makefile
 	./$< "$(METRIC)"
 
 emfield.o: emfield.cpp emfield.h metric.h myfloat.h
