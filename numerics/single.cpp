@@ -21,9 +21,14 @@
 
 
 // ********* MAIN ************
-int main()
+int main(int argc, char *argv[])
 {
-	struct initializations init = initials();
+	if (argc != 2) {
+		cerr << "Error: Must have a filename on the command line." << endl;
+		return 2;
+	}
+
+	struct initializations init = initialize(argv[1]);
 
 	// spacetime
 	Metric metric(init.m, init.a, init.q);

@@ -76,7 +76,7 @@ numerics.o: numerics.cpp numerics.h global.h metric.h myfloat.h particle.h
 	$(CXX) $(CFLAGS) -c -o $@ $<
 
 init.o: init.cpp init.h myfloat.h
-	$(CC) $(CFLAGS) -c -o $@ $<
+	$(CXX) $(CFLAGS) -c -o $@ $<
 
 spectrum.o: spectrum.cpp spectrum.h myfloat.h misclib.h
 	$(CC) $(CFLAGS) -c -o $@ $<
@@ -104,7 +104,7 @@ sphere.o: sphere.cpp global.h init.h myfloat.h
 
 # plot.dat
 plot.dat: single.$(EXT)
-	time ./$<
+	time ./$< input
 
 # sphere.dat, sphere2.dat
 sphere.dat sphere2.dat: sphere.$(EXT)

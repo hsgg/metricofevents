@@ -3,9 +3,17 @@
  */
 
 #include <math.h>
+#include <stdlib.h>
+#include <string>
+#include <iostream>
+#include <fstream>
+#include <sstream>
 
 #include "myfloat.h"
 #include "init.h"
+
+using namespace std;
+
 
 struct initializations initials()
 {
@@ -34,7 +42,7 @@ struct initializations initials()
 	i.change = 0; // welches u ueberschrieben wird
 	i.umin = 0;
 	i.umax = 10;
-	i.u[0] = 0.0; //sqrt( E / (1.0 - 2.0 * i.m / i.x[1] - i.m / i.x[1]) );
+	i.u[0] = 1.0; //sqrt( E / (1.0 - 2.0 * i.m / i.x[1] - i.m / i.x[1]) );
 	i.u[1] = -1.1; //-0.7;
 	i.u[2] = 0.0;
 	//i.u[3] = 0.13; //0.21; // -sqrt(i.m / (i.x[1] * i.x[1] * i.x[1])) * i.u[0] * i.a;
@@ -55,6 +63,177 @@ struct initializations initials()
 	i.max_wrongness = 1e-4;
 	i.min_x1 = 0.0;
 	i.max_x1 = 50.1;
+
+	return i;
+}
+
+// Eliminate beginning Whitespace
+static void eliminate_beginning_whitespace(string& s)
+{
+	unsigned i = 0;
+	while ( (s[i] == ' ') || (s[i] == '	') )
+		i++;
+
+	s.erase(0, i);
+}
+
+// Eliminate ending whitespace
+static void eliminate_ending_whitespace(string& s)
+{
+	int i = s.length() - 1;
+	while ( (s[i] == ' ') || (s[i] == '	') )
+		i--;
+
+	s.erase(i + 1);
+}
+
+
+// Eliminate all comments (everything on a line starting from '#').
+static void eliminate_comments(string& s)
+{
+	unsigned i = 0;
+	while ( (s[i] != '#') && (i < s.length()) )
+		i++;
+
+	s.erase(i);
+}
+
+
+// Returns the number of occurrences of the character 'ch' in 's'.
+static unsigned contains(const char& ch, const string& s)
+{
+	unsigned num = 0;
+	unsigned i = 0; 
+	while (i < s.length())
+	{
+		if (s[i++] == ch)
+			num++;
+	}
+
+	return num;
+}
+
+
+// split_at_equalsign
+static void split_at_equalsign(const string& s,
+		string& before, string& after)
+{
+	unsigned i = s.find_first_of('=');
+
+	before.assign(s, 0, i);
+	after.assign(s, i + 1, s.length() - i - 1);
+
+	eliminate_beginning_whitespace(after);
+	eliminate_ending_whitespace(before);
+}
+
+
+
+struct initializations initialize(char *filename)
+{
+	struct initializations i;
+
+	ifstream fin(filename);
+	string s;
+	string name ("");
+
+	unsigned lineno = 0;
+
+	while (getline(fin, s))
+	{
+		lineno++;
+
+		eliminate_beginning_whitespace(s);
+		eliminate_comments(s);
+		eliminate_ending_whitespace(s); // Must come after eliminate_comments
+		if (s.empty()) continue;
+
+		cerr << lineno << ": " << s << "." << endl;
+
+		// Name? (Starts with '"'.)
+		if (s[0] == '"') {
+			name += s.substr(1, s.length() - 2);
+			continue;
+		}
+
+		if (contains('=', s) != 1) {
+			cerr << lineno << ": Syntax error: Must contain exactly one '='."
+				<< endl;
+			exit(1);
+		}
+
+
+		string before;
+		string after;
+		split_at_equalsign(s, before, after);
+
+		if (before == string("version")) {
+			if (after != string("0.1")) {
+				cerr << "Warning: We only support version 0.1! Good luck!" << endl;
+			}
+
+		} else if (before == string("radius")) {
+			i.radius = atof(after.c_str());
+
+		} else if (before == string("m")) {
+			i.m = atof(after.c_str());
+		} else if (before == string("a")) {
+			i.a = atof(after.c_str());
+		} else if (before == string("q")) {
+			i.q = atof(after.c_str());
+
+		} else if (before == string("teilchen_masse")) {
+			i.teilchen_masse = atof(after.c_str());
+		} else if (before == string("teilchen_ladung")) {
+			i.teilchen_ladung = atof(after.c_str());
+
+		} else if (before == string("x[0]")) {
+			i.x[0] = atof(after.c_str());
+		} else if (before == string("x[1]")) {
+			i.x[1] = atof(after.c_str());
+		} else if (before == string("x[2]")) {
+			i.x[2] = atof(after.c_str());
+		} else if (before == string("x[3]")) {
+			i.x[3] = atof(after.c_str());
+
+		} else if (before == string("change")) {
+			i.change = atof(after.c_str());
+		} else if (before == string("umin")) {
+			i.umin = atof(after.c_str());
+		} else if (before == string("umax")) {
+			i.umax = atof(after.c_str());
+		} else if (before == string("u[0]")) {
+			i.u[0] = atof(after.c_str());
+		} else if (before == string("u[1]")) {
+			i.u[1] = atof(after.c_str());
+		} else if (before == string("u[2]")) {
+			i.u[2] = atof(after.c_str());
+		} else if (before == string("u[3]")) {
+			i.u[3] = atof(after.c_str());
+
+		} else if (before == string("nrays")) {
+			i.nrays = atof(after.c_str());
+		} else if (before == string("u3_inc")) {
+			i.u3_inc = atof(after.c_str());
+		} else if (before == string("umin_inc")) {
+			i.umin_inc = atof(after.c_str());
+		} else if (before == string("umax_inc")) {
+			i.umax_inc = atof(after.c_str());
+
+		} else if (before == string("dtau")) {
+			i.dtau = atof(after.c_str());
+		} else if (before == string("tau_max")) {
+			i.tau_max = atof(after.c_str());
+		} else if (before == string("max_n")) {
+			i.max_n = atof(after.c_str());
+		} else if (before == string("max_wrongness")) {
+			i.max_wrongness = atof(after.c_str());
+		} else if (before == string("min_x1")) {
+			i.min_x1 = atof(after.c_str());
+		} else if (before == string("max_x1")) {
+			i.max_x1 = atof(after.c_str());
+		}
+	}
 
 	return i;
 }
