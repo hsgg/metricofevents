@@ -239,6 +239,7 @@ int main(int argc, char* argv[])
 	*/
 
 
+	/*
 
 	// Riemann R_mu_nu
 	cerr << "Ricci:";
@@ -259,7 +260,7 @@ int main(int argc, char* argv[])
 	if (1) {
 
 	// Riemann R^mu_nu
-	cerr << "Ricci:";
+	cerr << "Riemann:";
 	out << "\\framebox{$R^\\mu_{\\;\\nu}$}" << endl;
 	ENVBEGIN
 	FOR(mu)
@@ -325,6 +326,8 @@ int main(int argc, char* argv[])
 	}
 	ENVEND
 	cerr << "Calculated Einstein divergence." << endl;
+
+	*/
 
 
 
