@@ -33,11 +33,18 @@ int main(int argc, char* argv[])
 
 
 	exmap co;
+	vector<symbol> u(c.dim);
 	for (unsigned mu = 0; mu < c.dim; mu++)
 	{
 		stringstream s;
 		s << "x[" << mu << "]";
 		co[c.coord[mu]] = symbol(s.str().c_str());
+	}
+	for (unsigned mu = 0; mu < c.dim; mu++)
+	{
+		stringstream s;
+		s << "u[" << mu << "]";
+		u[mu] = symbol(s.str().c_str());
 	}
 
 
@@ -169,13 +176,6 @@ int main(int argc, char* argv[])
 
 	// equation of motion (sigma, x[c.dim], u[c.dim])
 	cerr << "Calculating christoffelsum... ";
-	vector<symbol> u(c.dim);
-	for (unsigned mu = 0; mu < c.dim; mu++)
-	{
-		stringstream s;
-		s << "u[" << mu << "]";
-		u[mu] = symbol(s.str().c_str());
-	}
 	vector<ex> csum(c.dim);
 	for (unsigned sigma = 0; sigma < c.dim; sigma++)
 	{
