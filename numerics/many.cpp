@@ -165,8 +165,8 @@ int main()
 
 	// particle
 	init.u[init.change] = find_u(metric, &init, init.x, init.u);
-	Particle initparticle(init.teilchen_masse, init.teilchen_ladung,
-		init.x, init.u);
+	Particle initparticle(0, init.teilchen_masse, init.teilchen_ladung,
+		init.x, init.u, metric);
 
 	// spectrum
 	myfloat emin = 2.0;
@@ -191,8 +191,8 @@ int main()
 			<< "Ray index: " << nrays << endl
 			<< endl;
 		// particle
-		Particle particle(init.teilchen_masse, init.teilchen_ladung,
-				init.x, init.u);
+		Particle particle(0, init.teilchen_masse, init.teilchen_ladung,
+				init.x, init.u, metric);
 		init.change = 1;
 		init.umin = init.umin_inc;
 		init.umax = init.umax_inc;

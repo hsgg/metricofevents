@@ -3,7 +3,8 @@ dtau.dat
 metric.cpp
 metric.h
 single.exe
-plot.dat
+plot0.dat
+plot1.dat
 sphere.dat
 sphere.exe
 sphere2.dat

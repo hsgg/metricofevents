@@ -105,6 +105,15 @@ void x_and_u(const Metric& metric, const EMField& emfield,
 }
 
 void x_and_u(const Metric& metric, const EMField& emfield,
+	const myfloat dtau, vector<Particle*>& particle,
+	struct rk_cache& rk_cache)
+{
+	for (unsigned i = 0; i < particle.size(); i++) {
+		x_and_u(metric, emfield, dtau, *particle[i], rk_cache);
+	}
+}
+
+void x_and_u(const Metric& metric, const EMField& emfield,
 	const myfloat dtau, Particle& particle,
 	struct rk_cache& rk_cache)
 {

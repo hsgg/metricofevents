@@ -45,26 +45,30 @@ int main(int argc, char *argv[])
 		cerr << "Error: u[0] = " << init.u[0] << " must be exactly 1!" << endl;
 		return 1;
 	}
-	Particle particle(init.teilchen_masse, init.teilchen_ladung,
-		init.x, init.u);
-	myfloat gammacheck = scalar(metric, particle.x, particle.u, particle.u);
-	if (gammacheck <= 0.0) {
-		cerr << "Error: gammacheck = " << gammacheck << " must be positive!" << endl;
-		return 1;
-	}
+	unsigned numparticles = 2;
+	vector<Particle*> particle;
+	for (unsigned i = 0; i < numparticles; i++) {
+		particle.push_back(new Particle(i, init.teilchen_masse, init.teilchen_ladung,
+				init.x, init.u, metric));
+		myfloat gammacheck = scalar(metric, particle[i]->x, particle[i]->u, particle[i]->u);
+		if (gammacheck <= 0.0) {
+			cerr << "Error: gammacheck = " << gammacheck << " must be positive!" << endl;
+			return 1;
+		}
 
-	cout << endl;
-	for (unsigned mu = 0; mu < metric.dim; mu++)
-	{
-		cout << "x" << mu << " = " << particle.x[mu] << endl;
+		cout << endl;
+		for (unsigned mu = 0; mu < metric.dim; mu++)
+		{
+			cout << "x" << mu << " = " << particle[i]->x[mu] << endl;
+		}
+		cout << endl;
+		for (unsigned mu = 0; mu < metric.dim; mu++)
+		{
+			cout << "u" << mu << " = " << particle[i]->u[mu] << endl;
+		}
+		cout << "gamma = " << gammafactor(metric, *particle[i]) << endl;
+		cout << endl;
 	}
-	cout << endl;
-	for (unsigned mu = 0; mu < metric.dim; mu++)
-	{
-		cout << "u" << mu << " = " << particle.u[mu] << endl;
-	}
-	cout << "gamma = " << gammafactor(metric, particle) << endl;
-	cout << endl;
 
 
 	// Test antisymmetriy of fieldstrengthtensor
@@ -74,7 +78,7 @@ int main(int argc, char *argv[])
 		{
 			vector<myfloat> teilchenx(metric.dim);
 			for (unsigned i = 0; i < metric.dim; i++)
-				teilchenx[i] = particle.x[i];
+				teilchenx[i] = particle[0]->x[i];
 			cout << mu << nu << ": "
 			     << (emfield.*(emfield.F[mu][nu]))(teilchenx)
 			     << " ---- "
@@ -87,28 +91,13 @@ int main(int argc, char *argv[])
 
 	// Iterate
 	myfloat dtau = init.dtau;
-	ofstream plotfile("plot.dat");
 	ofstream dtaufile("dtau.dat");
-	plotfile << scientific;
 	dtaufile << scientific;
 	cout << endl << metric.name << ":" << endl
 	     << "m = " << metric.m << endl
 	     << "a = " << metric.a << endl
 	     << "q = " << metric.q << endl
 	     << endl;
-
-	// Print important information to plotfile
-	plotfile << "# Metric: " << metric.name << endl;
-	plotfile << "#	m = " << metric.m << endl
-		<< "#	a = " << metric.a << endl
-		<< "#	q = " << metric.q << endl;
-	plotfile << "# particle:" << endl
-		<< "#	m = " << init.teilchen_masse << endl
-		<< "#	q = " << init.teilchen_ladung << endl;
-	plotfile << "# dtau = " << dtau << endl
-		<< "# tau_max = " << init.tau_max << endl
-		<< "# max_x1 = " << init.max_x1 << endl;
-	plotfile << "# x3 x1 x2 x0	gamma u3 u1 u2 u0" << endl;
 
 
 	// Iterate
@@ -117,7 +106,7 @@ int main(int argc, char *argv[])
 	while (tau <= init.tau_max + dtau)
 	{
 		if (++taun % 100 == 0) {
-			info(metric, taun, tau, dtau, 0, particle);
+			info(metric, taun, tau, dtau, 0, *particle[0]);
 			if (taun >= init.max_n) {
 				cerr << "WARNING: Aborting prematurely: taking too long" << endl;
 				break;
@@ -126,19 +115,8 @@ int main(int argc, char *argv[])
 
 		// print to file
 		if (taun % 100) {
-			plotfile<< particle.x[3] << ' '
-				<< particle.x[1] << ' '
-				<< particle.x[2] << ' '
-				<< particle.x[0] << '\t'
-				<< gammafactor(metric, particle) << ' '
-				<< particle.u[3] << ' '
-				<< particle.u[1] << ' '
-				<< particle.u[2] << ' '
-				<< particle.u[0] << '\t'
-				<< tau << '\t'
-				<< dtau
-				<< endl;
-
+			for (unsigned i = 0; i < particle.size(); i++)
+				particle[i]->write_to_plotfile();
 			dtaufile << tau << "\t" << dtau << endl;
 		}
 
@@ -148,18 +126,14 @@ int main(int argc, char *argv[])
 		// Berechne x, u
 		x_and_u(metric, emfield, dtau, particle, rk_cache);
 
-		if ((particle.x[1] > init.max_x1)
-				|| (particle.x[1] < init.min_x1))
+		if ((particle[0]->x[1] > init.max_x1)
+				|| (particle[0]->x[1] < init.min_x1))
 			break;
 	}
-	plotfile << endl;
-
-
-	plotfile.close();
 	dtaufile.close();
 
 
-	info(metric, taun, tau, dtau, 0, particle);
+	info(metric, taun, tau, dtau, 0, *particle[0]);
 
 	cout << endl;
 

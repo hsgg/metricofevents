@@ -26,6 +26,9 @@ void init_rk_cache(struct rk_cache& rk_cache, unsigned dim);
 void x_and_u(const Metric& metric, const EMField& emfield,
 	const myfloat dtau, Particle& particle);
 void x_and_u(const Metric& metric, const EMField& emfield,
+	const myfloat dtau, vector<Particle*>& particle,
+	struct rk_cache& rk_cache);
+void x_and_u(const Metric& metric, const EMField& emfield,
 	const myfloat dtau, Particle& particle,
 	struct rk_cache& rk_cache);
 
