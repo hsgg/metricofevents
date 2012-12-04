@@ -10,6 +10,7 @@
 #include "global.h"
 #include "myfloat.h"
 
+#define NUMPARTICLES 2
 
 
 struct initializations {
@@ -19,11 +20,15 @@ struct initializations {
 
 	myfloat radius;
 
-	myfloat teilchen_masse;
-	myfloat teilchen_ladung;
+	myfloat teilchen_masse; // compatibility
+	myfloat teilchen_ladung; // compatibility
+	myfloat x[DIM]; // compatibility
+	myfloat u[DIM]; // compatibility
 
-	myfloat x[DIM];
-	myfloat u[DIM];
+	myfloat mass[NUMPARTICLES];
+	myfloat charge[NUMPARTICLES];
+	myfloat xvec[NUMPARTICLES][DIM];
+	myfloat uvec[NUMPARTICLES][DIM];
 
 	int nrays;
 	myfloat u3_inc;

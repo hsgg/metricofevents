@@ -41,15 +41,16 @@ int main(int argc, char *argv[])
 	init_rk_cache(rk_cache, metric.dim);
 
 	// particle
-	if (init.u[0] != 1) {
-		cerr << "Error: u[0] = " << init.u[0] << " must be exactly 1!" << endl;
+	if (init.uvec[0][0] != 1 || init.uvec[1][0] != 1) {
+		cerr << "Error: u[0][0] = " << init.uvec[0][0] << " must be exactly 1!" << endl;
+		cerr << "Error: u[1][0] = " << init.uvec[1][0] << " must be exactly 1!" << endl;
 		return 1;
 	}
 	unsigned numparticles = 2;
 	vector<Particle*> particle;
 	for (unsigned i = 0; i < numparticles; i++) {
-		particle.push_back(new Particle(i, init.teilchen_masse, init.teilchen_ladung,
-				init.x, init.u, metric));
+		particle.push_back(new Particle(i, init.mass[i], init.charge[i],
+				init.xvec[i], init.uvec[i], metric));
 		myfloat gammacheck = scalar(metric, particle[i]->x, particle[i]->u, particle[i]->u);
 		if (gammacheck <= 0.0) {
 			cerr << "Error: gammacheck = " << gammacheck << " must be positive!" << endl;

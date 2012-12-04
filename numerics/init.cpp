@@ -184,34 +184,54 @@ struct initializations initialize(char *filename)
 		} else if (before == string("q")) {
 			i.q = atof(after.c_str());
 
-		} else if (before == string("teilchen_masse")) {
-			i.teilchen_masse = atof(after.c_str());
-		} else if (before == string("teilchen_ladung")) {
-			i.teilchen_ladung = atof(after.c_str());
-
-		} else if (before == string("x[0]")) {
-			i.x[0] = atof(after.c_str());
-		} else if (before == string("x[1]")) {
-			i.x[1] = atof(after.c_str());
-		} else if (before == string("x[2]")) {
-			i.x[2] = atof(after.c_str());
-		} else if (before == string("x[3]")) {
-			i.x[3] = atof(after.c_str());
-
 		} else if (before == string("change")) {
 			i.change = atof(after.c_str());
 		} else if (before == string("umin")) {
 			i.umin = atof(after.c_str());
 		} else if (before == string("umax")) {
 			i.umax = atof(after.c_str());
-		} else if (before == string("u[0]")) {
-			i.u[0] = atof(after.c_str());
-		} else if (before == string("u[1]")) {
-			i.u[1] = atof(after.c_str());
-		} else if (before == string("u[2]")) {
-			i.u[2] = atof(after.c_str());
-		} else if (before == string("u[3]")) {
-			i.u[3] = atof(after.c_str());
+
+		} else if (before == string("mass[0]")) {
+			i.mass[0] = atof(after.c_str());
+		} else if (before == string("charge[0]")) {
+			i.charge[0] = atof(after.c_str());
+		} else if (before == string("x[0][0]")) {
+			i.xvec[0][0] = atof(after.c_str());
+		} else if (before == string("x[0][1]")) {
+			i.xvec[0][1] = atof(after.c_str());
+		} else if (before == string("x[0][2]")) {
+			i.xvec[0][2] = atof(after.c_str());
+		} else if (before == string("x[0][3]")) {
+			i.xvec[0][3] = atof(after.c_str());
+		} else if (before == string("u[0][0]")) {
+			i.uvec[0][0] = atof(after.c_str());
+		} else if (before == string("u[0][1]")) {
+			i.uvec[0][1] = atof(after.c_str());
+		} else if (before == string("u[0][2]")) {
+			i.uvec[0][2] = atof(after.c_str());
+		} else if (before == string("u[0][3]")) {
+			i.uvec[0][3] = atof(after.c_str());
+
+		} else if (before == string("mass[1]")) {
+			i.mass[1] = atof(after.c_str());
+		} else if (before == string("charge[1]")) {
+			i.charge[1] = atof(after.c_str());
+		} else if (before == string("x[1][0]")) {
+			i.xvec[1][0] = atof(after.c_str());
+		} else if (before == string("x[1][1]")) {
+			i.xvec[1][1] = atof(after.c_str());
+		} else if (before == string("x[1][2]")) {
+			i.xvec[1][2] = atof(after.c_str());
+		} else if (before == string("x[1][3]")) {
+			i.xvec[1][3] = atof(after.c_str());
+		} else if (before == string("u[1][0]")) {
+			i.uvec[1][0] = atof(after.c_str());
+		} else if (before == string("u[1][1]")) {
+			i.uvec[1][1] = atof(after.c_str());
+		} else if (before == string("u[1][2]")) {
+			i.uvec[1][2] = atof(after.c_str());
+		} else if (before == string("u[1][3]")) {
+			i.uvec[1][3] = atof(after.c_str());
 
 		} else if (before == string("nrays")) {
 			i.nrays = atof(after.c_str());
