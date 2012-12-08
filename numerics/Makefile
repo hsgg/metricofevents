@@ -85,9 +85,9 @@ spectrum.o: spectrum.cpp spectrum.h myfloat.h misclib.h
 particle.o: particle.cpp particle.h global.h myfloat.h
 	$(CXX) $(CFLAGS) -c -o $@ $<
 
-metric.o: metric.cpp metric.h global.h myfloat.h
-	$(CXX) $(FLAGS_QUICKCOMPILE) -c -o $@ $<
-metric.h metric.cpp: algebra2src.$(EXT) $(METRIC) Makefile
+metric.o: metric.h global.h myfloat.h
+	$(CXX) $(FLAGS_QUICKCOMPILE) -c -o $@ metric.cpp
+metric.h: algebra2src.$(EXT) $(METRIC) Makefile
 	./$< "$(METRIC)"
 
 emfield.o: emfield.cpp emfield.h metric.h myfloat.h
