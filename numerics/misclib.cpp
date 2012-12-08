@@ -70,7 +70,7 @@ myfloat spatial_projection_scalar(const Metric metric, const Particle& p,
 
 myfloat gammafactor(const Metric& metric, const Particle& particle)
 {
-	return sqrt(1.0 / scalar(metric, particle.x, particle.u, particle.u));
+	return sqrtl(1.0 / scalar(metric, particle.x, particle.u, particle.u));
 }
 
 
