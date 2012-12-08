@@ -11,6 +11,11 @@
 using namespace std;
 
 
+static myfloat value_of_metric(const Metric metric, const myfloat* x,
+		const int mu, const int nu)
+{
+	return (metric.*(metric.g[mu][nu]))(x);
+}
 
 // calculate scalarproduct of y and z at x.
 myfloat scalar(const Metric metric, const myfloat* x,
@@ -20,7 +25,7 @@ myfloat scalar(const Metric metric, const myfloat* x,
 
 	for (unsigned mu = 0; mu < metric.dim; mu++)
 		for (unsigned nu = 0; nu < metric.dim; nu++)
-			l += (metric.*(metric.g[mu][nu]))(x) * y[mu] * z[nu];
+			l += value_of_metric(metric, x, mu, nu) * y[mu] * z[nu];
 
 	return l;
 }
