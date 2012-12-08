@@ -87,6 +87,19 @@ void info(const Metric& metric, const int taun, const myfloat tau, const myfloat
 	     << endl
 	     << setprecision(3);
 }
+void info(const Metric& metric, const int taun, const myfloat tau, const myfloat dtau,
+		const myfloat wrong, const vector<Particle*>& p)
+{
+	cerr << taun
+	     << ": tau = " << tau
+	     << ", dtau = " << dtau
+	     << ", wrong = " << wrong
+	     << ", r = " << setprecision(12) << p[0]->x[1]
+	     << ", dr = " << sqrtl(spatial_projection_scalar(metric, *p[0], p[0]->x, p[1]->x))
+	     << ", gamma = " << scientific << gammafactor(metric, *p[0])
+	     << endl
+	     << setprecision(3);
+}
 
 
 // Calculate u

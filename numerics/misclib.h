@@ -41,6 +41,8 @@ myfloat find_u(const Metric metric,
 // Print some info
 void info(const Metric& metric, const int taun, const myfloat tau, const myfloat dtau,
 		const myfloat wrong, const Particle& p);
+void info(const Metric& metric, const int taun, const myfloat tau, const myfloat dtau,
+		const myfloat wrong, const std::vector<Particle*>& p);
 
 
 #endif

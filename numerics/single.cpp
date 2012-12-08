@@ -107,7 +107,7 @@ int main(int argc, char *argv[])
 	while (tau <= init.tau_max + dtau)
 	{
 		if (++taun % 100 == 0) {
-			info(metric, taun, tau, dtau, 0, *particle[0]);
+			info(metric, taun, tau, dtau, 0, particle);
 			if (taun >= init.max_n) {
 				cerr << "WARNING: Aborting prematurely: taking too long" << endl;
 				break;
@@ -134,7 +134,7 @@ int main(int argc, char *argv[])
 	dtaufile.close();
 
 
-	info(metric, taun, tau, dtau, 0, *particle[0]);
+	info(metric, taun, tau, dtau, 0, particle);
 
 	cout << endl;
 
