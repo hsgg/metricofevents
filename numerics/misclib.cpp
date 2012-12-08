@@ -30,6 +30,43 @@ myfloat scalar(const Metric metric, const myfloat* x,
 	return l;
 }
 
+// used for spatial_projection_scalar()
+static myfloat delta_distance(const Metric metric, const Particle& p,
+		const myfloat* covar_u,
+		const myfloat* x, const myfloat* y,
+		const int mu, const int nu)
+{
+	return (covar_u[mu] * covar_u[nu] - value_of_metric(metric, p.x, mu, nu))
+		* (y[mu] - x[mu]) * (y[nu] - x[nu]);
+}
+
+// Calculate spatial projection of x^mu * y^nu
+myfloat spatial_projection_scalar(const Metric metric, const Particle& p,
+		const myfloat* x, const myfloat* y)
+{
+	unsigned mu, nu;
+	myfloat distancesq = 0.0; // "distance squared"
+	myfloat const gamma = gammafactor(metric, p);
+
+	myfloat covar_u[DIM];
+	for (mu = 0; mu < metric.dim; mu++) {
+		covar_u[mu] = 0.0;
+		for (nu = 0; nu < metric.dim; nu++) {
+			covar_u[mu] += value_of_metric(metric, p.x, mu, nu) * gamma * p.u[nu];
+		}
+	}
+
+	// can optimize sum, since dx^mu * dx^nu is symmetric
+	for (mu = 0; mu < metric.dim; mu++) {
+		distancesq += delta_distance(metric, p, covar_u, x, y, mu, mu);
+		for (nu = mu + 1; nu < metric.dim; nu++) {
+			distancesq += 2.0 * delta_distance(metric, p, covar_u, x, y, mu, nu);
+		}
+	}
+
+	return distancesq;
+}
+
 
 myfloat gammafactor(const Metric& metric, const Particle& particle)
 {

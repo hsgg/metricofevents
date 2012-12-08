@@ -1,6 +1,7 @@
 #ifndef MISCLIB_H
 #define MISCLIB_H
 
+#include <vector>
 #include "init.h"
 #include "particle.h"
 
@@ -14,6 +15,10 @@ inline myfloat absol(const myfloat number)
 // calculate scalarproduct of y and z at x.
 myfloat scalar(const Metric metric, const myfloat* x,
 	const myfloat* y, const myfloat* z);
+
+// Calculate spatial projection of x^mu * y^nu
+myfloat spatial_projection_scalar(const Metric metric, const Particle& p,
+		const myfloat* x, const myfloat* y);
 
 myfloat gammafactor(const Metric& metric, const Particle& particle);
 
