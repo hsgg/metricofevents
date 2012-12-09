@@ -93,19 +93,13 @@ int main(int argc, char* argv[])
 		<< "(const myfloat x[" << c.dim << "]) const;"
 		<< endl
 	     << "\tconst myfloat (Metric::*G[" << c.dim << "][" << c.dim << "])"
-		<< "(const std::vector<myfloat>& x) const;"
+		<< "(const myfloat* x) const;"
 		<< endl
-	/*     << "\tconst myfloat (Metric::*christoffel[" << c.dim << "][" << c.dim << "][" << c.dim << "])"
-		<< "(const myfloat x[" << c.dim << "]) const;"
-		<< endl
-	*/
 	     << "\tconst myfloat (Metric::*christoffelsum[" << c.dim << "])"
-		<< "(const std::vector<myfloat>& x, "
-		<< "const std::vector<myfloat>& u) const;"
+		<< "(const myfloat* x, const myfloat* u) const;"
 		<< endl
 	     << "\tconst myfloat (Metric::*acceleration3d[" << c.dim << "])"
-		<< "(const std::vector<myfloat>& x, "
-		<< "const std::vector<myfloat>& u) const;"
+		<< "(const myfloat* x, const myfloat* u) const;"
 		<< endl
 	     << endl
 	     << "    private:" << endl;
@@ -136,10 +130,10 @@ int main(int argc, char* argv[])
 		for (unsigned nu = 0; nu < c.dim; nu++)
 		{
 			outh << "\tconst myfloat G" << mu << nu
-			     << "(const std::vector<myfloat>& x) const"
+			     << "(const myfloat* x) const"
 			     << ";" << endl;
 			out << "const myfloat Metric::G" << mu << nu
-			    << "(const std::vector<myfloat>& x) const" << endl
+			    << "(const myfloat* x) const" << endl
 			    << "{" << endl
 			    << "\treturn " << c.G(mu,nu).subs(co) << ";"
 				<< endl
@@ -195,13 +189,11 @@ int main(int argc, char* argv[])
 		cerr << ":";
 		outh << "\tconst myfloat chsum"
 		     << sigma
-		     << "(const std::vector<myfloat>& x, "
-		     << "const std::vector<myfloat>& u) const"
+		     << "(const myfloat* x, const myfloat* u) const"
 		     << ";" << endl;
 		out << "const myfloat Metric::chsum"
 		    << sigma
-		    << "(const std::vector<myfloat>& x, "
-		    << "const std::vector<myfloat>& u) const"
+		    << "(const myfloat* x, const myfloat* u) const"
 		    << endl
 		    << "{" << endl
 		    << "\treturn "
@@ -233,13 +225,11 @@ int main(int argc, char* argv[])
 		cerr << ":";
 		outh << "\tconst myfloat acc3d"
 		     << mu
-		     << "(const std::vector<myfloat>& x, "
-		     << "const std::vector<myfloat>& u) const"
+		     << "(const myfloat* x, const myfloat* u) const"
 		     << ";" << endl;
 		out << "const myfloat Metric::acc3d"
 		    << mu
-		    << "(const std::vector<myfloat>& x, "
-		    << "const std::vector<myfloat>& u) const"
+		    << "(const myfloat* x, const myfloat* u) const"
 		    << endl
 		    << "{" << endl
 		    << "\treturn "

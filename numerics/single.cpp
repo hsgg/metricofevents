@@ -36,10 +36,6 @@ int main(int argc, char *argv[])
 	// emfield
 	EMField emfield(metric);
 
-	// rk_cache
-	struct rk_cache rk_cache;
-	init_rk_cache(rk_cache, metric.dim);
-
 	// particle
 	if (init.uvec[0][0] != 1 || init.uvec[1][0] != 1) {
 		cerr << "Error: u[0][0] = " << init.uvec[0][0] << " must be exactly 1!" << endl;
@@ -77,13 +73,11 @@ int main(int argc, char *argv[])
 	{
 		for (unsigned nu = 0; nu < metric.dim; nu++)
 		{
-			vector<myfloat> teilchenx(metric.dim);
-			for (unsigned i = 0; i < metric.dim; i++)
-				teilchenx[i] = particle[0]->x[i];
+			myfloat* x = particle[0]->x;
 			cout << mu << nu << ": "
-			     << (emfield.*(emfield.F[mu][nu]))(teilchenx)
+			     << (emfield.*(emfield.F[mu][nu]))(x)
 			     << " ---- "
-			     << (emfield.*(emfield.F[nu][mu]))(teilchenx)
+			     << (emfield.*(emfield.F[nu][mu]))(x)
 			     << endl;
 		}
 	}
@@ -125,7 +119,7 @@ int main(int argc, char *argv[])
 
 
 		// Berechne x, u
-		x_and_u(metric, emfield, dtau, particle, rk_cache);
+		x_and_u(metric, emfield, dtau, particle);
 
 		if ((particle[0]->x[1] > init.max_x1)
 				|| (particle[0]->x[1] < init.min_x1))

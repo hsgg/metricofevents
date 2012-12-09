@@ -1,7 +1,3 @@
-/*
- * HSGG Tü2007.04.29
- */
-
 #ifndef PARTICLE_H
 #define PARTICLE_H
 
@@ -12,6 +8,7 @@
 
 #include "myfloat.h"
 #include "metric.h"
+
 
 class Particle
 {
@@ -30,6 +27,12 @@ class Particle
 	// Position, Vierergeschwindigkeit
 	myfloat x[DIM];
 	myfloat u[DIM];
+
+	// for Runge-Kutta
+	myfloat xk[4][DIM];
+	myfloat uk[4][DIM];
+	myfloat xpk[DIM];
+	myfloat upk[DIM];
 
 	void write_to_plotfile();
 

@@ -13,58 +13,58 @@
 using namespace std;
 
 
-inline const myfloat EMField::rho4(const vector<myfloat>& x) const
+inline const myfloat EMField::rho4(const myfloat* x) const
 {
 	return pow((x[1] * x[1] + pow(metric->a * cos(x[2]), 2)), 2);
 }
 
 
 // F_00
-const myfloat EMField::F_00(const vector<myfloat>& x) const
+const myfloat EMField::F_00(const myfloat* x) const
 {
 	return 0.0;
 }
 
 // F_01
-const myfloat EMField::F_01(const vector<myfloat>& x) const
+const myfloat EMField::F_01(const myfloat* x) const
 {
 	return -F_10(x);
 }
 
 // F_02
-const myfloat EMField::F_02(const vector<myfloat>& x) const
+const myfloat EMField::F_02(const myfloat* x) const
 {
 	return 0.0;
 }
 
 // F_03
-const myfloat EMField::F_03(const vector<myfloat>& x) const
+const myfloat EMField::F_03(const myfloat* x) const
 {
 	return 0.0;
 }
 
 
 // F_10
-const myfloat EMField::F_10(const vector<myfloat>& x) const
+const myfloat EMField::F_10(const myfloat* x) const
 {
 	return 2.0 * (metric->q / rho4(x))
 		* (x[1] * x[1] - pow(metric->a * cos(x[2]), 2));
 }
 
 // F_11
-const myfloat EMField::F_11(const vector<myfloat>& x) const
+const myfloat EMField::F_11(const myfloat* x) const
 {
 	return 0.0;
 }
 
 // F_12
-const myfloat EMField::F_12(const vector<myfloat>& x) const
+const myfloat EMField::F_12(const myfloat* x) const
 {
 	return 0.0;
 }
 
 // F_13
-const myfloat EMField::F_13(const vector<myfloat>& x) const
+const myfloat EMField::F_13(const myfloat* x) const
 {
 	return 2.0 * (metric->q / rho4(x))
 		* (x[1] * x[1] - pow(metric->a * cos(x[2]), 2))
@@ -73,7 +73,7 @@ const myfloat EMField::F_13(const vector<myfloat>& x) const
 
 
 // F_20
-const myfloat EMField::F_20(const vector<myfloat>& x) const
+const myfloat EMField::F_20(const myfloat* x) const
 {
 	return 2.0 * (2.0 * metric->q / rho4(x))
 		* (metric->a * x[1] * cos(x[2]) * sin(x[2]))
@@ -81,19 +81,19 @@ const myfloat EMField::F_20(const vector<myfloat>& x) const
 }
 
 // F_21
-const myfloat EMField::F_21(const vector<myfloat>& x) const
+const myfloat EMField::F_21(const myfloat* x) const
 {
 	return 0.0;
 }
 
 // F_22
-const myfloat EMField::F_22(const vector<myfloat>& x) const
+const myfloat EMField::F_22(const myfloat* x) const
 {
 	return 0.0;
 }
 
 // F_23
-const myfloat EMField::F_23(const vector<myfloat>& x) const
+const myfloat EMField::F_23(const myfloat* x) const
 {
 	return 2.0 * (2.0 * metric->q / rho4(x))
 		* (metric->a * x[1] * cos(x[2]) * sin(x[2]))
@@ -102,25 +102,25 @@ const myfloat EMField::F_23(const vector<myfloat>& x) const
 
 
 // F_30
-const myfloat EMField::F_30(const vector<myfloat>& x) const
+const myfloat EMField::F_30(const myfloat* x) const
 {
 	return 0.0;
 }
 
 // F_31
-const myfloat EMField::F_31(const vector<myfloat>& x) const
+const myfloat EMField::F_31(const myfloat* x) const
 {
 	return -F_13(x);
 }
 
 // F_32
-const myfloat EMField::F_32(const vector<myfloat>& x) const
+const myfloat EMField::F_32(const myfloat* x) const
 {
 	return -F_23(x);
 }
 
 // F_33
-const myfloat EMField::F_33(const vector<myfloat>& x) const
+const myfloat EMField::F_33(const myfloat* x) const
 {
 	return 0.0;
 }

@@ -6,6 +6,7 @@
 
 #include "misclib.h"
 #include "particle.h"
+#include "numerics.h"
 
 
 using namespace std;
