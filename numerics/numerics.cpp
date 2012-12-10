@@ -57,8 +57,7 @@ static inline myfloat acceleration3d(const Metric& metric, const unsigned& sigma
 static myfloat local_gravity_acceleration3d(const Metric& metric, const unsigned mu,
 		const vector<Particle*>& particle, const unsigned i)
 {
-	if (mu == 0)
-		return 0.0;
+	//return 0.0;
 
 	myfloat acc = 0.0;
 	Particle* p = particle[i];
@@ -83,16 +82,21 @@ static myfloat local_gravity_acceleration3d(const Metric& metric, const unsigned
 				metric, p->x, covar_u, pix, pjx);
 		myfloat const distance = sqrtl(absol(sqdistance));
 		myfloat ds_mu = 0.0;
+		myfloat ds_0 = 0.0;
 		for (unsigned kappa = 0; kappa < metric.dim; kappa++) {
-			ds_mu += gamma * p->u[mu] * covar_u[kappa] * (pjx[kappa] - pix[kappa]);
+			const myfloat tmp = gamma * covar_u[kappa] * (pjx[kappa] - pix[kappa]);
+			ds_mu += tmp * p->u[mu];
+			ds_0 += tmp * p->u[0];
 		}
 		ds_mu -= pjx[mu] - pix[mu];
+		ds_0 -= pjx[0] - pix[0];
 
-		acc += - particle[j]->m * ds_mu / (sqdistance * distance + 0.01);
+		const myfloat k = - particle[j]->m / (sqdistance * distance + 0.01);
+		acc += k * (ds_mu - ds_0 * p->u[mu]);
 	}
 
 	//cerr << i << ":acc" << mu << " = " << acc << endl;
-	return acc;
+	return acc / (gamma * gamma);
 }
 
 
