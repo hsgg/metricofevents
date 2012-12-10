@@ -11,9 +11,10 @@ EXT=exe
 
 
 # Metrics:
-METRIC=../metrics/schwarzschild.metric
+#METRIC=../metrics/minkowsky.metric
+#METRIC=../metrics/schwarzschild.metric
 #METRIC=../metrics/robertson-walker-schwarzschild.metric
-METRIC=../metrics/kerr-newman.metric
+METRIC=../metrics/kerr.metric
 #METRIC=../metrics/schwarzschild-isotropic.metric
 
 

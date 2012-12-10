@@ -91,7 +91,7 @@ static myfloat local_gravity_acceleration3d(const Metric& metric, const unsigned
 		ds_mu -= pjx[mu] - pix[mu];
 		ds_0 -= pjx[0] - pix[0];
 
-		const myfloat k = - particle[j]->m / (sqdistance * distance + 0.01);
+		const myfloat k = - particle[j]->m / (sqdistance * distance + 0.001);
 		acc += k * (ds_mu - ds_0 * p->u[mu]);
 	}
 
