@@ -3,6 +3,7 @@
  */
 
 #include <sstream>
+#include <cmath>
 
 #include "misclib.h"
 #include "particle.h"
@@ -52,7 +53,7 @@ Particle::~Particle()
 }
 
 
-void Particle::write_to_plotfile()
+void Particle::write_to_plotfile(const vector<Particle*>& particles)
 {
 	plotfile<< x[3] << ' '
 		<< x[1] << ' '
@@ -62,6 +63,10 @@ void Particle::write_to_plotfile()
 		<< u[3] << ' '
 		<< u[1] << ' '
 		<< u[2] << ' '
-		<< u[0]
-		<< endl;
+		<< u[0] << '\t';
+	for (unsigned i = 0; i < particles.size(); i++) {
+		plotfile<< sqrtl(spatial_projection_scalar(metric, *this, x, particles[i]->x))
+			<< ' ';
+	}
+	plotfile<< endl;
 }

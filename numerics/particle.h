@@ -4,6 +4,7 @@
 #include <iostream>
 #include <iomanip>
 #include <fstream>
+#include <vector>
 
 
 #include "myfloat.h"
@@ -34,7 +35,7 @@ class Particle
 	myfloat xpk[DIM];
 	myfloat upk[DIM];
 
-	void write_to_plotfile();
+	void write_to_plotfile(const std::vector<Particle*>& particles);
 
     private:
 	int const unique;
