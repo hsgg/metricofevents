@@ -14,6 +14,7 @@
 #include "init.h"
 #include "metric.h"
 #include "emfield.h"
+#include "misclib.h"
 #include "numerics.h"
 
 using namespace std;
@@ -54,9 +55,44 @@ static inline myfloat acceleration3d(const Metric& metric, const unsigned& sigma
 }
 
 static myfloat local_gravity_acceleration3d(const Metric& metric, const unsigned mu,
-		const vector<Particle*>& particle, const int i)
+		const vector<Particle*>& particle, const unsigned i)
 {
-	return 0.0;
+	if (mu == 0)
+		return 0.0;
+
+	myfloat acc = 0.0;
+	Particle* p = particle[i];
+	myfloat const*const pix = p->x;
+
+	myfloat covar_u[DIM];
+	myfloat const gamma = gammafactor(metric, *p);
+	for (unsigned sigma = 0; sigma < metric.dim; sigma++) {
+		covar_u[sigma] = 0.0;
+		for (unsigned nu = 0; nu < metric.dim; nu++) {
+			covar_u[sigma] += value_of_metric(metric, p->x, sigma, nu)
+				* gamma * p->u[nu];
+		}
+	}
+
+	for (unsigned j = 0; j < particle.size(); j++) {
+		if (j == i)
+			continue;
+
+		myfloat const*const pjx = particle[j]->x;
+		myfloat const sqdistance = spatial_projection_scalar(
+				metric, p->x, covar_u, pix, pjx);
+		myfloat const distance = sqrtl(absol(sqdistance));
+		myfloat ds_mu = 0.0;
+		for (unsigned kappa = 0; kappa < metric.dim; kappa++) {
+			ds_mu += gamma * p->u[mu] * covar_u[kappa] * (pjx[kappa] - pix[kappa]);
+		}
+		ds_mu -= pjx[mu] - pix[mu];
+
+		acc += - particle[j]->m * ds_mu / (sqdistance * distance + 0.01);
+	}
+
+	//cerr << i << ":acc" << mu << " = " << acc << endl;
+	return acc;
 }
 
 

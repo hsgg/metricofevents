@@ -11,6 +11,13 @@ inline myfloat absol(const myfloat number)
 	return (number < 0.0) ? -number : number;
 }
 
+inline myfloat value_of_metric(const Metric metric, const myfloat* x,
+		const int mu, const int nu)
+{
+	return (metric.*(metric.g[mu][nu]))(x);
+}
+
+
 
 // calculate scalarproduct of y and z at x.
 myfloat scalar(const Metric metric, const myfloat* x,
@@ -19,6 +26,8 @@ myfloat scalar(const Metric metric, const myfloat* x,
 // Calculate spatial projection of x^mu * y^nu
 myfloat spatial_projection_scalar(const Metric metric, const Particle& p,
 		const myfloat* x, const myfloat* y);
+myfloat spatial_projection_scalar(const Metric metric, const myfloat* xpos,
+		const myfloat* covar_u, const myfloat* x, const myfloat* y);
 
 myfloat gammafactor(const Metric& metric, const Particle& particle);
 

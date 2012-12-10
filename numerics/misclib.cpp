@@ -11,12 +11,6 @@
 using namespace std;
 
 
-static myfloat value_of_metric(const Metric metric, const myfloat* x,
-		const int mu, const int nu)
-{
-	return (metric.*(metric.g[mu][nu]))(x);
-}
-
 // calculate scalarproduct of y and z at x.
 myfloat scalar(const Metric metric, const myfloat* x,
 	const myfloat* y, const myfloat* z)
@@ -31,12 +25,12 @@ myfloat scalar(const Metric metric, const myfloat* x,
 }
 
 // used for spatial_projection_scalar()
-static myfloat delta_distance(const Metric metric, const Particle& p,
+static myfloat delta_distance(const Metric metric, const myfloat* xpos,
 		const myfloat* covar_u,
 		const myfloat* x, const myfloat* y,
 		const int mu, const int nu)
 {
-	return (covar_u[mu] * covar_u[nu] - value_of_metric(metric, p.x, mu, nu))
+	return (covar_u[mu] * covar_u[nu] - value_of_metric(metric, xpos, mu, nu))
 		* (y[mu] - x[mu]) * (y[nu] - x[nu]);
 }
 
@@ -44,23 +38,31 @@ static myfloat delta_distance(const Metric metric, const Particle& p,
 myfloat spatial_projection_scalar(const Metric metric, const Particle& p,
 		const myfloat* x, const myfloat* y)
 {
-	unsigned mu, nu;
-	myfloat distancesq = 0.0; // "distance squared"
-	myfloat const gamma = gammafactor(metric, p);
-
 	myfloat covar_u[DIM];
-	for (mu = 0; mu < metric.dim; mu++) {
-		covar_u[mu] = 0.0;
-		for (nu = 0; nu < metric.dim; nu++) {
-			covar_u[mu] += value_of_metric(metric, p.x, mu, nu) * gamma * p.u[nu];
+	myfloat const gamma = gammafactor(metric, p);
+	for (unsigned sigma = 0; sigma < metric.dim; sigma++) {
+		covar_u[sigma] = 0.0;
+		for (unsigned nu = 0; nu < metric.dim; nu++) {
+			covar_u[sigma] += value_of_metric(metric, p.x, sigma, nu)
+				* gamma * p.u[nu];
 		}
 	}
 
+	return spatial_projection_scalar(metric, p.x, covar_u, x, y);
+}
+
+// Calculate spatial projection of x^mu * y^nu
+myfloat spatial_projection_scalar(const Metric metric, const myfloat* xpos,
+		const myfloat* covar_u, const myfloat* x, const myfloat* y)
+{
+	unsigned mu, nu;
+	myfloat distancesq = 0.0; // "distance squared"
+
 	// can optimize sum, since dx^mu * dx^nu is symmetric
 	for (mu = 0; mu < metric.dim; mu++) {
-		distancesq += delta_distance(metric, p, covar_u, x, y, mu, mu);
+		distancesq += delta_distance(metric, xpos, covar_u, x, y, mu, mu);
 		for (nu = mu + 1; nu < metric.dim; nu++) {
-			distancesq += 2.0 * delta_distance(metric, p, covar_u, x, y, mu, nu);
+			distancesq += 2.0 * delta_distance(metric, xpos, covar_u, x, y, mu, nu);
 		}
 	}
 
