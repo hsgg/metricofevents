@@ -53,6 +53,11 @@ static inline myfloat acceleration3d(const Metric& metric, const unsigned& sigma
 	return (metric.*(metric.acceleration3d[sigma]))(x, u);
 }
 
+static myfloat local_gravity_acceleration3d(const Metric& metric, const unsigned mu,
+		const vector<Particle*>& particle, const int i)
+{
+	return 0.0;
+}
 
 
 // electromagnetic acceleration
@@ -79,9 +84,9 @@ static myfloat full_acceleration(const int mu, const Metric& metric, const EMFie
 		vector<Particle*>& particle, unsigned i)
 {
 	Particle *const p = particle[i];
-	return acceleration3d(metric, mu, p->xpk, p->upk);
-		//+ local_gravity_acceleration3d(metric, particle)
-		//- p->q * emfieldforce(emfield, mu, p->xpk, p->upk);
+	return acceleration3d(metric, mu, p->xpk, p->upk)
+		+ local_gravity_acceleration3d(metric, mu, particle, i)
+		- p->q * emfieldforce(emfield, mu, p->xpk, p->upk);
 }
 
 static inline void mk_xk_uk(const Metric& metric, const EMField& emfield,
