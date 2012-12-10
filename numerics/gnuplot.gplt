@@ -6,7 +6,8 @@ set grid polar
 #set xrange[-10:10]
 #set yrange[-10:10]
 
-plot "sphere.dat", "plot0.dat", "plot1.dat"
+plot "sphere.dat", "sphere2.dat", "plot0.dat" w l, "plot1.dat" w l
+#plot "plot0.dat" w l, "plot1.dat" w l
 #splot "plot.dat","sphere.dat"
 
 #plot "wrong.dat"

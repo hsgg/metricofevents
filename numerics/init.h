@@ -48,6 +48,6 @@ struct initializations {
 };
 
 struct initializations initials();
-struct initializations initialize(char *filename);
+struct initializations initialize(char const*const filename);
 
 #endif

@@ -15,18 +15,22 @@ using namespace std;
 // ********* MAIN ************
 int main()
 {
+	char const*const filename = "input";
+
 	#ifdef USE_CLN
 		const double m = double_approx(initials().m);
-		const double r = double_approx(initials().radius);
+		double r = double_approx(initials().radius);
 	#else
-		const double m = initials().m;
-		const double r = initials().radius;
+		const double m = initialize(filename).m;
+		const double a = initialize(filename).a;
+		double r = initialize(filename).radius;
 	#endif
 
 	FILE* circ_file = fopen("sphere.dat", "w");
 	FILE* circ2_file = fopen("sphere2.dat", "w");
 
 	fprintf(circ_file, "# m = %f\n", m);
+	fprintf(circ_file, "# a = %f\n", a);
 	fprintf(circ2_file, "# r = %f\n", r);
 
 	// Radius ist 2 * m
@@ -41,14 +45,18 @@ int main()
 				2 * m			   * cos(j * M_PI / 18)
 			);
 			*/
+			const double theta = M_PI_2;
+			const double r_s_plus = m + sqrt(m*m - a*a);
+			const double r_s_ergo = m + sqrt(m*m - a*a*cos(theta));
 			fprintf(circ_file, "%e\t%e\t%e\n",
 				i * M_PI / 18,
-				2 * m * j / 17.0,
+				r_s_plus * j / 17.0,
 				j * M_PI / 18);
+			r = r_s_ergo;
 			fprintf(circ2_file, "%e\t%e\t%e\n",
-				r * cos(i * M_PI / 18)	* sin(j * M_PI / 18),
-				r * sin(i * M_PI / 18)	* sin(j * M_PI / 18),
-				r			* cos(j * M_PI / 18)
+				i * M_PI / 18,
+				r * j / 17.0,
+				j * M_PI / 18
 			);
 		}
 	}

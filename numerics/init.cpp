@@ -129,7 +129,7 @@ static void split_at_equalsign(const string& s,
 
 
 
-struct initializations initialize(char *filename)
+struct initializations initialize(char const*const filename)
 {
 	struct initializations i;
 	bool version_ok = false;
