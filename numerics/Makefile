@@ -109,7 +109,7 @@ plot1.dat plot0.dat: single.$(EXT) input
 	time ./$< input
 
 # sphere.dat, sphere2.dat
-sphere.dat sphere2.dat: sphere.$(EXT)
+sphere.dat sphere2.dat: sphere.$(EXT) input
 	./$<
 
 # globalspec.dat
