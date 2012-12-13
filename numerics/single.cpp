@@ -49,7 +49,8 @@ int main(int argc, char *argv[])
 				init.xvec[i], init.uvec[i], metric));
 		myfloat gammacheck = scalar(metric, particle[i]->x, particle[i]->u, particle[i]->u);
 		if (gammacheck <= 0.0) {
-			cerr << "Error: gammacheck = " << gammacheck << " must be positive!" << endl;
+			cerr << "Error: gammacheck["<<i<<"] = " << gammacheck
+				<< " must be positive!" << endl;
 			return 1;
 		}
 
@@ -109,7 +110,7 @@ int main(int argc, char *argv[])
 		}
 
 		// print to file
-		if (taun % 10 == 0) {
+		if (taun % 1 == 0) {
 			for (unsigned i = 0; i < particle.size(); i++)
 				particle[i]->write_to_plotfile(particle);
 			dtaufile << tau << "\t" << dtau << endl;
