@@ -107,6 +107,8 @@ sphere.o: sphere.cpp global.h init.h myfloat.h
 # plot1.dat plot0.dat
 plots: single.$(EXT) input sphere.dat
 	time ./$< input
+	sed -i -e '/nan/d' plot0.dat
+	sed -i -e '/nan/d' plot1.dat
 	date > $@
 
 # sphere.dat, sphere2.dat
