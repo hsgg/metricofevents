@@ -121,7 +121,8 @@ int main(int argc, char *argv[])
 		// Berechne x, u
 		x_and_u(metric, emfield, dtau, particle);
 
-		if ((particle[0]->x[1] > init.max_x1)
+		if (isnan(particle[0]->x[1])
+				|| (particle[0]->x[1] > init.max_x1)
 				|| (particle[0]->x[1] < init.min_x1))
 			break;
 	}
