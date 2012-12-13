@@ -4,7 +4,7 @@ version = 0.1
 radius = 10.0
 
 m = 5.9108e9
-a = 5e9
+a = -5e9
 q = 0.0
 
 
