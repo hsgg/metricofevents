@@ -109,7 +109,7 @@ int main(int argc, char *argv[])
 		}
 
 		// print to file
-		if (taun % 1 == 0) {
+		if (taun % 10 == 0) {
 			for (unsigned i = 0; i < particle.size(); i++)
 				particle[i]->write_to_plotfile(particle);
 			dtaufile << tau << "\t" << dtau << endl;
