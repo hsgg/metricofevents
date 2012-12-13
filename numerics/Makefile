@@ -27,7 +27,7 @@ CS_O=$(CS:.cpp=.o)
 all: programs globalplot globalspec
 
 
-plot: gnuplot.gplt plot1.dat sphere.dat sphere2.dat
+plot: gnuplot.gplt plots sphere.dat sphere2.dat
 	gnuplot -persist gnuplot.gplt
 
 wrong: plot gnuplot-wrong.gplt
@@ -45,7 +45,7 @@ globalspec: gnuplot-globalspec.gplt globalspec.dat
 
 programs: algebra2src.$(EXT) single.$(EXT) sphere.$(EXT) many.$(EXT)
 
-datafiles: plot1.dat plot0.dat sphere.dat sphere2.dat
+datafiles: plots sphere.dat sphere2.dat
 
 
 # algebra2src
@@ -105,8 +105,9 @@ sphere.o: sphere.cpp global.h init.h myfloat.h
 
 
 # plot1.dat plot0.dat
-plot1.dat plot0.dat: single.$(EXT) input
+plots: single.$(EXT) input sphere.dat
 	time ./$< input
+	date > $@
 
 # sphere.dat, sphere2.dat
 sphere.dat sphere2.dat: sphere.$(EXT) input
@@ -140,5 +141,5 @@ clean:
 realclean: clean
 	rm -f algebra2src.exe single.exe sphere.exe many.exe
 	rm -f metric.h metric.cpp
-	rm -f dtau.dat plot1.dat plot0.dat sphere.dat sphere2.dat wrong.dat spec.dat
+	rm -f dtau.dat plots plot1.dat plot0.dat sphere.dat sphere2.dat wrong.dat spec.dat
 	@make -C ../calculus clean
