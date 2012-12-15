@@ -1,0 +1,15 @@
+#set title "Metric"
+set polar
+set grid polar
+set nokey
+
+#set size square
+#set xrange[-10:10]
+#set yrange[-10:10]
+
+plot "sphere.dat", "sphere2.dat", "plot0.dat" w l, "plot1.dat" w l
+#plot "plot0.dat" w l, "plot1.dat" w l
+#plot "plot0.dat", "plot1.dat"
+#splot "plot.dat","sphere.dat"
+
+#plot "wrong.dat"
