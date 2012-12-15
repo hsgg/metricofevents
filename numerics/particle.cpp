@@ -26,7 +26,7 @@ Particle::Particle(int unique, const myfloat& masse, const myfloat& ladung,
 	stringstream s;
 	s << "plot" << unique << ".dat";
 	plotfile.open(s.str().c_str());
-	plotfile << scientific << setprecision(12);
+	plotfile << scientific << setprecision(15);
 	/*
 	plotfile << "# Metric: " << metric.name << endl;
 	plotfile << "#	m = " << metric.m << endl
