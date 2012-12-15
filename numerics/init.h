@@ -25,6 +25,7 @@ struct initializations {
 	myfloat x[DIM]; // compatibility
 	myfloat u[DIM]; // compatibility
 
+	unsigned numparticles;
 	myfloat mass[NUMPARTICLES];
 	myfloat charge[NUMPARTICLES];
 	myfloat xvec[NUMPARTICLES][DIM];

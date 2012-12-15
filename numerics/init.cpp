@@ -169,7 +169,7 @@ struct initializations initialize(char const*const filename)
 		split_at_equalsign(s, before, after);
 
 		if (before == string("version")) {
-			if (after != string("0.1"))
+			if (after != string("0.2"))
 				cerr << "Warning: We only support version 0.1! Good luck!" << endl;
 			else
 				version_ok = true;
@@ -190,6 +190,9 @@ struct initializations initialize(char const*const filename)
 			i.umin = atof(after.c_str());
 		} else if (before == string("umax")) {
 			i.umax = atof(after.c_str());
+
+		} else if (before == string("numparticles")) {
+			i.numparticles = atof(after.c_str());
 
 		} else if (before == string("mass[0]")) {
 			i.mass[0] = atof(after.c_str());

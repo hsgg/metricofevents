@@ -1,4 +1,4 @@
-version = 0.1
+version = 0.2
 
 
 radius = 10.0
@@ -10,6 +10,8 @@ q = 0
 
 min_x1 = 0
 max_x1 = 1e99
+
+numparticles = 1
 
 mass[0] = 2.4505e-4
 charge[0] = 0

@@ -42,7 +42,7 @@ int main(int argc, char *argv[])
 		cerr << "Error: u[1][0] = " << init.uvec[1][0] << " must be exactly 1!" << endl;
 		return 1;
 	}
-	unsigned numparticles = 2;
+	unsigned numparticles = init.numparticles;
 	vector<Particle*> particle;
 	for (unsigned i = 0; i < numparticles; i++) {
 		particle.push_back(new Particle(i, init.mass[i], init.charge[i],
