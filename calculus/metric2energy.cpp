@@ -240,7 +240,6 @@ int main(int argc, char* argv[])
 	*/
 
 
-	/*
 
 	// Riemann R_mu_nu
 	cerr << "Ricci:";
@@ -328,7 +327,6 @@ int main(int argc, char* argv[])
 	ENVEND
 	cerr << "Calculated Einstein divergence." << endl;
 
-	*/
 
 
 
