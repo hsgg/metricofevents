@@ -313,6 +313,11 @@ MAKE_FUNC1(	rho, "\\rho", rhop,
 		rho0, "\\rho'", rho0p,
 		rho00, "\\rho''"	)
 
+// epsilon(r)
+MAKE_FUNC1(	epsilon, "\\epsilon", epsilonp,
+		epsilon0, "\\epsilon'", epsilon0p,
+		epsilon00, "\\epsilon''"	)
+
 // rho(t,r)
 MAKE_FUNC2(rhotr, "\\rho", rhotr_n,
 	rhotr0, "\\dot{\\rho}", rhotr0prime,
