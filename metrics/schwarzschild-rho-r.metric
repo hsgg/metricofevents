@@ -1,0 +1,26 @@
+# HSGG Tü20080106
+
+"Schwarzschild Metric"
+
+# Symbols
+pi
+
+
+# Kontravariante Koordinaten x^mu
+" in spherical coordinates"
+x0 = t
+x1 = r
+x2 = theta
+x3 = phi
+
+# Hilfsexpressionen
+" with a variable spherically symmetric matter density"
+#m = (4*pi/3)*rho(r)*r*r*r
+m = (4*pi/3)*rho(r)*r*r*r
+U = 1 - 2 * m / r
+
+# Metrik g_mu_nu
+g00 = U
+g11 = -1 / U
+g22 = -r * r
+g33 = -r * r * sin(theta) * sin(theta)
