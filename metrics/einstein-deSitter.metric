@@ -1,0 +1,16 @@
+"Einstein-de Sitter Metric of a flat 1+1-D universe"
+
+# Coordinates
+x0 = t
+x1 = r
+
+# Functions
+a(t)
+
+# Shortcuts
+a2 = a(t) * a(t)
+r2 = r * r
+
+# Metric
+g00 = -1
+g11 = a2
