@@ -396,7 +396,7 @@ EXFUNC_HEAD(harmony, ARG1(m))
 		ex har = 0;
 		FOR2(a,b)
 		{
-			har = har + g(a,b) * christoffel(m,a,b);
+			har = har + G(a,b) * christoffel(m,a,b);
 		}
 		harmony_m[m].e = (har)NORMR;
 		harmony_m[m].calculated = true;
