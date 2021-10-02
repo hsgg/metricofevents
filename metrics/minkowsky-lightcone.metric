@@ -1,0 +1,23 @@
+# Name
+"Minkowsky Metric in Lightcone coordinates"
+
+ # Coordinates
+x0 = u
+x1 = v
+x2 = theta
+x3 = phi
+
+# Functions
+
+# Shortcuts
+t = v + u/2
+r = v - u/2
+r2 = r * r
+
+# Metric
+g00 = 0
+g11 = 0
+g10 = -1
+g01 = g10
+g22 = -r2
+g33 = -r2 * sin(theta)^2   # and some nonsense
