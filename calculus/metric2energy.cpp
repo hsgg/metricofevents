@@ -20,7 +20,7 @@ using namespace GiNaC;
 // metric()
 struct basic_metric metric();
 
-#define FOR(mu) for (unsigned (mu) = 0; (mu) < c.dim; (mu)++)
+#define FOR(mu) for (unsigned mu = 0; mu < c.dim; mu++)
 #define FOR2(m,n) FOR(m) FOR(n)
 #define FOR3(m,n,s) FOR(m) FOR(n) FOR(s)
 
