@@ -1,6 +1,6 @@
 CXXFLAGS += -g -Wall -pedantic
 CFLAGS += $(CXXFLAGS)
-LDFLAGS += -lginac -lcln
+LDLIBS += -lginac -lcln
 
 CC = $(CXX)
 
