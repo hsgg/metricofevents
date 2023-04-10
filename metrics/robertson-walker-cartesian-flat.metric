@@ -1,0 +1,22 @@
+# Name
+"Robertson-Walker Metric of a flat universe in Cartesian coordinates"
+
+ # Coordinates
+x0 = t
+x1 = x
+x2 = y
+x3 = z
+
+# Functions
+a(t)
+c
+
+# Shortcuts
+a2 = a(t) * a(t)
+r2 = x*x + y*y + z*z
+
+# Metric
+g00 = c * c
+g11 = -a2
+g22 = -a2
+g33 = -a2
