@@ -347,6 +347,32 @@ int main(int argc, char* argv[])
 	cerr << "done" << endl;
 
 
+	// Geodesic
+	cerr << "Geodesic:";
+	out << "\\framebox{$\\frac{dU^\\lambda}{d\\tau} = -\\Gamma^\\lambda_{\\mu\\nu}\\,U^\\mu \\, U^\\nu$}"
+	    << endl;
+	ENVBEGIN
+	FOR(m)
+	{
+		cerr << m << ":";
+		symbol *Umu = new symbol [c.dim];
+		FOR(a)
+		{
+			Umu[a] = symbol("(U^"+to_string(a)+")");
+		}
+		ex expression = 0;
+		FOR2(mu,nu) {
+			expression -= c.christoffel(m,mu,nu) * Umu[mu] * Umu[nu];
+		}
+		out << "\\frac{dU^" << m << "}{d\\tau}"
+		    << EQUALSIGN
+		    << expression;
+		LEF1(m)
+	}
+	ENVEND
+	cerr << "done" << endl;
+
+
 	// LaTeX-Fuß
 	out << endl
 		<< "\\end{document}" << endl
